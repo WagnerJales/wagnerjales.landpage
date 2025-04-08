@@ -4,11 +4,103 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wagner Jales | Consultoria e Projetos</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body { margin: 0; font-family: 'Georgia', serif; color: #1c1c1c; background-color: #fefefe; }
+    header {
+      background-color: #f9f9f4;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img { height: 100px; }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #1c1c1c;
+      font-size: 16px;
+    }
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px 40px;
+      background-color: #0b2c3d;
+      color: #fff;
+    }
+    .hero-text {
+      max-width: 50%;
+    }
+    .hero-text h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    .hero-text p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .hero-text a {
+      background-color: #10394e;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hero-img {
+      max-width: 40%;
+    }
+    .hero-img img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .highlight {
+      padding: 40px;
+      background-color: #f9f9f4;
+      text-align: center;
+      font-size: 18px;
+    }
+    section {
+      padding: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 { color: #0b2c3d; margin-bottom: 20px; }
+    .card {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    footer {
+      background-color: #0b2c3d;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+    .blog-post {
+      border-bottom: 1px solid #ccc;
+      padding: 20px 0;
+    }
+    .blog-post:last-child {
+      border-bottom: none;
+    }
+    .blog-post h3 {
+      margin: 0 0 10px;
+      color: #0b2c3d;
+    }
+    .blog-post p {
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <img src="Wagner%20Jales%205%20_Cons%20em%20Mobilidade.png" alt="Logo Wagner Jales">
+    <img src="wagnerjales.github.io
+/Wagner Jales 5 _Cons em Mobilidade.png" alt="Logo Wagner Jales">
     <nav>
       <a href="#">Início</a>
       <a href="#sobre">Sobre</a>
@@ -81,19 +173,17 @@
 
   <section id="blog">
     <h2>Blog</h2>
-    <div class="blog-post-icons">
-      <a href="artigos/artigo-sig.html">
-        <img src="imagens/sig.jpg" alt="SIG">
-        SIG e Saneamento
-      </a>
-      <a href="artigos/artigo-simulacao.html">
-        <img src="imagens/simulacao.jpg" alt="Simulação">
-        Simulação Viária
-      </a>
-      <a href="artigos/artigo-powerbi.html">
-        <img src="imagens/powerbi.jpg" alt="Power BI e QGIS">
-        Integração Power BI + QGIS
-      </a>
+    <div class="card blog-post">
+      <h3>O papel do SIG na modernização do saneamento</h3>
+      <p>O uso de geotecnologias permite análises precisas de cobertura e priorização de investimentos. Saiba como aplicamos SIG na CAEMA.</p>
+    </div>
+    <div class="card blog-post">
+      <h3>Como a simulação de tráfego pode evitar gargalos futuros</h3>
+      <p>Estudos preditivos com PTV Vissim estão ajudando cidades a projetar intervenções mais eficientes e seguras.</p>
+    </div>
+    <div class="card blog-post">
+      <h3>Integração entre Power BI e QGIS para análise territorial</h3>
+      <p>Dashboard integrando dados espaciais e indicadores de desempenho operacional em saneamento e mobilidade.</p>
     </div>
   </section>
 
