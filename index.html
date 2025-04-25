@@ -1,189 +1,134 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wagner Jales | Consultoria e Projetos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wagner Jales | Estrategista Urbano</title>
   <style>
-    body { margin: 0; font-family: 'Georgia', serif; color: #1c1c1c; background-color: #fefefe; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
     header {
-      background-color: #f9f9f4;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    header img { height: 140px; }
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-      color: #1c1c1c;
-      font-size: 16px;
-    }
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 60px 40px;
-      background-color: #0b2c3d;
-      color: #fff;
-    }
-    .hero-text { max-width: 50%; }
-    .hero-text h1 { font-size: 32px; margin-bottom: 20px; }
-    .hero-text p { font-size: 16px; margin-bottom: 20px; }
-    .hero-text a {
-      background-color: #10394e;
+      background: #004f66;
       color: white;
-      padding: 12px 20px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .hero-img { max-width: 40%; }
-    .hero-img img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
-    .highlight {
-      padding: 40px;
-      background-color: #f9f9f4;
+      padding: 60px 20px;
       text-align: center;
-      font-size: 18px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    header p {
+      margin: 10px 0 20px;
+      font-size: 1.2em;
+    }
+    .cta {
+      background: #00b894;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
     }
     section {
-      padding: 40px;
+      padding: 40px 20px;
       max-width: 1000px;
       margin: auto;
     }
-    h2 { color: #0b2c3d; margin-bottom: 20px; }
     .card {
-      background: #ffffff;
-      border: 1px solid #ddd;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       padding: 20px;
-      border-radius: 6px;
       margin-bottom: 20px;
     }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .grid .card {
+      flex: 1 1 calc(50% - 20px);
+    }
     footer {
-      background-color: #0b2c3d;
+      background: #222;
       color: white;
       text-align: center;
       padding: 20px;
-      font-size: 14px;
     }
-    .blog-post {
-      border-bottom: 1px solid #ccc;
-      padding: 20px 0;
+    @media (max-width: 600px) {
+      .grid .card {
+        flex: 1 1 100%;
+      }
     }
-    .blog-post:last-child { border-bottom: none; }
-    .blog-post h3 {
-      margin: 0 0 10px;
-      color: #0b2c3d;
-    }
-    .blog-post p { margin: 0; }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo_transp.png" alt="Logo Wagner Jales" />
-    <nav>
-      <a href="#">Início</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#portfolio">Portfólio</a>
-      <a href="#publicacoes">Publicações</a>
-      <a href="#blog">Blog</a>
-      <a href="#contato">Contato</a>
-    </nav>
-  </header>
 
-  <div class="hero">
-    <div class="hero-text">
-      <h1>Consultoria em Mobilidade Urbana e Planejamento Urbano</h1>
-      <p>Especialista em soluções integradas com uso de dados espaciais, simulação de tráfego e políticas públicas urbanas.</p>
-      <a href="#sobre">SAIBA MAIS</a>
-    </div>
-    <div class="hero-img">
-      <img src="https://via.placeholder.com/400x500" alt="Foto Profissional" />
-    </div>
-  </div>
+<header>
+  <h1>Transformando Inteligência Urbana em Estratégia Pública</h1>
+  <p>Soluções em mobilidade, dados e planejamento territorial com impacto real</p>
+  <a href="#contato" class="cta">Solicite um Diagnóstico</a>
+</header>
 
-  <div class="highlight">
-    <p>Unindo tecnologia, dados e urbanismo para transformar cidades em espaços mais eficientes e humanos.</p>
-  </div>
-
-<section id="portfolio">
-  <h2>Portfólio</h2>
+<section>
+  <h2>Sobre Wagner Jales</h2>
   <div class="card">
-    <h3>Baixe o portifólio</h3>
-    <p>Conheça alguns dos trabalhos de Wagner Jales).</p>
+    <p>Arquiteto e Engenheiro de Transportes com 18+ anos de experiência. Especialista em mobilidade, geoprocessamento e inteligência urbana aplicada. Criador do método JALES e autor do Manual do Estrategista Urbano.</p>
+    <p><strong>📍 São Luís - MA</strong> • <strong>📞 (98) 98144-5428</strong> • <a href="mailto:wjales@gmail.com">📧 wjales@gmail.com</a></p>
   </div>
-  <p>
-    <a href="https://wagnerjales.github.io/Portifolio.pdf" download>
-      📄 Baixar PDF completo do portfólio
-    </a>
-  </p>
 </section>
 
-  <section id="publicacoes">
-    <h2>Publicações</h2>
+<section>
+  <h2>Soluções Estratégicas</h2>
+  <div class="grid">
     <div class="card">
-      <h3><a href="mobilidade_areas_historicas.pdf" target="_blank">Mobilidade em Áreas Históricas</a></h3>
-      <p>Discussão sobre políticas sustentáveis de transporte e preservação do patrimônio urbano.</p>
+      <h3>Governos & Prefeituras</h3>
+      <p>Simulações urbanas, PMUs, kits replicáveis e apoio político-institucional.</p>
     </div>
     <div class="card">
-      <h3><a href="analise_morfologica_slz.pdf" target="_blank">Análise Morfológica do Centro Histórico de São Luís</a></h3>
-      <p>Estudo combinando semântica urbana e sintaxe espacial aplicada ao traçado colonial português.</p>
+      <h3>Incorporadoras</h3>
+      <p>RIT, PGV, suporte técnico e interface com zoneamento para aprovação ágil.</p>
     </div>
-  </section>
-
-  <section id="servicos">
-    <h2>Serviços de Consultoria</h2>
     <div class="card">
-      <ul>
-        <li>Elaboração de Planos de Mobilidade Urbana</li>
-        <li>Estudos de Impacto de Tráfego (RIT / PGV)</li>
-        <li>Simulação Viária com PTV Vissim</li>
-        <li>Dashboards com Power BI</li>
-        <li>Geoprocessamento com QGIS e Python</li>
-      </ul>
+      <h3>ONGs & Universidades</h3>
+      <p>Modelagem de políticas, dados georreferenciados e visualização interativa.</p>
     </div>
-  </section>
-
-  <section id="sobre">
-    <h2>Sobre Wagner Jales</h2>
     <div class="card">
-      <p>Arquiteto e Engenheiro de Transportes com mais de 18 anos de experiência. Especialista em análise de dados, mobilidade urbana, geotecnologias e políticas públicas. Atua na CAEMA liderando processos de inteligência comercial.</p>
+      <h3>Organismos Internacionais</h3>
+      <p>Operações replicáveis com governança territorial e indicadores de impacto.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="blog">
-    <h2>Blog</h2>
-    <div class="card blog-post">
-      <h3><a href="blog1.html">O papel do SIG na modernização do saneamento</a></h3>
-      <p>O uso de geotecnologias permite análises precisas de cobertura e priorização de investimentos...</p>
-    </div>
-    <div class="card blog-post">
-      <h3><a href="blog2.html">Como a simulação de tráfego pode evitar gargalos futuros</a></h3>
-      <p>Estudos preditivos com PTV Vissim estão ajudando cidades a projetar intervenções mais eficientes...</p>
-    </div>
-    <div class="card blog-post">
-      <h3><a href="blog3.html">Integração entre Power BI e QGIS para análise territorial</a></h3>
-      <p>Dashboard integrando dados espaciais e indicadores de desempenho operacional...</p>
-    </div>
-  </section>
+<section>
+  <h2>Framework JALES</h2>
+  <div class="card">
+    <p><strong>J</strong> - Justificativa Territorial</p>
+    <p><strong>A</strong> - Análise Sistêmica</p>
+    <p><strong>L</strong> - Linha Estratégica</p>
+    <p><strong>E</strong> - Escalabilidade</p>
+    <p><strong>S</strong> - Simulação de Cenários</p>
+  </div>
+</section>
 
-  <section id="contato">
-    <h2>Contato</h2>
-    <div class="card">
-      <p>📞 <a href="tel:+5598981445428">(98) 98144-5428</a></p>
-      <p>📧 <a href="mailto:wjales@gmail.com">wjales@gmail.com</a></p>
-      <p>💬 <a href="https://wa.me/5598981445428" target="_blank">WhatsApp Direto</a></p>
-    </div>
-  </section>
+<section id="contato">
+  <h2>Entre em Contato</h2>
+  <div class="card">
+    <p>📧 <a href="mailto:wjales@gmail.com">wjales@gmail.com</a> <br>
+    📱 (98) 98144-5428 <br>
+    🔗 <a href="https://www.linkedin.com/in/wagner-jales-663b4831/">LinkedIn</a></p>
+  </div>
+</section>
 
-  <footer>
-    <p>&copy; 2025 Wagner Jales | Consultoria e Projetos</p>
-  </footer>
+<footer>
+  <p>© 2025 Wagner Jales. Todos os direitos reservados.</p>
+</footer>
+
 </body>
 </html>
