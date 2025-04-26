@@ -1,134 +1,105 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wagner Jales | Estrategista Urbano</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wagner Jales | Mobilidade Urbana e Inteligência de Cidades</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <style>
+    :root {
+      --azul-escuro: #072B3C;
+      --branco-quase: #FCFCF7;
+    }
     body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background-color: #f8f9fa;
-      color: #333;
+      background-color: var(--branco-quase);
     }
-    header {
-      background: #004f66;
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
+    header, footer {
+      background-color: var(--azul-escuro);
+      color: var(--branco-quase);
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-    }
-    header p {
-      margin: 10px 0 20px;
-      font-size: 1.2em;
-    }
-    .cta {
-      background: #00b894;
-      color: white;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    section {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    .card {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-    .grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .grid .card {
-      flex: 1 1 calc(50% - 20px);
-    }
-    footer {
-      background: #222;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-    @media (max-width: 600px) {
-      .grid .card {
-        flex: 1 1 100%;
-      }
+    nav a:hover {
+      color: #60A5FA;
     }
   </style>
 </head>
-<body>
+<body class="text-gray-900 font-sans">
+  <header class="shadow p-6 flex justify-between items-center">
+    <img src="logo_transp.png" alt="Logo Wagner Jales" class="h-14">
+    <nav class="space-x-6 text-sm font-medium">
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#blog">Blog</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
 
-<header>
-  <h1>Transformando Inteligência Urbana em Estratégia Pública</h1>
-  <p>Soluções em mobilidade, dados e planejamento territorial com impacto real</p>
-  <a href="#contato" class="cta">Solicite um Diagnóstico</a>
-</header>
+  <main>
+    <section class="py-20 px-6 text-center" style="background-color: var(--azul-escuro); color: var(--branco-quase)">
+      <h1 class="text-4xl font-bold mb-4">Consultoria em Mobilidade Urbana, Geodados e Planejamento Territorial</h1>
+      <p class="text-lg max-w-2xl mx-auto">Transformamos dados em estratégias urbanas com impacto real. Análise, planejamento e soluções para cidades mais inteligentes e sustentáveis.</p>
+    </section>
 
-<section>
-  <h2>Sobre Wagner Jales</h2>
-  <div class="card">
-    <p>Arquiteto e Engenheiro de Transportes com 18+ anos de experiência. Especialista em mobilidade, geoprocessamento e inteligência urbana aplicada. Criador do método JALES e autor do Manual do Estrategista Urbano.</p>
-    <p><strong>📍 São Luís - MA</strong> • <strong>📞 (98) 98144-5428</strong> • <a href="mailto:wjales@gmail.com">📧 wjales@gmail.com</a></p>
-  </div>
+    <section id="sobre" class="py-20 px-6 max-w-5xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Sobre Wagner Jales</h2>
+      <p class="mb-4">Arquiteto e Engenheiro de Transportes com mais de 18 anos de experiência, especialista em mobilidade urbana, simulação de tráfego, geoprocessamento e business intelligence. Atua em projetos de impacto na CAEMA e grandes empresas como a Vale.</p>
+      <p>Publicou artigos científicos e ministrou cursos nas áreas de morfologia urbana, planejamento de transportes e mobilidade ativa. Desenvolve ferramentas digitais para apoio ao planejamento urbano e reestruturação de normas técnicas.</p>
+    </section>
+
+    <section id="servicos" class="py-20 px-6 max-w-5xl mx-auto" style="background-color: var(--branco-quase)">
+      <h2 class="text-2xl font-bold mb-8">Soluções Oferecidas</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-semibold mb-2">Simulação de Tráfego</h3>
+          <p>Uso de PTV Vissim e outras ferramentas para prever cenários de intervenção viária e avaliar impactos de PGVs.</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-semibold mb-2">Mapeamento com GIS</h3>
+          <p>Criação de mapas interativos, análises espaciais, indicadores urbanos e aplicações com QGIS e geodados.</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-semibold mb-2">BI para Gestão Pública</h3>
+          <p>Implantação de dashboards com Power BI e Python para análise de desempenho e melhoria de processos.</p>
+        </div>
+        <div class="bg-white p-6 rounded shadow">
+          <h3 class="text-xl font-semibold mb-2">Consultoria Urbanística</h3>
+          <p>Estudos de impacto, revisão de zoneamentos, propostas de intervenções urbanas com base em morfologia e acessibilidade.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="py-20 px-6 max-w-5xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Portfólio</h2>
+      <p class="mb-4">Acesse alguns dos principais projetos realizados:</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><a href="https://vitruvius.com.br/index.php/revistas/read/arquitextos/15.171/5289" class="text-blue-600 underline">Impacto Urbano da Via Expressa (Vitruvius)</a></li>
+        <li><a href="https://app.powerbi.com/view?r=eyJrIjoiZDIyYjRlYTQtZThiZC00NzIzLWIzN2MtZDc2YjI0ZDUyYTFhIiwidCI6ImE2M2Q5OGZmLWRmOWYtNGFhMC1hZTI5LWQ1MjZhNzc3YzhiNSJ9&pageName=ReportSection34dd77a1208a84de00eb" class="text-blue-600 underline">Painel de Acidentes de Ônibus</a></li>
+        <li><a href="https://vitruvius.com.br/revistas/read/minhacidade/22.263/8499" class="text-blue-600 underline">Simulação da Expansão Urbana de São Luís</a></li>
+        <li><a href="https://vitruvius.com.br/revistas/read/minhacidade/19.226/7365" class="text-blue-600 underline">Morfologia do Centro de São Luís</a></li>
+      </ul>
+    </section>
+
+    <section id="blog" class="py-20 px-6 max-w-5xl mx-auto bg-white">
+  <h2 class="text-2xl font-bold mb-4">Blog</h2>
+  <ul class="list-disc pl-5 space-y-2">
+    <li><a href="artigo1.html" class="text-blue-600 underline">Mobilidade Inteligente: o Futuro das Cidades</a></li>
+    <li><a href="artigo2.html" class="text-blue-600 underline">O Poder dos Geodados no Planejamento Urbano</a></li>
+  </ul>
 </section>
 
-<section>
-  <h2>Soluções Estratégicas</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Governos & Prefeituras</h3>
-      <p>Simulações urbanas, PMUs, kits replicáveis e apoio político-institucional.</p>
-    </div>
-    <div class="card">
-      <h3>Incorporadoras</h3>
-      <p>RIT, PGV, suporte técnico e interface com zoneamento para aprovação ágil.</p>
-    </div>
-    <div class="card">
-      <h3>ONGs & Universidades</h3>
-      <p>Modelagem de políticas, dados georreferenciados e visualização interativa.</p>
-    </div>
-    <div class="card">
-      <h3>Organismos Internacionais</h3>
-      <p>Operações replicáveis com governança territorial e indicadores de impacto.</p>
-    </div>
-  </div>
-</section>
+    <section id="contato" class="py-20 px-6 max-w-5xl mx-auto text-center" style="background-color: var(--branco-quase)">
+      <h2 class="text-2xl font-bold mb-4">Entre em Contato</h2>
+      <div class="space-y-2">
+        <p><i class="fas fa-envelope mr-2 text-blue-700"></i>Email: <a href="mailto:wjales@gmail.com" class="text-blue-600 underline">wjales@gmail.com</a></p>
+        <p><i class="fab fa-whatsapp mr-2 text-green-600"></i>WhatsApp: <a href="https://wa.me/5598981445428" class="text-blue-600 underline">(98) 98144-5428</a></p>
+        <p><i class="fab fa-linkedin mr-2 text-blue-800"></i>LinkedIn: <a href="https://www.linkedin.com/in/wagner-jales-663b4831/" class="text-blue-600 underline">Wagner Jales</a></p>
+      </div>
+    </section>
+  </main>
 
-<section>
-  <h2>Framework JALES</h2>
-  <div class="card">
-    <p><strong>J</strong> - Justificativa Territorial</p>
-    <p><strong>A</strong> - Análise Sistêmica</p>
-    <p><strong>L</strong> - Linha Estratégica</p>
-    <p><strong>E</strong> - Escalabilidade</p>
-    <p><strong>S</strong> - Simulação de Cenários</p>
-  </div>
-</section>
-
-<section id="contato">
-  <h2>Entre em Contato</h2>
-  <div class="card">
-    <p>📧 <a href="mailto:wjales@gmail.com">wjales@gmail.com</a> <br>
-    📱 (98) 98144-5428 <br>
-    🔗 <a href="https://www.linkedin.com/in/wagner-jales-663b4831/">LinkedIn</a></p>
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 Wagner Jales. Todos os direitos reservados.</p>
-</footer>
-
+  <footer class="border-t py-4 text-center text-sm" style="background-color: var(--azul-escuro); color: var(--branco-quase)">
+    &copy; 2025 Wagner Jales. Todos os direitos reservados.
+  </footer>
 </body>
 </html>
