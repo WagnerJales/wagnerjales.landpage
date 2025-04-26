@@ -12,20 +12,23 @@
       --branco-quase: #FCFCF7;
     }
     body {
-      background-color: var(--branco-quase);
-    }
+  background-color: #FCFCF7;
+}
     header, footer {
-      background-color: var(--azul-escuro);
-      color: var(--branco-quase);
-    }
+  background-color: #072B3C;
+  color: #FCFCF7;
+}
     nav a:hover {
       color: #60A5FA;
     }
   </style>
 </head>
 <body class="text-gray-900 font-sans">
-  <header class="shadow p-6 flex justify-between items-center">
-    <img src="logo_transp.png" alt="Logo Wagner Jales" class="h-14">
+  <header class="shadow p-6 flex justify-between items-center" style="background-color: #FCFCF7; color: #072B3C;">
+    <div class="flex items-center space-x-4">
+      <img src="6a5a2bb3-d316-493a-a873-2ebd1b709e3e.png" alt="Logo Wagner Jales" class="h-16">
+      <span class="text-xl font-bold">WAGNER JALES<br><span class="text-sm font-light">CONSULTORIA EM MOBILIDADE</span></span>
+    </div>
     <nav class="space-x-6 text-sm font-medium">
       <a href="#sobre">Sobre</a>
       <a href="#servicos">Serviços</a>
@@ -42,51 +45,50 @@
     </section>
 
     <section id="sobre" class="py-20 px-6 max-w-5xl mx-auto">
-      <h2 class="text-2xl font-bold mb-4">Sobre Wagner Jales</h2>
-      <p class="mb-4">Sou Arquiteto Urbanista e Engenheiro de Transportes com mais de 18 anos de experiência na área de Facilities Management e Infraesutura Urbana. Trabalho com simulação de tráfego, geoprocessamento e business intelligence. </p>
-      <p>Fui professor universitário, publiquei artigos científicos e atuo com ferramentas digitais para apoio ao planejamento urbano e mobilidade.</p>
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="flex-shrink-0">
+          <img src="perfil.png" alt="Foto de Wagner Jales" class="w-48 h-48 object-cover rounded-full shadow-md mb-6 md:mb-0 md:mr-8">
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold mb-4">Sobre Wagner Jales</h2>
+          <p class="mb-4">Arquiteto e Engenheiro de Transportes com mais de 18 anos de experiência, especialista em mobilidade urbana, simulação de tráfego, geoprocessamento e business intelligence. Atua em projetos de impacto na CAEMA e grandes empresas como a Vale.</p>
+          <p>Publicou artigos científicos e ministrou cursos nas áreas de morfologia urbana, planejamento de transportes e mobilidade ativa. Desenvolve ferramentas digitais para apoio ao planejamento urbano e reestruturação de normas técnicas.</p>
+        </div>
+      </div>
     </section>
 
     <section id="servicos" class="py-20 px-6 max-w-5xl mx-auto" style="background-color: var(--branco-quase)">
       <h2 class="text-2xl font-bold mb-8">Soluções Oferecidas</h2>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-white p-6 rounded shadow">
-          <h3 class="text-xl font-semibold mb-2">Avaliar impactos de Tráfego</h3>
+          <h3 class="text-xl font-semibold mb-2">Simulação de Tráfego</h3>
           <p>Uso de PTV Vissim e outras ferramentas para prever cenários de intervenção viária e avaliar impactos de PGVs.</p>
         </div>
         <div class="bg-white p-6 rounded shadow">
           <h3 class="text-xl font-semibold mb-2">Mapeamento com GIS</h3>
-          <p>Criação de mapas interativos, análises espaciais, indicadores urbanos e aplicações com QGIS e Python.</p>
+          <p>Criação de mapas interativos, análises espaciais, indicadores urbanos e aplicações com QGIS e geodados.</p>
         </div>
         <div class="bg-white p-6 rounded shadow">
-          <h3 class="text-xl font-semibold mb-2">BI para Gestão de dados</h3>
+          <h3 class="text-xl font-semibold mb-2">BI para Gestão Pública</h3>
           <p>Implantação de dashboards com Power BI e Python para análise de desempenho e melhoria de processos.</p>
         </div>
         <div class="bg-white p-6 rounded shadow">
           <h3 class="text-xl font-semibold mb-2">Consultoria Urbanística</h3>
-          <p>Estudos de impacto, revisão de zoneamentos, propostas de intervenções urbanas com base em morfologia e acessibilidade usando Sintaxe Espacial.</p>
+          <p>Estudos de impacto, revisão de zoneamentos, propostas de intervenções urbanas com base em morfologia e acessibilidade.</p>
         </div>
       </div>
     </section>
 
     <section id="portfolio" class="py-20 px-6 max-w-5xl mx-auto">
       <h2 class="text-2xl font-bold mb-4">Portfólio</h2>
-      <p class="mb-4">Acesse alguns dos principais projetos realizados:</p>
-      <ul class="list-disc pl-5 space-y-2">
-        <li><a href="https://vitruvius.com.br/index.php/revistas/read/arquitextos/15.171/5289" class="text-blue-600 underline">Impacto Urbano da Via Expressa (Vitruvius)</a></li>
-        <li><a href="https://app.powerbi.com/view?r=eyJrIjoiZDIyYjRlYTQtZThiZC00NzIzLWIzN2MtZDc2YjI0ZDUyYTFhIiwidCI6ImE2M2Q5OGZmLWRmOWYtNGFhMC1hZTI5LWQ1MjZhNzc3YzhiNSJ9&pageName=ReportSection34dd77a1208a84de00eb" class="text-blue-600 underline">Painel de Acidentes de Ônibus</a></li>
-        <li><a href="https://vitruvius.com.br/revistas/read/minhacidade/22.263/8499" class="text-blue-600 underline">Simulação da Expansão Urbana de São Luís</a></li>
-        <li><a href="https://vitruvius.com.br/revistas/read/minhacidade/19.226/7365" class="text-blue-600 underline">Morfologia do Centro de São Luís</a></li>
-      </ul>
+      <p class="mb-6">Acesse a apresentação visual dos projetos:</p>
+      <a href="portifolio.html" class="inline-block bg-blue-700 text-white px-6 py-3 rounded hover:bg-blue-800 transition">Ver Portfólio Completo</a>
     </section>
 
     <section id="blog" class="py-20 px-6 max-w-5xl mx-auto bg-white">
-  <h2 class="text-2xl font-bold mb-4">Blog</h2>
-  <ul class="list-disc pl-5 space-y-2">
-    <li><a href="artigo1.html" class="text-blue-600 underline">Mobilidade Inteligente: o Futuro das Cidades</a></li>
-    <li><a href="artigo2.html" class="text-blue-600 underline">O Poder dos Geodados no Planejamento Urbano</a></li>
-  </ul>
-</section>
+      <h2 class="text-2xl font-bold mb-4">Blog</h2>
+      <p>Em breve, você poderá acompanhar reflexões e artigos sobre mobilidade, cidades inteligentes e planejamento urbano aqui.</p>
+    </section>
 
     <section id="contato" class="py-20 px-6 max-w-5xl mx-auto text-center" style="background-color: var(--branco-quase)">
       <h2 class="text-2xl font-bold mb-4">Entre em Contato</h2>
