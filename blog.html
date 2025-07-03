@@ -166,6 +166,10 @@
   <div class="bg-white w-full max-w-3xl h-[80vh] relative">
     <button id="closeViewer" class="absolute top-2 right-2 text-red-600">Fechar</button>
     <iframe id="articleFrame" src="" class="w-full h-full"></iframe>
+    <div id="viewerError" class="absolute inset-0 flex flex-col items-center justify-center bg-white text-center p-4 hidden">
+      <p class="mb-2">Não foi possível abrir este artigo aqui.</p>
+      <a id="viewerLink" href="#" target="_blank" class="text-blue-700 underline">Abrir em nova aba</a>
+    </div>
   </div>
 </div>
 
@@ -174,15 +178,36 @@
 </footer>
 
 <script>
+  const frame = document.getElementById('articleFrame');
+  const viewer = document.getElementById('viewer');
+  const errorBox = document.getElementById('viewerError');
+  const linkOut = document.getElementById('viewerLink');
+
   document.querySelectorAll('.open-article').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.getElementById('articleFrame').src = btn.getAttribute('data-src');
-      document.getElementById('viewer').classList.remove('hidden');
+      const src = btn.getAttribute('data-src');
+      frame.src = src;
+      linkOut.href = src;
+      errorBox.classList.add('hidden');
+      viewer.classList.remove('hidden');
     });
   });
+
+  frame.addEventListener('load', () => {
+    try {
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      if (!doc || !doc.body || !doc.body.childNodes.length) {
+        throw new Error();
+      }
+    } catch (e) {
+      errorBox.classList.remove('hidden');
+    }
+  });
+
   document.getElementById('closeViewer').addEventListener('click', () => {
-    document.getElementById('viewer').classList.add('hidden');
-    document.getElementById('articleFrame').src = '';
+    viewer.classList.add('hidden');
+    frame.src = '';
+    errorBox.classList.add('hidden');
   });
 </script>
 
