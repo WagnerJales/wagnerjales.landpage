@@ -62,89 +62,51 @@
 <script>
   const artigos = [
     {
+      categoria: 'Acessibilidade',
       titulo: 'Acessibilidade urbana e integração da Ilha de São Luís',
       descricao: 'Análise com sintaxe espacial sobre acessibilidade urbana em São Luís.',
       link: 'https://www.linkedin.com/pulse/acessibilidade-urbana-e-integra%C3%A7%C3%A3o-da-ilha-de-s%C3%A3o-lu%C3%ADs-wagner-jales-n6vzf/'
     },
     {
+      categoria: 'Política Pública',
       titulo: 'Um plebiscito sobre passe livre estudantil',
       descricao: 'Comentário sobre plebiscito ocorrido em São Luís.',
       link: 'https://oimparcial.com.br/colunas/wagner-jales-mestre-em-arquitetura-e-urbanismo/um-plebiscito-sobre-passe-livre-estudantil/'
     },
     {
+      categoria: 'Arquitetura',
       titulo: 'Por que Arquitetos Precisam Considerar a Mobilidade Urbana em Seus Projetos',
       descricao: 'Integração entre arquitetura e mobilidade urbana.',
       link: 'https://www.linkedin.com/pulse/por-que-arquitetos-precisam-considerar-mobilidade-urbana-wagner-jales-mjjif/'
     },
     {
+      categoria: 'Planejamento Viário',
       titulo: 'Integração Viária na RMGSL: O Que a Sintaxe Espacial Nos Revela?',
       descricao: 'Mapeamento de falhas e oportunidades viárias com sintaxe espacial.',
       link: 'https://www.linkedin.com/pulse/integra%C3%A7%C3%A3o-vi%C3%A1ria-na-rmgsl-o-que-sintaxe-espacial-nos-wagner-jales-eppbf/'
     },
     {
+      categoria: 'Tecnologia',
       titulo: 'Veículos elétricos em São Luís: avanços promissores, mas desafios persistem',
       descricao: 'Panorama da mobilidade elétrica em São Luís.',
       link: 'https://www.linkedin.com/pulse/ve%C3%ADculos-el%C3%A9tricos-em-s%C3%A3o-lu%C3%ADs-avan%C3%A7os-promissores-mas-wagner-jales-i0xuf/'
     },
     {
+      categoria: 'Infraestrutura',
       titulo: 'Conexão Praia da Guia-Ilhinha: Bem Mais que uma Ponte',
       descricao: 'Análise estratégica da nova conexão viária em São Luís.',
       link: 'https://www.linkedin.com/pulse/conex%C3%A3o-praia-da-guia-ilhinha-bem-mais-que-uma-ponte-mas-wagner-jales-9lfcf/'
-    },
-    {
-      titulo: 'Nas eleições desse ano a população ludovicense participará de um plebiscito',
-      descricao: 'Consulta popular sobre Passe Livre Estudantil.',
-      link: 'https://www.linkedin.com/pulse/nas-elei%C3%A7%C3%B5es-desse-ano-popula%C3%A7%C3%A3o-ludovicense-de-um-plebiscito-jales-ts0uf/'
-    },
-    {
-      titulo: 'A Concorrência no Transporte Público',
-      descricao: 'Benefícios econômicos e sociais da concorrência no transporte.',
-      link: 'https://www.linkedin.com/pulse/concorr%C3%AAncia-transporte-p%C3%BAblico-catalisador-de-econ%C3%B4mico-wagner-jales-r89hf/'
-    },
-    {
-      titulo: 'Uso de Estatística Espacial para avaliar impacto de uma ferrovia',
-      descricao: 'Impacto de ferrovias no desenvolvimento dos municípios.',
-      link: 'https://www.linkedin.com/pulse/uso-de-sig-para-avaliar-o-impacto-da-efc-crescimento-das-wagner-jales-vnhmf/'
-    },
-    {
-      titulo: 'Análise da eficiência de utilização de frota de veículos leves',
-      descricao: 'Comparação de produtividade e eficiência operacional.',
-      link: 'https://www.linkedin.com/pulse/an%C3%A1lise-da-efici%C3%AAncia-utiliza%C3%A7%C3%A3o-de-frota-ve%C3%ADculos-leves-wagner-jales/?trackingId=qud63hsMTDCcaTIpVhG%2B5w%3D%3D'
-    },
-    {
-      titulo: 'São Luís/MA: Uma legislação urbana desatualizada?',
-      descricao: 'Análise do crescimento urbano com estatística espacial.',
-      link: 'https://www.linkedin.com/pulse/s%C3%A3o-lu%C3%ADsma-uma-legisla%C3%A7%C3%A3o-urbana-desatualizada-e-cidade-m-sc/?trackingId=qud63hsMTDCcaTIpVhG%2B5w%3D%3D'
-    },
-    {
-      titulo: 'Caracterização dos deslocamentos de clientes para Usos Mistos',
-      descricao: 'Padrões de deslocamento em polos geradores de viagens.',
-      link: 'https://www.linkedin.com/pulse/caracteriza%C3%A7%C3%A3o-dos-deslocamentos-de-clientes-para-usos-wagner-jales/?trackingId=qud63hsMTDCcaTIpVhG%2B5w%3D%3D'
-    },
-    {
-      titulo: 'A "forma" da cidade pode influenciar nos acidentes de automóveis?',
-      descricao: 'Condições urbanas e sua relação com acidentes.',
-      link: 'https://www.linkedin.com/pulse/forma-da-cidade-pode-influenciar-nos-acidentes-de-autom%C3%B3veis-jales/?trackingId=qud63hsMTDCcaTIpVhG%2B5w%3D%3D'
-    },
-    {
-      titulo: 'Business Intelligence: Acidentes com ônibus fretado',
-      descricao: 'Análise de dados sobre acidentes em transporte corporativo.',
-      link: 'https://www.linkedin.com/pulse/business-intelligence-alguns-insights-sobre-causas-de-wagner-jales/?trackingId=qud63hsMTDCcaTIpVhG%2B5w%3D%3D'
-    },
-    {
-      titulo: 'Ocorrências de Fadiga e Distração - Análise descritiva',
-      descricao: 'Histórico de ocorrências com motoristas em regime de fretamento.',
-      link: 'https://colab.research.google.com/drive/1Ye_ku9ISa0O3Smjix2XRn0sidTgAopVT#scrollTo=C-WaD4Q28UOS'
     }
   ];
 
   const container = document.querySelector('#Blog .grid');
 
-  artigos.forEach(({ titulo, descricao, link }) => {
+  artigos.forEach(({ categoria, titulo, descricao, link }) => {
     container.innerHTML += `
     <article class="bg-white rounded shadow p-4 flex flex-col">
       <img src="https://via.placeholder.com/300x200.png?text=Artigo" alt="${titulo}" class="mb-2">
-      <h3 class="text-xl font-bold mb-2">${titulo}</h3>
+      <h3 class="text-sm text-gray-600 uppercase mb-1">${categoria}</h3>
+      <h4 class="text-lg font-semibold mb-2">${titulo}</h4>
       <p class="text-sm text-gray-500 mb-2">${descricao}</p>
       <a href="${link}" target="_blank" class="text-blue-700 underline text-sm">Ler artigo</a>
     </article>`;
