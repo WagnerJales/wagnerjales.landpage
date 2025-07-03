@@ -158,7 +158,6 @@
   artigos.forEach(({ categoria, titulo, descricao, link }) => {
     container.innerHTML += `
     <article class="bg-white rounded shadow p-4 flex flex-col">
-      <img src="https://via.placeholder.com/300x200.png?text=${encodeURIComponent(categoria)}" alt="Imagem ilustrativa da categoria ${categoria}" class="mb-2">
       <h3 class="text-sm text-gray-600 uppercase mb-1">${categoria}</h3>
       <h4 class="text-lg font-semibold mb-2">${titulo}</h4>
       <p class="text-sm text-gray-500 mb-2">${descricao}</p>
