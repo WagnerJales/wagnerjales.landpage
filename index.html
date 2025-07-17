@@ -12,246 +12,137 @@
       --branco-quase: #FCFCF7;
     }
     body {
-  background-color: #FCFCF7;
-}
+      background-color: var(--branco-quase);
+    }
     header, footer {
-  background-color: #072B3C;
-  color: #FCFCF7;
-}
+      background-color: var(--azul-escuro);
+      color: var(--branco-quase);
+    }
     nav a:hover {
       color: #60A5FA;
     }
   </style>
 </head>
 <body class="text-gray-900 font-sans">
-<header class="shadow p-6 flex flex-col items-center" style="background-color: #FCFCF7; color: #072B3C;">
-  <div class="mb-4">
-    <a href="index.html">
-      <img src="logo_transp.png" alt="Logo Wagner Jales" class="h-28 w-auto mx-auto">
-    </a>
-  </div>
-  <nav class="space-x-6 text-sm font-medium flex flex-wrap justify-center">
-    <a href="index.html#sobre">Sobre</a>
-    <a href="index.html#servicos">Serviços</a>
-    <a href="index.html#portfolio">Portfólio</a>
-    <a href="index.html#clientes">Clientes</a>
-    <a href="artigos.html">Artigos Acadêmicos</a> 
-    <a href="blog.html">Blog</a>
-    <a href="index.html#contato">Contato</a>
-  </nav>
-</header>
+  <header class="shadow p-6 flex flex-col items-center">
+    <div class="mb-4">
+      <a href="index.html">
+        <img src="logo_transp.png" alt="Logo Wagner Jales" class="h-28 w-auto mx-auto">
+      </a>
+    </div>
+    <nav class="space-x-6 text-sm font-medium flex flex-wrap justify-center">
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#clientes">Clientes</a>
+      <a href="artigos.html">Artigos Acadêmicos</a>
+      <a href="blog.html">Blog</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
   <main>
     <section class="py-20 px-6 text-center" style="background-color: var(--azul-escuro); color: var(--branco-quase)">
       <h1 class="text-4xl font-bold mb-4">Mobilidade Inteligente para Cidades, Empresas e Grandes Projetos</h1>
       <p class="text-lg max-w-2xl mx-auto">Planejamento da Mobilidade, Simulação de Tráfego e Geointeligência para quem precisa tomar decisões certas.</p>
     </section>
 
-    <section id="sobre" class="py-20 px-6 max-w-5xl mx-auto">
-      <div class="flex flex-col md:flex-row items-center">
-        <div class="flex-shrink-0">
-          <img src="perfil.png" alt="Foto de Wagner Jales" class="w-48 h-48 object-cover rounded-full shadow-md mb-6 md:mb-0 md:mr-8">
+    <section id="portfolio" class="py-20 px-6 max-w-5xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4">Portfólio</h2>
+      <p class="mb-6">Veja alguns trabalhos desenvolvidos</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- Corrigido: Removido h-full de todas as imagens -->
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://www.youtube.com/watch?v=_WJEr3M_O8s" target="_blank">
+            <img src="protifolio/Port_01.png" alt="Projeto 1" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Proposta de intervenção Rotatória do Calhau</div>
         </div>
-        <div>
-          <h2 class="text-2xl font-bold mb-4">Quem é Wagner Jales</h2>
-          <p class="mb-4">Sou Wagner Jales, Arquiteto/Urbanista e Engenheiro de Transportes.
-Com mais de 18 anos de experiência para o setor público e privado, entrego soluções que combinam análise de dados, simulação de tráfego e inteligência territorial para transformar ideias em resultados viáveis.
-Se você precisa aprovar projetos, otimizar o transporte ou transformar a mobilidade da sua cidade, usando ferramentes como QGIS, Power BI, Python e PTV VISSIM, estou pronto para entregar mais que relatórios — entrego visão estratégica.</p>
-
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://www.youtube.com/watch?v=b0_s3nQQ1hw" target="_blank">
+            <img src="protifolio/Port_02.png" alt="Projeto 2" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Simulação intervenção viária - PGV</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://odilhasls.streamlit.app/" target="_blank">
+            <img src="protifolio/Port_03.png" alt="Projeto 3" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Painel interativo para mobilidade</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiMTZkZjk4MWMtMWUxNy00OGVmLWI1OTQtOTFhMzEzMmVhNTkxIiwidCI6ImE2M2Q5OGZmLWRmOWYtNGFhMC1hZTI5LWQ1MjZhNzc3YzhiNSJ9" target="_blank">
+            <img src="protifolio/Port_04.png" alt="Projeto 4" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Dashboard Power BI (mobilidade)</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://youtu.be/qmBwfaC4CUU" target="_blank">
+            <img src="protifolio/Port_05.png" alt="Projeto 5" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Microssimulação de trâfego (av. principal)</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://www.linkedin.com/pulse/integra%C3%A7%C3%A3o-vi%C3%A1ria-na-rmgsl-o-que-sintaxe-espacial-nos-wagner-jales-eppbf/" target="_blank">
+            <img src="protifolio/Port_06.png" alt="Projeto 6" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Integração viária com sintaxe espacial</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://www.linkedin.com/pulse/acessibilidade-urbana-e-integra%C3%A7%C3%A3o-da-ilha-de-s%C3%A3o-lu%C3%ADs-wagner-jales-n6vzf/?trackingId=HiGYBGcGRpiYtxximc%2FWNA%3D%3D" target="_blank">
+            <img src="protifolio/Port_07.png" alt="Projeto 7" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Acessibilidade e integração territorial</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://www.linkedin.com/posts/wagner-jales-663b4831_sig-atendimento-estrataezgias-activity-7026603899297902592-F1t6/" target="_blank">
+            <img src="protifolio/Port_08.png" alt="Projeto 8" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">SIG para estratégias urbanas</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://www.linkedin.com/posts/wagner-jales-663b4831_ptvvissim-ptvvissim-simulaaexaeto-activity-7062827164424970241-d2b_/" target="_blank">
+            <img src="protifolio/Port_09.png" alt="Projeto 9" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Estudos com PTV Vissim</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://vitruvius.com.br/revistas/read/minhacidade/22.263/8499" target="_blank">
+            <img src="protifolio/Port_10.png" alt="Projeto 10" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Artigo sobre mobilidade e urbanismo</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://www.youtube.com/watch?v=zvHNId4J-0U" target="_blank">
+            <img src="protifolio/Port_11.png" alt="Projeto 11" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Projeto de intervenção viária</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://youtu.be/Bxnlj7lSEzg" target="_blank">
+            <img src="protifolio/Port_12.png" alt="Projeto 12" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Modelagem de trâfego em interseções</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://app.mapfry.com/historia/Barbearia" target="_blank">
+            <img src="protifolio/Port_13.png" alt="Projeto 13" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">História da Barbearia no Mapfry</div>
+        </div>
+        <div class="block overflow-hidden rounded shadow-md">
+          <a href="https://app.mapfry.com/historia/Atividade:-%22Passo-o-Ponto%22" target="_blank">
+            <img src="protifolio/Port_14.png" alt="Projeto 14" class="w-full object-cover">
+          </a>
+          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">História "Passo o Ponto" (Mapfry)</div>
         </div>
       </div>
+      <a href="Portifolio.pdf" download class="inline-block bg-blue-700 text-white px-6 py-3 rounded hover:bg-blue-800 transition">Baixe o PDF</a>
     </section>
+  </main>
 
-    <section id="servicos" class="py-20 px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-8">Soluções Oferecidas</h2>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Relatório de Impacto de Trânsito (RIT, EIV)</h3>
-        <p>Acelere aprovações e evite riscos jurídicos em novos empreendimentos.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Simulação de Tráfego (PTV Vissim)</h3>
-        <p>Visualize cenários reais e tome decisões embasadas.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Geoprocessamento Avançado</h3>
-        <p>Mapeamento e análise espacial para apoiar projetos estratégicos, na escala urbana e regional.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Dashboards de Mobilidade</h3>
-        <p>Monitoramento e análise de indicadores para gestão de transporte e território.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Roteirização</h3>
-        <p>Otimização e roteirização para o transporte de Cargas e Pessoas (transporte corporativo ou sob regime de fretamento).</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Soluções em Traffic Calming</h3>
-        <p>Reduza acidentes e conflitos viários com intervenções inteligentes e de baixo custo.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Masterplan</h3>
-        <p>Elaboração de diretrizes para ocupação do território articulando forma urbana, mobilidade, infraestrutura e meio ambiente.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Mobilidade Regional</h3>
-        <p>Análise da mobilidade em escala regional.</p>
-      </div>
-    </div>
-  </section>
-
-<section id="portfolio" class="py-20 px-6 max-w-5xl mx-auto">
-  <h2 class="text-2xl font-bold mb-4">Portfólio</h2>
-  <p class="mb-6">Veja alguns trabalhos desenvolvidos</p>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://www.youtube.com/watch?v=_WJEr3M_O8s" target="_blank">
-        <img src="protifolio/Port_01.png" alt="Projeto 1" class="w-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Proposta de intervenção Rotatória do Calhau</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://www.youtube.com/watch?v=b0_s3nQQ1hw" target="_blank">
-        <img src="protifolio/Port_02.png" alt="Projeto 2" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Simulação intervenção viária - PGV</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://odilhasls.streamlit.app/" target="_blank">
-        <img src="protifolio/Port_03.png" alt="Projeto 3" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Painel interativo para mobilidade</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://app.powerbi.com/view?r=eyJrIjoiMTZkZjk4MWMtMWUxNy00OGVmLWI1OTQtOTFhMzEzMmVhNTkxIiwidCI6ImE2M2Q5OGZmLWRmOWYtNGFhMC1hZTI5LWQ1MjZhNzc3YzhiNSJ9" target="_blank">
-        <img src="protifolio/Port_04.png" alt="Projeto 4" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Dashboard Power BI (mobilidade)</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://youtu.be/qmBwfaC4CUU" target="_blank">
-        <img src="protifolio/Port_05.png" alt="Projeto 5" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Microssimulação de trâfego (av. principal)</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://www.linkedin.com/pulse/integra%C3%A7%C3%A3o-vi%C3%A1ria-na-rmgsl-o-que-sintaxe-espacial-nos-wagner-jales-eppbf/" target="_blank">
-        <img src="protifolio/Port_06.png" alt="Projeto 6" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Integração viária com sintaxe espacial</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://www.linkedin.com/pulse/acessibilidade-urbana-e-integra%25C3%25A7%25C3%25A3o-da-ilha-de-s%25C3%25A3o-lu%25C3%25ADs-wagner-jales-n6vzf/?trackingId=HiGYBGcGRpiYtxximc%2FWNA%3D%3D" target="_blank">
-        <img src="protifolio/Port_07.png" alt="Projeto 7" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Acessibilidade e integração territorial</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://www.linkedin.com/posts/wagner-jales-663b4831_sig-atendimento-estrataezgias-activity-7026603899297902592-F1t6/" target="_blank">
-        <img src="protifolio/Port_08.png" alt="Projeto 8" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">SIG para estratégias urbanas</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://www.linkedin.com/posts/wagner-jales-663b4831_ptvvissim-ptvvissim-simulaaexaeto-activity-7062827164424970241-d2b_/" target="_blank">
-        <img src="protifolio/Port_09.png" alt="Projeto 9" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Estudos com PTV Vissim</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://vitruvius.com.br/revistas/read/minhacidade/22.263/8499" target="_blank">
-        <img src="protifolio/Port_10.png" alt="Projeto 10" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Artigo sobre mobilidade e urbanismo</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://www.youtube.com/watch?v=zvHNId4J-0U" target="_blank">
-        <img src="protifolio/Port_11.png" alt="Projeto 11" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Projeto de intervenção viária</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://youtu.be/Bxnlj7lSEzg" target="_blank">
-        <img src="protifolio/Port_12.png" alt="Projeto 12" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Modelagem de trâfego em interseções</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://app.mapfry.com/historia/Barbearia" target="_blank">
-        <img src="protifolio/Port_13.png" alt="Projeto 13" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">História da Barbearia no Mapfry</div>
-    </div>
-    <div class="block overflow-hidden rounded shadow-md">
-      <a href="https://app.mapfry.com/historia/Atividade:-%22Passo-o-Ponto%22" target="_blank">
-        <img src="protifolio/Port_14.png" alt="Projeto 14" class="w-full h-full object-cover">
-      </a>
-      <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">História "Passo o Ponto" (Mapfry)</div>
-    </div>
-  </div>
-
-  <a href="Portifolio.pdf" download class="inline-block bg-blue-700 text-white px-6 py-3 rounded hover:bg-blue-800 transition">Baixe o PDF</a>
-</section>
-
-
-<section id="clientes" class="py-20 px-6 max-w-5xl mx-auto">
-  <h2 class="text-2xl font-bold mb-8">Clientes</h2>
-
-  <p class="mb-6">Confiança de grandes marcas!</p>
-  <div class="grid grid-cols-2 md:grid-cols-3 gap-8 items-center">
-    <img src="vale.png" alt="Vale S/A" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="alphaville.png" alt="Alphaville Condomínios" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="mrv.png" alt="MRV" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="fapead.png" alt="Fundação de Apoio a Ensino, Pesquisa e Extenção" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="vix.png" alt="VIX Logística" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="caema_marca_branca.png" alt="CAEMA" class="h-24 md:h-28 w-auto mx-auto object-contain">
-  </div>
-</section>
-
-<section id="artigos" class="py-20 px-6 max-w-5xl mx-auto bg-white">
-  <h2 class="text-2xl font-bold mb-4">Artigos Acadêmicos</h2>
-  <p class="mb-6">Pesquisa e inovação técnica para transformar teoria em ação no planejamento urbano e na mobilidade.</p>
-    <a href="artigos.html" class="inline-block bg-blue-700 text-white px-6 py-3 rounded hover:bg-blue-800 transition">Artigos Acadêmicos</a>
-  </section>
-
-  <section id="blog" class="py-20 px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">Blog</h2>
-    <p class="mb-6">Reflexões e insights sobre mobilidade, urbanismo e tecnologia.</p>
-    <a href="blog.html" class="inline-block bg-blue-700 text-white px-6 py-3 rounded hover:bg-blue-800 transition">Acessar Blog</a>
-  </section>
-
-<section id="contato" class="py-16 px-6" style="background-color: #072B3C; color: #FCFCF7;">
-  
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-2xl font-bold mb-4">Vamos conversar?</h2>
-      <p class="mb-6">Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?</p>
-      
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
-    <div class="flex items-center mb-8 md:mb-0">
-      <img src="lgohorizontal.png" alt="Logo Wagner Jales" class="h-20">
-    </div>
-    <div class="flex space-x-6">
-      <a href="https://www.linkedin.com/in/wagner-jales-663b4831/" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="h-10 w-10">
-      </a>
-      <a href="https://www.instagram.com/arq_wagnerjales/" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" class="h-10 w-10">
-      </a>
-     <a href="mailto:wjales@gmail.com" target="_blank">
-  <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="E-mail" class="h-10 w-10">
-</a>
-      <a href="https://wa.me/5598981445428" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" class="h-10 w-10">
-      </a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer class="border-t py-4 text-center text-sm" style="background-color: #072B3C; color: #FCFCF7;">
-  &copy; 2025 Wagner Jales. Todos os direitos reservados.
-</footer>
+  <footer class="border-t py-4 text-center text-sm">
+    &copy; 2025 Wagner Jales. Todos os direitos reservados.
+  </footer>
 </body>
 </html>
-
