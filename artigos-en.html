@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academic Articles | Wagner Jales</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --azul-escuro: #072B3C;
+      --branco-quase: #FCFCF7;
+    }
+    body {
+      background-color: var(--branco-quase);
+    }
+    header, footer {
+      background-color: var(--azul-escuro);
+      color: var(--branco-quase);
+    }
+    nav a:hover {
+      color: #60A5FA;
+    }
+  </style>
+</head>
+<body class="text-gray-900 font-sans">
+
+<header class="shadow p-6 flex flex-col items-center" style="background-color: #FCFCF7; color: #072B3C;">
+  <div class="mb-4">
+    <a href="index.html">
+      <img src="logo_transp.png" alt="Logo Wagner Jales" class="h-28 w-auto mx-auto">
+    </a>
+  </div>
+  <nav class="space-x-3 md:space-x-6 text-sm font-medium flex flex-wrap justify-center">
+    <a href="index.html#sobre">Sobre</a>
+    <a href="index.html#servicos">Serviços</a>
+    <a href="index.html#portfolio">Portfólio</a>
+    <a href="index.html#clientes">Clientes</a>
+    <a href="artigos.html" class="text-blue-700 font-bold">Academic Articles</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contato">Contato</a>
+  </nav>
+</header>
+
+<section class="py-20 px-6 text-center" style="background-color: var(--azul-escuro); color: var(--branco-quase);">
+  <h1 class="text-4xl font-bold mb-4">Academic Articles</h1>
+  <p class="text-lg max-w-2xl mx-auto">Conheça os estudos, pesquisas e contribuições técnicas em mobilidade urbana, transporte e planejamento urbano.</p>
+</section>
+
+<section id="Artigos" class="py-20 px-6 max-w-6xl mx-auto">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Os artigos serão gerados dinamicamente aqui -->
+  </div>
+</section>
+
+<footer class="border-t py-4 text-center text-sm" style="background-color: #072B3C; color: #FCFCF7;">
+  &copy; 2025 Wagner Jales. Todos os direitos reservados.
+</footer>
+
+<script>
+  const artigosAcademicos = [
+    {
+      categoria: 'Regulação',
+      titulo: 'O Marco Regulatório dos Transportes e da Mobilidade Urbana em Áreas de Preservação Histórica',
+      descricao: '2007 - CLATPU - Congresso Latinoamericano de Transporte Público e Urbano.',
+      link: 'artigos/2007 CLATPU.pdf'
+    },
+    {
+      categoria: 'Morfologia Urbana',
+      titulo: 'Configuração urbana do centro histórico de São Luís/MA',
+      descricao: '2008 - PLURIS - Congresso Luso Brasileiro de Planejamento Urbano.',
+      link: 'artigos/2008 PLURIS.pdf'
+    },
+    {
+      categoria: 'Demanda de Transporte',
+      titulo: 'Estimando a distribuição espacial da demanda de funcionários',
+      descricao: '2011 - 18º Congresso Brasileiro de Transporte e Trânsito.',
+      link: 'artigos/2011 ANTP.pdf'
+    },
+    {
+      categoria: 'Tráfego e Morfologia',
+      titulo: 'Estimativas neurais de volumes de tráfego baseadas na morfologia urbana',
+      descricao: '2012 - XXVI ANPET Congresso Nacional de Transporte.',
+      link: 'artigos/2012 ANPET.pdf'
+    },
+    {
+      categoria: 'Impacto Urbano',
+      titulo: 'Os impactos urbanos de uma intervenção viária',
+      descricao: '2014 - Revista Vitruvius.',
+      link: 'https://vitruvius.com.br/revistas/read/arquitextos/15.171/5289'
+    },
+    {
+      categoria: 'Fretamento',
+      titulo: 'Checagem amostral da pontualidade do transporte de funcionários',
+      descricao: '2015 - XXIX ANPET - Congresso Nacional de Transporte.',
+      link: 'artigos/2015 ANPET CT703.pdf'
+    },
+    {
+      categoria: 'Fretamento',
+      titulo: 'Análise do serviço de fretamento para deslocamentos casa-trabalho',
+      descricao: '2015 - XXIX ANPET - Congresso Nacional de Transporte.',
+      link: 'artigos/2015 ANPET CT803.pdf'
+    },
+    {
+      categoria: 'GPS e Transporte',
+      titulo: 'Estimação neural de tempos de viagens de ônibus com GPS',
+      descricao: '2015 - The Journal of Transport Literature.',
+      link: 'https://www.scielo.br/j/jtl/a/QkCbVCGjxvZk4ZmLFs8CYXR/?lang=pt'
+    },
+    {
+      categoria: 'Urbanismo Social',
+      titulo: 'A lógica social do centro histórico de São Luís MA',
+      descricao: '2019 - Revista Minha Cidade.',
+      link: 'https://vitruvius.com.br/revistas/read/minhacidade/19.226/7365'
+    },
+    {
+      categoria: 'Facilities Management',
+      titulo: 'Uso de regressão estatística para gestão de Facilities',
+      descricao: '2020 - VIII Simpósio de Engenharia de Produção.',
+      link: 'https://www.proceedings.blucher.com.br/article-details/uso-de-regresso-estatstica-para-comparao-de-equipes-de-gesto-de-facilities-management-em-unidades-de-uma-mineradora-35275'
+    },
+    {
+      categoria: 'Business Intelligence',
+      titulo: 'BI: Causas de acidentes com ônibus sob fretamento',
+      descricao: '2021 - Manual de Lições Aprendidas em SST.',
+      link: 'artigos/2021 Ebook-Manual-SST.pdf'
+    },
+    {
+      categoria: 'Segurança Viária',
+      titulo: 'Ocorrências de fadiga e distração ao volante',
+      descricao: '2022 - Manual de Lições Aprendidas em SST.',
+      link: 'artigos/2022 Ebook-Manual-SST.pdf'
+    },
+    {
+      categoria: 'Zoneamento Urbano',
+      titulo: 'São Luís e seu zoneamento obsoleto',
+      descricao: '2022 - Revista Minha Cidade.',
+      link: 'https://vitruvius.com.br/revistas/read/minhacidade/22.263/8499'
+    }
+  ];
+
+  const container = document.querySelector('#Artigos .grid');
+
+  artigosAcademicos.forEach(({ categoria, titulo, descricao, link }) => {
+    container.innerHTML += `
+    <article class="bg-white rounded shadow p-4 flex flex-col">
+      <h3 class="text-sm text-gray-600 uppercase mb-1">${categoria}</h3>
+      <h4 class="text-lg font-semibold mb-2">${titulo}</h4>
+      <p class="text-sm text-gray-500 mb-2">${descricao}</p>
+      <a href="${link}" target="_blank" class="text-blue-700 underline text-sm">Ler artigo</a>
+    </article>`;
+  });
+</script>
+
+</body>
+</html>
