@@ -25,14 +25,13 @@
 </head>
 <body class="text-gray-900 font-sans">
 
-
-  
 <div class="text-xs text-right px-6 py-2">
   <a href="artigos.html">PT</a> | <a href="artigos-en.html">EN</a> | <a href="artigos-es.html">ES</a>
 </div>
+
 <header class="shadow p-6 flex flex-col items-center" style="background-color: #FCFCF7; color: #072B3C;">
   <div class="mb-4">
-    <a href="index.html">
+    <a href="index-en.html">
       <img src="logo_transp.png" alt="Logo Wagner Jales" class="h-28 w-auto mx-auto">
     </a>
   </div>
@@ -49,102 +48,104 @@
 
 <section class="py-20 px-6 text-center" style="background-color: var(--azul-escuro); color: var(--branco-quase);">
   <h1 class="text-4xl font-bold mb-4">Academic Articles</h1>
-  <p class="text-lg max-w-2xl mx-auto">Explore studies, research and technical contributions in urban mobility, transport and urban planning.</p>
+  <p class="text-lg max-w-2xl mx-auto">
+    Explore studies, research, and technical contributions on urban mobility, transport, and urban planning.
+  </p>
 </section>
 
 <section id="Artigos" class="py-20 px-6 max-w-6xl mx-auto">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <!-- Os artigos serão gerados dinamicamente aqui -->
+    <!-- Articles are injected dynamically -->
   </div>
 </section>
 
 <footer class="border-t py-4 text-center text-sm" style="background-color: #072B3C; color: #FCFCF7;">
-  &copy; 2025 Wagner Jales. All rights reserved.</footer>
+  &copy; 2025 Wagner Jales. All rights reserved.
+</footer>
 
 <script>
   const artigosAcademicos = [
     {
-      categoria: 'Regulação',
-      titulo: 'O Marco Regulatório dos Transportes e da Mobilidade Urbana em Áreas de Preservação Histórica',
-      descricao: '2007 - CLATPU - Congresso Latinoamericano de Transporte Público e Urbano.',
+      categoria: 'Regulation',
+      titulo: 'The Regulatory Framework for Transport and Urban Mobility in Historic Preservation Areas',
+      descricao: '2007 - CLATPU - Latin American Congress of Public and Urban Transport.',
       link: 'artigos/2007 CLATPU.pdf'
     },
     {
-      categoria: 'Morfologia Urbana',
-      titulo: 'Configuração urbana do centro histórico de São Luís/MA',
-      descricao: '2008 - PLURIS - Congresso Luso Brasileiro de Planejamento Urbano.',
+      categoria: 'Urban Morphology',
+      titulo: 'Urban configuration of the historic center of São Luís/MA',
+      descricao: '2008 - PLURIS - Luso-Brazilian Congress of Urban Planning.',
       link: 'artigos/2008 PLURIS.pdf'
     },
     {
-      categoria: 'Demanda de Transporte',
-      titulo: 'Estimando a distribuição espacial da demanda de funcionários',
-      descricao: '2011 - 18º Congresso Brasileiro de Transporte e Trânsito.',
+      categoria: 'Transport Demand',
+      titulo: 'Estimating the spatial distribution of employee commuting demand',
+      descricao: '2011 - 18th Brazilian Congress of Transport and Transit.',
       link: 'artigos/2011 ANTP.pdf'
     },
     {
-      categoria: 'Tráfego e Morfologia',
-      titulo: 'Estimativas neurais de volumes de tráfego baseadas na morfologia urbana',
-      descricao: '2012 - XXVI ANPET Congresso Nacional de Transporte.',
+      categoria: 'Traffic and Morphology',
+      titulo: 'Neural estimates of traffic volumes based on urban morphology',
+      descricao: '2012 - XXVI ANPET National Transport Congress.',
       link: 'artigos/2012 ANPET.pdf'
     },
     {
-      categoria: 'Impacto Urbano',
-      titulo: 'Os impactos urbanos de uma intervenção viária',
-      descricao: '2014 - Revista Vitruvius.',
+      categoria: 'Urban Impact',
+      titulo: 'Urban impacts of a road intervention',
+      descricao: '2014 - Vitruvius Magazine.',
       link: 'https://vitruvius.com.br/revistas/read/arquitextos/15.171/5289'
     },
     {
-      categoria: 'Fretamento',
-      titulo: 'Checagem amostral da pontualidade do transporte de funcionários',
-      descricao: '2015 - XXIX ANPET - Congresso Nacional de Transporte.',
+      categoria: 'Charter Transport',
+      titulo: 'Sample check of employee transport punctuality',
+      descricao: '2015 - XXIX ANPET - National Transport Congress.',
       link: 'artigos/2015 ANPET CT703.pdf'
     },
     {
-      categoria: 'Fretamento',
-      titulo: 'Análise do serviço de fretamento para deslocamentos casa-trabalho',
-      descricao: '2015 - XXIX ANPET - Congresso Nacional de Transporte.',
+      categoria: 'Charter Transport',
+      titulo: 'Analysis of charter service for home–work commuting',
+      descricao: '2015 - XXIX ANPET - National Transport Congress.',
       link: 'artigos/2015 ANPET CT803.pdf'
     },
     {
-      categoria: 'GPS e Transporte',
-      titulo: 'Estimação neural de tempos de viagens de ônibus com GPS',
+      categoria: 'GPS and Transport',
+      titulo: 'Neural estimation of bus travel times using GPS',
       descricao: '2015 - The Journal of Transport Literature.',
-      link: 'https://www.scielo.br/j/jtl/a/QkCbVCGjxvZk4ZmLFs8CYXR/?lang=pt'
+      link: 'https://www.scielo.br/j/jtl/a/QkCbVCGjxvZk4ZmLFs8CYXR/?lang=en'
     },
     {
-      categoria: 'Urbanismo Social',
-      titulo: 'A lógica social do centro histórico de São Luís MA',
-      descricao: '2019 - Revista Minha Cidade.',
+      categoria: 'Social Urbanism',
+      titulo: 'The social logic of the historic center of São Luís MA',
+      descricao: '2019 - Minha Cidade Magazine.',
       link: 'https://vitruvius.com.br/revistas/read/minhacidade/19.226/7365'
     },
     {
       categoria: 'Facilities Management',
-      titulo: 'Uso de regressão estatística para gestão de Facilities',
-      descricao: '2020 - VIII Simpósio de Engenharia de Produção.',
+      titulo: 'Use of statistical regression for Facilities Management',
+      descricao: '2020 - VIII Symposium on Production Engineering.',
       link: 'https://www.proceedings.blucher.com.br/article-details/uso-de-regresso-estatstica-para-comparao-de-equipes-de-gesto-de-facilities-management-em-unidades-de-uma-mineradora-35275'
     },
     {
       categoria: 'Business Intelligence',
-      titulo: 'BI: Causas de acidentes com ônibus sob fretamento',
-      descricao: '2021 - Manual de Lições Aprendidas em SST.',
+      titulo: 'BI: Causes of accidents with chartered buses',
+      descricao: '2021 - Manual of Lessons Learned in Occupational Health and Safety.',
       link: 'artigos/2021 Ebook-Manual-SST.pdf'
     },
     {
-      categoria: 'Segurança Viária',
-      titulo: 'Ocorrências de fadiga e distração ao volante',
-      descricao: '2022 - Manual de Lições Aprendidas em SST.',
+      categoria: 'Road Safety',
+      titulo: 'Occurrences of driver fatigue and distraction',
+      descricao: '2022 - Manual of Lessons Learned in Occupational Health and Safety.',
       link: 'artigos/2022 Ebook-Manual-SST.pdf'
     },
     {
-      categoria: 'Zoneamento Urbano',
-      titulo: 'São Luís e seu zoneamento obsoleto',
-      descricao: '2022 - Revista Minha Cidade.',
+      categoria: 'Urban Zoning',
+      titulo: 'São Luís and its obsolete zoning',
+      descricao: '2022 - Minha Cidade Magazine.',
       link: 'https://vitruvius.com.br/revistas/read/minhacidade/22.263/8499'
     }
   ];
 
   const container = document.querySelector('#Artigos .grid');
-
   artigosAcademicos.forEach(({ categoria, titulo, descricao, link }) => {
     container.innerHTML += `
     <article class="bg-white rounded shadow p-4 flex flex-col">
