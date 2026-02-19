@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Controle Financeiro Pessoal",
+    "slug": "controle-financeiro-pessoal",
+    "scheme": "financas",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic"
+  }
+}
