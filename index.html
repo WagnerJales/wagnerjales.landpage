@@ -873,7 +873,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   const draw=()=>{ if(TH.night&&composer) composer.render(); else renderer.render(scene,camera); };
   function loop(){ if(!running){ looping=false; return; } looping=true;
     const now=performance.now(), dt=Math.min((now-last)/1000,0.05); last=now;
-    if(tween) tween(now); else { idle+=dt; if(!dragging&&selected<0&&idle>1.6&&!reduce) cam.theta+=dt*0.05; }
+    if(tween) tween(now); else { idle+=dt; if(!dragging&&selected<0&&idle>1.0) cam.theta+=dt*(reduce?0.06:0.09); }   // giro automático na visão geral (mais lento se o sistema pede menos movimento)
     trafT+=dt; stepTraffic(trafT); stepFocus(dt); stepVO(dt);
     place(); projectLabels(); draw(); requestAnimationFrame(loop); }
   applyTheme(themeName);
