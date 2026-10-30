@@ -614,7 +614,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   const EE=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
   const ep=[]; buildings.forEach(b=>{ for(const e of EE) for(const k of e){ const q=CC[k]; ep.push(b.x+q[0]*b.w,q[1]*b.h+0.003,b.z+q[2]*b.d); } });
   const eg=new THREE.BufferGeometry(); eg.setAttribute('position',new THREE.Float32BufferAttribute(ep,3));
-  const edgeMat=new THREE.LineBasicMaterial({transparent:true}); city.add(new THREE.LineSegments(eg,edgeMat));
+  const edgeMat=new THREE.LineBasicMaterial({transparent:true}); /* contornos dos blocos removidos a pedido: LineSegments não é mais adicionado à cena */
   DISTRICTS.forEach(d=>{ if(d.plaza){ d.maxH=4.4; return; } let m=0; buildings.forEach(b=>{ if(b.blk===d.key) m=Math.max(m,b.h); }); d.maxH=m||5; });
 
   // ---- foco/hover ----
@@ -769,7 +769,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     hemi.color.set(TH.hemi[0]); hemi.groundColor.set(TH.hemi[1]); hemi.intensity=TH.hemi[2];
     sun.color.set(TH.sun[0]); sun.intensity=TH.sun[1]; sun.position.set(...TH.sun[2]);
     groundMat.color.set(TH.ground);
-    buildings.forEach((b,idx)=>baseCol[idx].set(TH.pal[b.pi]));
+    buildings.forEach((b,idx)=>{ baseCol[idx].set(TH.pal[b.pi]); if(TH.night) baseCol[idx].multiplyScalar(1.10); });
     edgeMat.color.set(TH.edge[0]); edgeMat.opacity=TH.edge[1];
     plazaMat.color.set(TH.plaza); ringM.color.set(TH.ring); stone.color.set(TH.stone); stone2.color.set(TH.stone2); benchMat.color.set(TH.bench);
     trunkMat.color.set(TH.trunk); crownMat.color.set(TH.crown); carMat.color.set(TH.car); ringMat.color.set(TH.medRing);
