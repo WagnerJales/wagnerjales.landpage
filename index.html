@@ -1,294 +1,890 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wagner Jales | Estratégias para Cidades</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-      <link rel="canonical" href="https://www.wagnerjales.com.br/">
-  <style>
-    :root {
-      --azul-escuro: #072B3C;
-      --branco-quase: #FCFCF7;
-    }
-    body {
-  background-color: #FCFCF7;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Cidade Wagner Jales</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script>(function(){var t=null;try{t=localStorage.getItem("wj_theme")}catch(e){}document.documentElement.dataset.theme=(t==="night")?"night":"day";})();</script>
+
+<meta name="description" content="Wagner Jales — Arquiteto/Urbanista e Engenheiro de Transportes. Maquete urbana interativa: gire a cidade e explore serviços, portfólio e contato em planejamento da mobilidade, simulação de tráfego e geointeligência.">
+<link rel="canonical" href="https://www.wagnerjales.com.br/">
+<link rel="icon" type="image/png" href="assets/logo_transp.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Wagner Jales","jobTitle":"Arquiteto/Urbanista e Engenheiro de Transportes","url":"https://www.wagnerjales.com.br/","image":"https://www.wagnerjales.com.br/perfil.png","email":"wjales@gmail.com","knowsAbout":["Planejamento da mobilidade","Simulação de tráfego","Geoprocessamento","Relatório de Impacto de Trânsito","Masterplan","PTV Vissim","QGIS"],"sameAs":["https://www.linkedin.com/in/wagner-jales-663b4831/","https://www.instagram.com/wagnerjales.arq/"]}
+</script>
+
+<style>
+/* Layout: maquete urbana sólida (render arquitetônico) em WebGL ocupa a tela; distritos = seções; selecionar voa a câmera e abre um painel HTML. Paleta da página original: navy + off-white + azul. Tema claro assumido. */
+:root{
+  --bg:#eef1ef; --bg-2:#ffffff;
+  --navy:#072B3C; --panel:#ffffff; --surface:#ffffff; --surface-2:#f5f7f4;
+  --line:#e3e7e2; --line-strong:#cfd6cf;
+  --ink:#102a35; --muted:#3f4d51;
+  --accent:#1d4ed8; --accent-strong:#2563eb; --accent-soft:#dbe6fb; --accent-ink:#ffffff;
+  --chip:#ffffff; --radius:15px;
+  --shadow:0 18px 50px -22px rgba(7,43,60,.45);
+  color-scheme: light;
 }
-    header, footer {
-  background-color: #072B3C;
-  color: #FCFCF7;
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden}
+img{max-width:100%; display:block}
+a{color:inherit; text-decoration:none}
+[hidden]{display:none!important}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--accent);
+  display:inline-flex; align-items:center; gap:.6em; margin:0 0 1rem}
+.eyebrow::before{content:""; width:26px; height:1px; background:var(--accent); opacity:.6}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif; text-wrap:balance; line-height:1.1; margin:0; color:var(--navy)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+.btn{display:inline-flex; align-items:center; gap:.5rem; font-weight:600; font-size:.95rem; padding:.8rem 1.3rem;
+  border-radius:999px; border:1px solid transparent; cursor:pointer; transition:.22s; line-height:1; font-family:inherit}
+.btn .ar{transition:transform .22s} .btn:hover .ar{transform:translate(3px,-3px)}
+.btn-primary{background:var(--accent); color:var(--accent-ink)} .btn-primary:hover{background:var(--accent-strong)}
+.btn-ghost{border-color:var(--line-strong); color:var(--navy)} .btn-ghost:hover{border-color:var(--accent); color:var(--accent)}
+
+/* ===== TOPO ===== */
+.topbar{position:fixed; top:env(safe-area-inset-top,0px); left:0; right:0; z-index:30;
+  display:flex; align-items:center; gap:1rem; min-height:60px;
+  padding-block:.5rem; padding-left:max(18px,env(safe-area-inset-left,0px)); padding-right:max(18px,env(safe-area-inset-right,0px));
+  background:linear-gradient(180deg, rgba(238,241,239,.92), rgba(238,241,239,0)); pointer-events:none}
+.topbar > *{pointer-events:auto}
+.brand{display:flex; align-items:center; gap:.6rem}
+.brand img{height:34px; width:auto}
+.brand b{font-family:"Archivo"; font-weight:700; letter-spacing:-.01em; font-size:1rem; color:var(--navy)}
+.spacer{flex:1}
+.chips{display:flex; gap:.9rem; flex-wrap:wrap; justify-content:flex-end}
+.chip{font-family:"IBM Plex Mono",monospace; font-size:.8rem; letter-spacing:.04em; color:var(--ink); font-weight:500;
+  background:transparent; border:0; border-bottom:1px solid transparent; border-radius:0; padding:.35rem .35rem; cursor:pointer; transition:.2s; white-space:nowrap; text-transform:uppercase; font-size:.78rem; letter-spacing:.09em}
+.chip:hover,.chip[aria-current="true"]{color:var(--accent); background:transparent; border-bottom-color:var(--accent)}
+.langs{display:flex; gap:.1rem; border:0; border-left:1px solid var(--line); border-radius:0; padding:0 0 0 .6rem; background:transparent}
+.langs button{font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--muted); background:transparent; border:0; cursor:pointer; padding:.28rem .4rem; border-radius:0}
+.langs button[aria-pressed="true"]{background:transparent; color:var(--accent); font-weight:600; text-decoration:underline; text-underline-offset:4px}
+
+/* ===== PALCO 3D ===== */
+#stage{position:fixed; inset:0; z-index:0}
+#city{display:block; width:100%; height:100%}
+.labels{position:fixed; inset:0; z-index:10; pointer-events:none}
+.mk{position:absolute; transform:translate(-50%,-100%); pointer-events:auto; cursor:pointer; background:none; border:0; font-family:inherit;
+  display:flex; flex-direction:column; align-items:center; gap:.28rem; transition:opacity .3s}
+.mk .cap{font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:.78rem; color:var(--navy);
+  background:rgba(250,248,243,.92); border:1px solid rgba(11,58,82,.25); border-radius:2px; padding:.28rem .6rem; white-space:nowrap; font-size:.84rem; letter-spacing:.03em; background:rgba(250,248,243,.97)}
+.mk .num{font-family:"IBM Plex Mono",monospace; font-size:.58rem; color:var(--accent)}
+.mk .dot{width:9px; height:9px; border-radius:50%; background:var(--accent); border:2px solid #fff; box-shadow:0 2px 6px rgba(7,43,60,.35)}
+.mk:hover .cap,.mk:focus-visible .cap,.mk.hot .cap{border-color:var(--accent); color:#fff; background:var(--accent)}
+
+/* dica inicial */
+.hint{position:fixed; left:50%; top:calc(74px + env(safe-area-inset-top,0px)); bottom:auto; transform:translateX(-50%); z-index:12;
+  font-family:"IBM Plex Mono",monospace; font-size:.8rem; color:var(--ink); background:rgba(250,248,243,.78)!important; padding:.45rem .8rem!important; border-radius:2px;
+  background:transparent; border:0; border-radius:0; padding:.3rem .5rem; transition:opacity .5s; pointer-events:none; text-transform:uppercase; letter-spacing:.12em; font-size:.68rem}
+.hero-ov{position:fixed; bottom:calc(24px + env(safe-area-inset-bottom,0px)); left:50%; transform:translateX(-50%); z-index:12;
+  width:min(840px,92vw); text-align:center; pointer-events:none; transition:opacity .5s; padding:1rem 1.2rem 1.1rem; border-radius:4px;
+  background:radial-gradient(ellipse closest-side at center, rgba(244,242,235,.9) 0%, rgba(244,242,235,.78) 60%, rgba(244,242,235,0) 100%)}
+.hero-ov h1{font-size:clamp(1.25rem,2.9vw,2.1rem); font-weight:800; letter-spacing:-.02em; color:var(--navy); text-wrap:balance;
+  text-shadow:0 1px 14px rgba(238,241,239,.96), 0 1px 3px rgba(238,241,239,.92)}
+.hero-ov p{margin:.5rem auto 0; max-width:58ch; color:#26353a; font-size:clamp(.95rem,1.5vw,1.1rem); line-height:1.5;
+  text-shadow:0 1px 10px rgba(238,241,239,.96)}
+@media (max-width:820px){ .hero-ov{bottom:calc(18px + env(safe-area-inset-bottom,0px)); width:94vw} }
+html:not(.cityon) .hero-ov{display:none}
+
+#overviewBtn{position:fixed; left:max(18px,env(safe-area-inset-left,0px)); bottom:calc(20px + env(safe-area-inset-bottom,0px)); z-index:14; display:none; background:rgba(250,248,243,.92); box-shadow:none; border-radius:2px}
+#loader{position:fixed; inset:0; z-index:40; display:grid; place-items:center; background:var(--bg); transition:opacity .6s}
+#loader .l{font-family:"IBM Plex Mono",monospace; color:var(--muted); font-size:.8rem; letter-spacing:.15em; text-transform:uppercase}
+#loader.gone{opacity:0; pointer-events:none}
+
+/* ===== PAINEL ===== */
+#panel{position:fixed; z-index:20; background:rgba(250,248,243,.05); backdrop-filter:blur(22px) saturate(140%); -webkit-backdrop-filter:blur(22px) saturate(140%); border:1px solid var(--line); box-shadow:none;
+  display:flex; flex-direction:column; transition:transform .5s cubic-bezier(.22,.7,.2,1), opacity .4s}
+@media (min-width:821px){
+  #panel{top:76px; right:18px; bottom:18px; width:min(460px,42vw); border-radius:4px; transform:translateX(calc(100% + 28px))}
+  #panel.open{transform:none}
 }
-    nav a:hover {
-      color: #60A5FA;
-    }
-  </style>
+@media (max-width:820px){
+  #panel{left:0; right:0; bottom:0; max-height:72%; border-radius:4px 4px 0 0; transform:translateY(100%)}
+  #panel.open{transform:none}
+  .chips{display:none}
+}
+.panel-head{display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:1.3rem 1.3rem .4rem}
+.panel-head .num{font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.14em; color:var(--accent)}
+.panel-head h2{font-size:1.5rem; font-weight:800; letter-spacing:-.015em; margin-top:.25rem}
+.pclose{flex:0 0 auto; width:34px; height:34px; border-radius:2px; border:1px solid var(--line); background:#fff;
+  color:var(--navy); cursor:pointer; font-size:1.1rem; line-height:1; display:grid; place-items:center}
+.pclose:hover{border-color:var(--accent); color:var(--accent)}
+.panel-body{flex:1 1 auto; min-height:0; overflow-y:auto; padding:.6rem 1.3rem 1.5rem; -webkit-overflow-scrolling:touch}
+.panel-body p{color:#2c3e44}
+.panel-body .lead{color:var(--muted)}
+
+.photo{width:130px; height:130px; border-radius:50%; object-fit:cover; margin-bottom:1rem; border:3px solid var(--accent-soft)}
+.tools{display:flex; flex-wrap:wrap; gap:.45rem; margin-top:1.1rem}
+.tool{font-family:"IBM Plex Mono",monospace; font-size:.73rem; color:var(--muted); border:1px solid var(--line); background:var(--surface-2); padding:.3rem .6rem; border-radius:8px}
+.scards{display:grid; gap:.8rem; margin-top:.4rem}
+.scard{border:1px solid var(--line); border-radius:3px; padding:1rem 1.1rem; background:var(--surface); box-shadow:0 1px 3px rgba(7,43,60,.05)}
+.scard h3{font-size:1rem; font-weight:700; margin-bottom:.3rem}
+.scard p{color:var(--muted); font-size:.9rem; margin:0}
+.pg{display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin-top:.4rem}
+.pg a{display:block; border:1px solid var(--line); border-radius:3px; overflow:hidden; background:var(--surface); transition:.22s; box-shadow:0 1px 3px rgba(7,43,60,.05)}
+.pg a:hover{border-color:var(--accent); transform:translateY(-3px); box-shadow:0 10px 24px -14px rgba(7,43,60,.4)}
+.pg .t{aspect-ratio:16/10; overflow:hidden; background:#dfe4e0}
+.pg .t img{width:100%; height:100%; object-fit:cover; transition:transform .5s}
+.pg a:hover .t img{transform:scale(1.07)}
+.pg .c{padding:.5rem .6rem; font-size:.78rem; display:flex; justify-content:space-between; gap:.4rem; align-items:center}
+.pg .c b{font-weight:600; color:var(--navy)}
+.pg .tag{font-family:"IBM Plex Mono",monospace; font-size:.58rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); flex:0 0 auto}
+.clis{display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin-top:.4rem}
+.cli{background:var(--surface-2); border:1px solid var(--line); border-radius:3px; min-height:76px; display:grid; place-items:center; padding:.8rem}
+.cli img{max-height:48px; width:auto; object-fit:contain}
+.ents{display:grid; gap:.8rem; margin-top:.4rem}
+.ent{border:1px solid rgba(11,58,82,.16); border-radius:3px; padding:1rem; background:rgba(255,255,255,.10)}
+.ent .k{font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:.4rem}
+.ent h3{font-size:.96rem; font-weight:600; line-height:1.25}
+.ent a{color:var(--accent); font-size:.86rem; display:inline-flex; gap:.3rem; margin-top:.6rem}
+.mailrow{display:inline-flex; align-items:center; gap:.5rem; margin-top:1rem; border:1px solid var(--line); border-radius:999px; padding:.35rem .35rem .35rem .9rem; background:var(--surface-2); flex-wrap:wrap}
+.mailrow code{font-family:"IBM Plex Mono",monospace; font-size:.9rem; user-select:all; color:var(--navy)}
+.copy{background:var(--accent); color:var(--accent-ink); border:0; cursor:pointer; font-weight:600; font-size:.8rem; padding:.42rem .8rem; border-radius:999px}
+.socials{display:flex; gap:.7rem; margin-top:1.2rem; flex-wrap:wrap}
+.socials a{width:46px; height:46px; display:grid; place-items:center; border-radius:3px; border:1px solid var(--line); color:var(--muted); background:#fff; transition:.2s}
+.socials a:hover{color:var(--accent); border-color:var(--accent); transform:translateY(-3px)}
+.socials svg{width:21px; height:21px}
+.cta-row{display:flex; gap:.7rem; flex-wrap:wrap; margin-top:1.1rem}
+
+/* ===== FALLBACK sem WebGL/JS ===== */
+html:not(.cityon) #stage, html:not(.cityon) .labels, html:not(.cityon) .hint, html:not(.cityon) #overviewBtn, html:not(.cityon) #loader{display:none!important}
+html:not(.cityon) .chips{display:none}
+html:not(.cityon) body{overflow:auto}
+html:not(.cityon) #panel{position:static; transform:none!important; opacity:1!important; width:auto; max-height:none; border:0; box-shadow:none; background:none;
+  margin:0 auto; max-width:900px; padding:0 max(18px,env(safe-area-inset-left,0px)); display:block}
+html:not(.cityon) .panel-head{padding:2.4rem 0 .4rem}
+html:not(.cityon) .pclose{display:none}
+html:not(.cityon) .panel-sec{display:block!important; padding-bottom:2rem; border-bottom:1px solid var(--line)}
+html:not(.cityon) .panel-body{overflow:visible; padding:0 0 1rem}
+html:not(.cityon) .fallback-note{display:block; text-align:center; color:var(--muted); font-size:.85rem; padding:2.5rem 1rem 1rem}
+html:not(.cityon) .topbar{position:static; background:none}
+.fallback-note{display:none}
+html.cityon .panel-sec{display:none}
+html.cityon .panel-sec.active{display:flex; flex-direction:column; flex:1 1 auto; min-height:0}
+
+/* ===== TEMA NOITE (ativado pelo botão) ===== */
+html[data-theme="night"]{ --bg:#0b101b; --navy:#eaf1ff; --panel:#0b1530; --surface:#16203a; --surface-2:#1b2744;
+  --line:rgba(150,185,255,.22); --line-strong:rgba(150,185,255,.4); --ink:#e6eeff; --muted:#a8b8da;
+  --accent:#7aa8ff; --accent-strong:#9dc0ff; --accent-soft:rgba(122,168,255,.18); --accent-ink:#06122e; --chip:rgba(255,255,255,.08);
+  color-scheme:dark; }
+html[data-theme="night"] .brand img{filter:brightness(0) invert(1)}
+html[data-theme="night"] .topbar{background:linear-gradient(180deg, rgba(11,16,27,.92) 0%, rgba(11,16,27,.55) 60%, rgba(11,16,27,0) 100%)}
+html[data-theme="night"] .mk .cap{background:transparent!important; color:#e3e9f6!important; border-color:transparent!important; font-size:.92rem!important; text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 12px rgba(5,10,22,.9)}
+html[data-theme="night"] .mk:hover .cap,html[data-theme="night"] .mk:focus-visible .cap,html[data-theme="night"] .mk.hot .cap,html[data-theme="night"] .mk.sel .cap{background:rgba(32,42,62,.88)!important; color:#fff!important; border-color:rgba(160,180,215,.45)!important; text-shadow:none}
+html[data-theme="night"] .hint{background:rgba(8,18,44,.8)!important; color:#cfe0ff!important}
+html[data-theme="night"] .hero-ov{background:radial-gradient(ellipse closest-side at center, rgba(5,11,28,.82) 0%, rgba(5,11,28,.65) 60%, rgba(5,11,28,0) 100%)!important}
+html[data-theme="night"] .hero-ov h1{color:#f2f6ff!important; text-shadow:0 1px 14px rgba(5,11,28,.9)!important}
+html[data-theme="night"] .hero-ov p{color:#c4d3f2!important; text-shadow:0 1px 10px rgba(5,11,28,.9)!important}
+html[data-theme="night"] #overviewBtn,html[data-theme="night"] .pclose,html[data-theme="night"] .socials a,html[data-theme="night"] .mailrow{background:rgba(8,18,44,.85)!important; color:#eaf1ff!important; border-color:var(--line)!important}
+html[data-theme="night"] .cli{background:#f2f5fb!important}
+html[data-theme="night"] .photo{border-color:#7aa8ff!important}
+html[data-theme="night"] .langs button[aria-pressed="true"]{color:#9dc0ff!important}
+html[data-theme="night"] .chip:hover,html[data-theme="night"] .chip[aria-current="true"]{color:#9dc0ff!important; border-bottom-color:#9dc0ff!important}
+html[data-theme="night"] .tool{background:rgba(255,255,255,.08)!important}
+html[data-theme="night"] .panel-body p,html[data-theme="night"] .panel-body li{color:#d6e0f3!important}
+html[data-theme="night"] .scard h3,html[data-theme="night"] .panel-body h3,html[data-theme="night"] .panel-body h2{color:#f0f4fc}
+
+/* ===== PAINEL: sem fundo; cada item entra de baixo para cima, um a um ===== */
+html.cityon #panel{background:transparent!important; border-color:transparent!important; -webkit-backdrop-filter:none!important; backdrop-filter:none!important; box-shadow:none!important;
+  opacity:0; transform:translateY(24px); pointer-events:none; transition:opacity .3s, transform .35s}
+html.cityon #panel.open{opacity:1; transform:none; pointer-events:auto}
+html.cityon .panel-head .num, html.cityon .panel-head h2, html.cityon .panel-body > p, html.cityon .panel-body .lead, html.cityon .panel-body > h3{
+  text-shadow:0 0 14px rgba(247,245,240,.98), 0 0 4px rgba(247,245,240,.95), 0 0 1px rgba(247,245,240,1)}
+html[data-theme="night"].cityon .panel-head .num, html[data-theme="night"].cityon .panel-head h2, html[data-theme="night"].cityon .panel-body > p,
+html[data-theme="night"].cityon .panel-body .lead, html[data-theme="night"].cityon .panel-body > h3{text-shadow:0 0 14px rgba(8,12,22,.98), 0 0 4px rgba(8,12,22,.95), 0 0 1px rgba(8,12,22,1)}
+html.cityon .ent, html.cityon .scard, html.cityon .cli, html.cityon .pg a{background:#ffffff; border-color:var(--line); box-shadow:0 10px 26px -16px rgba(7,43,60,.45)}
+html[data-theme="night"].cityon .ent, html[data-theme="night"].cityon .scard, html[data-theme="night"].cityon .pg a{background:#16203a; border-color:rgba(150,185,255,.22); box-shadow:0 10px 26px -14px rgba(0,0,0,.8)}
+html.cityon .panel-body::-webkit-scrollbar{width:6px} html.cityon .panel-body::-webkit-scrollbar-thumb{background:rgba(120,130,150,.45); border-radius:3px}
+html.cityon .panel-body{scrollbar-width:thin}
+/* entrada escalonada */
+html.cityon #panel.open .panel-sec.active .panel-head{animation:riseIn .5s cubic-bezier(.2,.8,.2,1) both}
+html.cityon #panel.open .panel-sec.active .panel-body > *:not(.clis):not(.ents):not(.pg):not(.scards){animation:riseIn .55s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(.08s + var(--i,0) * .09s)}
+html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.socials) > *{animation:riseIn .55s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(.18s + var(--i,0) * .09s)}
+@keyframes riseIn{from{opacity:0; transform:translateY(34px)} to{opacity:1; transform:none}}
+@media (prefers-reduced-motion: reduce){ html.cityon #panel.open, html.cityon #panel.open *{animation-duration:.01s!important; animation-delay:0s!important} }
+/* botão dia/noite */
+.themebtn{display:inline-flex; align-items:center; gap:.4rem; font-family:"IBM Plex Mono",monospace; font-size:.76rem; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink); background:transparent; border:1px solid var(--line); border-radius:2px; padding:.32rem .6rem; cursor:pointer; transition:.2s}
+.themebtn:hover{border-color:var(--accent); color:var(--accent)}
+.themebtn svg{width:15px; height:15px}
+.themebtn .i-sun{display:none} html[data-theme="night"] .themebtn .i-sun{display:block} html[data-theme="night"] .themebtn .i-moon{display:none}
+#themeFade{position:fixed; inset:0; z-index:35; pointer-events:none; opacity:0; transition:opacity .28s; background:var(--bg)}
+#themeFade.on{opacity:1}
+@media (max-width:440px){ .brand b{display:none} .themebtn span{display:none} .themebtn{padding:.32rem .45rem} }
+.chips{flex-wrap:nowrap}
+@media (max-width:1320px){ .chips{gap:.5rem} .chip{font-size:.72rem; letter-spacing:.06em; padding:.35rem .2rem} .themebtn{font-size:.7rem} }
+@media (max-width:1120px){ .brand b{display:none} }
+</style>
 </head>
-<body class="text-gray-900 font-sans">
-<div class="text-xs text-right px-6 py-2">
-  <a href="index.html">PT</a> | <a href="index-en.html">EN</a> | <a href="index-es.html">ES</a>
+<body>
+
+<div id="themeFade" aria-hidden="true"></div>
+<div id="loader"><div class="l" id="loaderText">Montando a cidade…</div></div>
+
+<header class="topbar">
+  <a class="brand" href="#" aria-label="Wagner Jales"><img src="assets/logo_transp.png" alt="Logo Wagner Jales"><b>Wagner Jales</b></a>
+  <div class="spacer"></div>
+  <nav class="chips" aria-label="Distritos">
+    <button class="chip" data-go="sobre" data-i18n="nav_sobre">Sobre</button>
+    <button class="chip" data-go="servicos" data-i18n="nav_serv">Serviços</button>
+    <button class="chip" data-go="portfolio" data-i18n="nav_port">Portfólio</button>
+    <button class="chip" data-go="clientes" data-i18n="nav_cli">Clientes</button>
+    <button class="chip" data-go="artigos" data-i18n="nav_art">Artigos</button>
+    <button class="chip" data-go="blog" data-i18n="nav_blog">Blog</button>
+    <button class="chip" data-go="midia" data-i18n="nav_ent">Mídia</button>
+    <button class="chip" data-go="contato" data-i18n="nav_cont">Contato</button>
+  </nav>
+  <button class="themebtn" id="themeBtn" type="button" aria-pressed="false"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg><span id="themeLbl" data-i18n="theme_night">Noite</span></button>
+  <div class="langs" role="group" aria-label="Idioma">
+    <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    <button type="button" data-lang="es" aria-pressed="false">ES</button>
+  </div>
+</header>
+
+<div id="stage"><canvas id="city" aria-hidden="true"></canvas></div>
+<div class="labels" id="labels" aria-hidden="false"></div>
+<div class="hero-ov" id="heroOv">
+  <h1 data-i18n="hero_h1">Mobilidade Inteligente para Cidades, Empresas e Grandes Projetos</h1>
+  <p data-i18n="hero_sub">Planejamento da mobilidade, simulação de tráfego e geointeligência para quem precisa tomar decisões certas.</p>
+</div>
+<div class="hint" id="hint" data-i18n="hint">Arraste para girar a cidade · toque num marcador</div>
+<button class="btn btn-ghost" id="overviewBtn" data-i18n="overview">◂ Visão geral</button>
+
+<div id="panel" role="dialog" aria-label="Conteúdo do distrito">
+  <div class="fallback-note" data-i18n="fallback">Versão completa com cidade 3D interativa: abra em um navegador com WebGL.</div>
+
+  <section class="panel-sec" data-key="sobre">
+    <div class="panel-head"><div><div class="num">01 · <span data-i18n="nav_sobre">Sobre</span></div><h2 data-i18n="sobre_h2">Wagner Jales</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-body">
+      <img class="photo" src="assets/perfil.jpg" alt="Foto de Wagner Jales" width="560" height="560" loading="lazy">
+      <p data-i18n="sobre_p">Arquiteto/Urbanista e Engenheiro de Transportes. Com mais de 18 anos de experiência para os setores público e privado, entrego soluções que combinam análise de dados, simulação de tráfego e inteligência territorial para transformar ideias em resultados viáveis. Se você precisa aprovar projetos, otimizar o transporte ou transformar a mobilidade da sua cidade — usando ferramentas como QGIS, Power BI, Python e PTV Vissim — entrego mais que relatórios: entrego visão estratégica.</p>
+      <div class="tools"><span class="tool">QGIS</span><span class="tool">Power BI</span><span class="tool">Python</span><span class="tool">PTV Vissim</span></div>
+    </div>
+  </section>
+
+  <section class="panel-sec" data-key="servicos">
+    <div class="panel-head"><div><div class="num">02 · <span data-i18n="nav_serv">Serviços</span></div><h2 data-i18n="serv_h2">Soluções Oferecidas</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-body"><div class="scards">
+      <div class="scard"><h3 data-i18n="s1t">Relatório de Impacto de Trânsito (RIT, EIV)</h3><p data-i18n="s1d">Acelere aprovações e evite riscos jurídicos em novos empreendimentos.</p></div>
+      <div class="scard"><h3 data-i18n="s2t">Simulação de Tráfego (PTV Vissim)</h3><p data-i18n="s2d">Visualize cenários reais e tome decisões embasadas.</p></div>
+      <div class="scard"><h3 data-i18n="s3t">Geoprocessamento Avançado</h3><p data-i18n="s3d">Mapeamento e análise espacial para apoiar projetos estratégicos, na escala urbana e regional.</p></div>
+      <div class="scard"><h3 data-i18n="s4t">Dashboards de Mobilidade</h3><p data-i18n="s4d">Monitoramento e análise de indicadores para gestão de transporte e território.</p></div>
+      <div class="scard"><h3 data-i18n="s5t">Roteirização</h3><p data-i18n="s5d">Otimização e roteirização para o transporte de cargas e pessoas (corporativo ou sob regime de fretamento).</p></div>
+      <div class="scard"><h3 data-i18n="s6t">Soluções em Traffic Calming</h3><p data-i18n="s6d">Reduza acidentes e conflitos viários com intervenções inteligentes e de baixo custo.</p></div>
+      <div class="scard"><h3 data-i18n="s7t">Masterplan</h3><p data-i18n="s7d">Diretrizes para ocupação do território articulando forma urbana, mobilidade, infraestrutura e meio ambiente.</p></div>
+      <div class="scard"><h3 data-i18n="s8t">Mobilidade Regional</h3><p data-i18n="s8d">Análise da mobilidade em escala regional.</p></div>
+    </div></div>
+  </section>
+
+  <section class="panel-sec" data-key="portfolio">
+    <div class="panel-head"><div><div class="num">03 · <span data-i18n="nav_port">Portfólio</span></div><h2 data-i18n="port_h2">Portfólio</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-body">
+      <p class="lead" data-i18n="port_lead">Alguns projetos desenvolvidos em mobilidade, simulação e geointeligência.</p>
+      <div class="pg" id="pg"></div>
+      <div class="cta-row"><a class="btn btn-ghost" href="Portifolio.pdf" target="_blank" rel="noopener"><span data-i18n="port_pdf">Baixar portfólio (PDF)</span> <span class="ar">↗</span></a></div>
+    </div>
+  </section>
+
+  <section class="panel-sec" data-key="clientes">
+    <div class="panel-head"><div><div class="num">04 · <span data-i18n="nav_cli">Clientes</span></div><h2 data-i18n="cli_h2">Clientes</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-body">
+      <p class="lead" data-i18n="cli_lead">Projetos entregues para grandes marcas e instituições.</p>
+      <div class="clis">
+        <div class="cli"><img src="assets/vale.png" alt="Vale S/A" loading="lazy"></div>
+        <div class="cli"><img src="assets/alphaville.png" alt="Alphaville Urbanismo" loading="lazy"></div>
+        <div class="cli"><img src="assets/mrv.png" alt="MRV" loading="lazy"></div>
+        <div class="cli"><img src="assets/fapead.png" alt="FAPEAD" loading="lazy"></div>
+        <div class="cli"><img src="assets/vix.png" alt="VIX Logística" loading="lazy"></div>
+        <div class="cli"><img src="assets/caema_marca_branca.png" alt="CAEMA" loading="lazy"></div>
+        <div class="cli"><img src="assets/bmpastor.png" alt="Colégio Bom Pastor" loading="lazy"></div>
+        <div class="cli"><img src="assets/ways.png" alt="Ways Bilingual School" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel-sec" data-key="artigos">
+    <div class="panel-head"><div><div class="num">05 · <span data-i18n="nav_art">Artigos</span></div><h2 data-i18n="art_h2">Artigos Acadêmicos</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-body">
+      <p class="lead" data-i18n="art_lead">Estudos, pesquisas e contribuições técnicas em mobilidade, transporte e planejamento urbano.</p>
+      <div class="ents" id="artList"></div>
+      <div class="cta-row"><a class="btn btn-ghost" href="https://www.wagnerjales.com.br/artigos.html" target="_blank" rel="noopener"><span data-i18n="art_cta">Ver todos os artigos</span> <span class="ar">↗</span></a></div>
+    </div>
+  </section>
+
+  <section class="panel-sec" data-key="blog">
+    <div class="panel-head"><div><div class="num">06 · <span data-i18n="nav_blog">Blog</span></div><h2 data-i18n="blog_h2">Blog</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-body">
+      <p class="lead" data-i18n="blog_lead">Reflexões e insights sobre mobilidade, urbanismo e tecnologia.</p>
+      <div class="ents" id="blogList"></div>
+      <div class="cta-row"><a class="btn btn-ghost" href="https://www.wagnerjales.com.br/blog.html" target="_blank" rel="noopener"><span data-i18n="blog_cta">Ver todas as publicações</span> <span class="ar">↗</span></a></div>
+    </div>
+  </section>
+
+  <section class="panel-sec" data-key="midia">
+    <div class="panel-head"><div><div class="num">07 · <span data-i18n="nav_ent">Mídia</span></div><h2 data-i18n="ent_h2">Entrevistas e mídia</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-body"><div class="ents">
+      <div class="ent"><div class="k">G1 · JMTV</div><h3>Maranhenses usam motos e ônibus para ir ao trabalho</h3><a href="https://g1.globo.com/ma/maranhao/videos-jmtv-2-edicao/video/maranhenses-usam-motos-e-onibus-para-ir-ao-trabalho-14003716.ghtml" target="_blank" rel="noopener"><span data-i18n="ent_watch">Assistir</span> ↗</a></div>
+      <div class="ent"><div class="k">G1 · JMTV</div><h3>Estudo de mobilidade urbana aponta novas soluções para a ilha</h3><a href="https://g1.globo.com/ma/maranhao/videos-jmtv-2-edicao/video/estudo-de-mobilidade-urbana-aponta-novas-solucoes-para-a-ilha-14120932.ghtml" target="_blank" rel="noopener"><span data-i18n="ent_watch">Assistir</span> ↗</a></div>
+      <div class="ent"><div class="k">G1 · JMTV</div><h3>Moradores da Cohab cobram reforço de sinalização</h3><a href="https://g1.globo.com/ma/maranhao/videos-jmtv-1-edicao/video/moradores-da-cohab-cobram-reforco-de-sinalizacao-na-avenida-joaquim-mochel-14169121.ghtml" target="_blank" rel="noopener"><span data-i18n="ent_watch">Assistir</span> ↗</a></div>
+      <div class="ent"><div class="k">Globoplay</div><h3>Participação no Globoplay</h3><a href="https://globoplay.globo.com/v/14388444/" target="_blank" rel="noopener"><span data-i18n="ent_watch">Assistir</span> ↗</a></div>
+    </div></div>
+  </section>
+
+  <section class="panel-sec" data-key="contato">
+    <div class="panel-head"><div><div class="num">08 · <span data-i18n="nav_cont">Contato</span></div><h2 data-i18n="cont_h2">Vamos conversar?</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-body">
+      <p data-i18n="cont_p">Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?</p>
+      <div class="mailrow"><code id="email">wjales@gmail.com</code><button class="copy" id="copyBtn" data-i18n="cont_copy">Copiar</button></div>
+      <div class="socials">
+        <a href="https://www.linkedin.com/in/wagner-jales-663b4831/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.79 2.66 4.79 6.12V21H19.6v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.07 1.4-2.07 2.85V21H9z"/></svg></a>
+        <a href="https://www.instagram.com/wagnerjales.arq/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://wa.me/5598981445428" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 0 1 6.9 12l-.3.5.8 2.9-2.9-.8-.5.3A8 8 0 1 1 12 4zm-3 4.4c-.2 0-.5.1-.7.4-.3.3-1 1-1 2.3s1 2.7 1.2 2.9c.1.2 2 3.1 5 4.3 2.4 1 2.9.8 3.4.8.5 0 1.6-.6 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3-.3-.2-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.6.9-.8 1-.1.2-.3.2-.5.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.5-1.8-.1-.3 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4z"/></svg></a>
+        <a href="mailto:wjales@gmail.com" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      </div>
+    </div>
+  </section>
 </div>
 
+<script>
+/* ===== i18n ===== */
+const I18N={
+ pt:{_t:"Cidade Wagner Jales",_l:"pt-br",nav_sobre:"Sobre",nav_serv:"Serviços",nav_port:"Portfólio",nav_cli:"Clientes",nav_ent:"Mídia",nav_cont:"Contato",theme_night:"Noite",theme_day:"Dia",
+  hint:"Arraste para girar a cidade · toque num marcador",overview:"◂ Visão geral",fallback:"Versão completa com cidade 3D interativa: abra em um navegador com WebGL.",
+  nav_art:"Artigos",nav_blog:"Blog",read:"Ler",
+  hero_h1:"Mobilidade Inteligente para Cidades, Empresas e Grandes Projetos",hero_sub:"Planejamento da mobilidade, simulação de tráfego e geointeligência para quem precisa tomar decisões certas.",
+  art_h2:"Artigos Acadêmicos",art_lead:"Estudos, pesquisas e contribuições técnicas em mobilidade, transporte e planejamento urbano.",art_cta:"Ver todos os artigos",
+  blog_h2:"Blog",blog_lead:"Reflexões e insights sobre mobilidade, urbanismo e tecnologia.",blog_cta:"Ver todas as publicações",
+  sobre_h2:"Wagner Jales",sobre_p:"Arquiteto/Urbanista e Engenheiro de Transportes. Com mais de 18 anos de experiência para os setores público e privado, entrego soluções que combinam análise de dados, simulação de tráfego e inteligência territorial para transformar ideias em resultados viáveis. Se você precisa aprovar projetos, otimizar o transporte ou transformar a mobilidade da sua cidade — usando ferramentas como QGIS, Power BI, Python e PTV Vissim — entrego mais que relatórios: entrego visão estratégica.",
+  serv_h2:"Soluções Oferecidas",s1t:"Relatório de Impacto de Trânsito (RIT, EIV)",s1d:"Acelere aprovações e evite riscos jurídicos em novos empreendimentos.",s2t:"Simulação de Tráfego (PTV Vissim)",s2d:"Visualize cenários reais e tome decisões embasadas.",s3t:"Geoprocessamento Avançado",s3d:"Mapeamento e análise espacial para apoiar projetos estratégicos, na escala urbana e regional.",s4t:"Dashboards de Mobilidade",s4d:"Monitoramento e análise de indicadores para gestão de transporte e território.",s5t:"Roteirização",s5d:"Otimização e roteirização para o transporte de cargas e pessoas (corporativo ou sob regime de fretamento).",s6t:"Soluções em Traffic Calming",s6d:"Reduza acidentes e conflitos viários com intervenções inteligentes e de baixo custo.",s7t:"Masterplan",s7d:"Diretrizes para ocupação do território articulando forma urbana, mobilidade, infraestrutura e meio ambiente.",s8t:"Mobilidade Regional",s8d:"Análise da mobilidade em escala regional.",
+  port_h2:"Portfólio",port_lead:"Alguns projetos desenvolvidos em mobilidade, simulação e geointeligência.",port_pdf:"Baixar portfólio (PDF)",
+  cli_h2:"Clientes",cli_lead:"Projetos entregues para grandes marcas e instituições.",
+  ent_h2:"Entrevistas e mídia",ent_watch:"Assistir",
+  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado"},
+ en:{_t:"Wagner Jales City",_l:"en",nav_sobre:"About",nav_serv:"Services",nav_port:"Portfolio",nav_cli:"Clients",nav_ent:"Media",nav_cont:"Contact",theme_night:"Night",theme_day:"Day",
+  hint:"Drag to rotate the city · tap a marker",overview:"◂ Overview",fallback:"Full interactive 3D city: open in a WebGL-capable browser.",
+  nav_art:"Articles",nav_blog:"Blog",read:"Read",
+  hero_h1:"Smart Mobility for Cities, Companies and Major Projects",hero_sub:"Mobility planning, traffic simulation and geo-intelligence for decision-makers.",
+  art_h2:"Academic Articles",art_lead:"Studies, research and technical contributions in mobility, transport and urban planning.",art_cta:"See all articles",
+  blog_h2:"Blog",blog_lead:"Reflections and insights on mobility, urbanism and technology.",blog_cta:"See all posts",
+  sobre_h2:"Wagner Jales",sobre_p:"Architect/Urban Planner and Transportation Engineer. With over 18 years of experience across the public and private sectors, I combine data analysis, traffic simulation and territorial intelligence to turn ideas into viable results. If you need to approve projects, optimize transport or transform your city's mobility — using tools like QGIS, Power BI, Python and PTV Vissim — I deliver more than reports: I deliver strategic insight.",
+  serv_h2:"Solutions Offered",s1t:"Traffic Impact Report (RIT, EIV)",s1d:"Accelerate approvals and avoid legal risks in new developments.",s2t:"Traffic Simulation (PTV Vissim)",s2d:"Visualize realistic scenarios and make evidence-based decisions.",s3t:"Advanced Geoprocessing",s3d:"Mapping and spatial analysis to support strategic projects at urban and regional scales.",s4t:"Mobility Dashboards",s4d:"Monitoring and analysis of indicators for transport and territory management.",s5t:"Routing Optimization",s5d:"Optimization and routing for freight and people (corporate or chartered transport).",s6t:"Traffic Calming Solutions",s6d:"Reduce accidents and traffic conflicts with smart, low-cost interventions.",s7t:"Masterplan",s7d:"Guidelines for land use integrating urban form, mobility, infrastructure and the environment.",s8t:"Regional Mobility",s8d:"Mobility analysis at the regional scale.",
+  port_h2:"Portfolio",port_lead:"Selected projects in mobility, simulation and geo-intelligence.",port_pdf:"Download portfolio (PDF)",
+  cli_h2:"Clients",cli_lead:"Projects delivered for major brands and institutions.",
+  ent_h2:"Interviews & media",ent_watch:"Watch",
+  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied"},
+ es:{_t:"Ciudad Wagner Jales",_l:"es",nav_sobre:"Perfil",nav_serv:"Servicios",nav_port:"Portafolio",nav_cli:"Clientes",nav_ent:"Medios",nav_cont:"Contacto",theme_night:"Noche",theme_day:"Día",
+  hint:"Arrastra para girar la ciudad · toca un marcador",overview:"◂ Vista general",fallback:"Ciudad 3D interactiva completa: ábrela en un navegador con WebGL.",
+  nav_art:"Artículos",nav_blog:"Blog",read:"Leer",
+  hero_h1:"Movilidad Inteligente para Ciudades, Empresas y Grandes Proyectos",hero_sub:"Planificación de movilidad, simulación de tráfico e inteligencia geoespacial para quienes necesitan tomar decisiones seguras.",
+  art_h2:"Artículos Académicos",art_lead:"Estudios, investigaciones y contribuciones técnicas en movilidad, transporte y planificación urbana.",art_cta:"Ver todos los artículos",
+  blog_h2:"Blog",blog_lead:"Reflexiones e insights sobre movilidad, urbanismo y tecnología.",blog_cta:"Ver todas las publicaciones",
+  sobre_h2:"Wagner Jales",sobre_p:"Arquitecto/Urbanista e Ingeniero de Transportes. Con más de 18 años de experiencia en los sectores público y privado, combino análisis de datos, simulación de tráfico e inteligencia territorial para transformar ideas en resultados viables. Si necesita aprobar proyectos, optimizar el transporte o transformar la movilidad de su ciudad — usando herramientas como QGIS, Power BI, Python y PTV Vissim — ofrezco más que informes: brindo visión estratégica.",
+  serv_h2:"Soluciones Ofrecidas",s1t:"Informe de Impacto de Tránsito (RIT, EIV)",s1d:"Acelere aprobaciones y evite riesgos legales en nuevos desarrollos.",s2t:"Simulación de Tráfico (PTV Vissim)",s2d:"Visualice escenarios realistas y tome decisiones basadas en evidencia.",s3t:"Geoprocesamiento Avanzado",s3d:"Mapeo y análisis espacial para respaldar proyectos estratégicos a escala urbana y regional.",s4t:"Tableros de Movilidad",s4d:"Monitoreo y análisis de indicadores para la gestión del transporte y el territorio.",s5t:"Optimización de Rutas",s5d:"Optimización y enrutamiento para el transporte de cargas y personas (corporativo o fletado).",s6t:"Soluciones de Traffic Calming",s6d:"Reduzca accidentes y conflictos viales con intervenciones inteligentes y de bajo costo.",s7t:"Plan Maestro",s7d:"Directrices para la ocupación del territorio integrando forma urbana, movilidad, infraestructura y medio ambiente.",s8t:"Movilidad Regional",s8d:"Análisis de movilidad a escala regional.",
+  port_h2:"Portafolio",port_lead:"Algunos proyectos en movilidad, simulación y geointeligencia.",port_pdf:"Descargar portafolio (PDF)",
+  cli_h2:"Clientes",cli_lead:"Proyectos entregados para grandes marcas e instituciones.",
+  ent_h2:"Entrevistas y medios",ent_watch:"Ver",
+  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado"}
+};
+const PORT=[
+ ["Port_01.jpg","Rotatória do Calhau","Vídeo","https://www.youtube.com/watch?v=_WJEr3M_O8s"],
+ ["Port_02.jpg","Intervenção viária — PGV","Vídeo","https://www.youtube.com/watch?v=b0_s3nQQ1hw"],
+ ["Port_03.jpg","Painel interativo","App","https://odilhasls.streamlit.app/"],
+ ["Port_04.jpg","Dashboard Power BI","Dashboard","https://app.powerbi.com/view?r=eyJrIjoiMTZkZjk4MWMtMWUxNy00OGVmLWI1OTQtOTFhMzEzMmVhNTkxIiwidCI6ImE2M2Q5OGZmLWRmOWYtNGFhMC1hZTI5LWQ1MjZhNzc3YzhiNSJ9"],
+ ["Port_05.jpg","Masterplan","Vídeo","https://youtu.be/qmBwfaC4CUU"],
+ ["Port_06.jpg","Sintaxe espacial","Artigo","https://www.linkedin.com/pulse/integra%C3%A7%C3%A3o-vi%C3%A1ria-na-rmgsl-o-que-sintaxe-espacial-nos-wagner-jales-eppbf/"],
+ ["Port_07.jpg","Acessibilidade territorial","Artigo","https://www.linkedin.com/pulse/acessibilidade-urbana-e-integra%C3%A7%C3%A3o-da-ilha-de-s%C3%A3o-lu%C3%ADs-wagner-jales-n6vzf/"],
+ ["Port_08.jpg","SIG para estratégias","LinkedIn","https://www.linkedin.com/posts/wagner-jales-663b4831_sig-atendimento-estrataezgias-activity-7026603899297902592-F1t6/"],
+ ["Port_09.jpg","Estudos PTV Vissim","LinkedIn","https://www.linkedin.com/posts/wagner-jales-663b4831_ptvvissim-ptvvissim-simulaaexaeto-activity-7062827164424970241-d2b_/"],
+ ["Port_10.jpg","Revisão — Lei de Zoneamento","Artigo","https://vitruvius.com.br/revistas/read/minhacidade/22.263/8499"],
+ ["Port_11.jpg","Projeto de intervenção viária","Vídeo","https://www.youtube.com/watch?v=zvHNId4J-0U"],
+ ["Port_12.jpg","Simulação ao longo da via","Vídeo","https://youtu.be/Bxnlj7lSEzg"],
+ ["Port_13.jpg","Geomarketing — Barbearia","Mapa","https://app.mapfry.com/historia/Barbearia"],
+ ["Port_14.jpg","Geomarketing — Pizzaria","Mapa","https://app.mapfry.com/historia/Atividade:-%22Passo-o-Ponto%22"]
+];
+document.getElementById('pg').innerHTML=PORT.map(p=>`<a href="${p[3]}" target="_blank" rel="noopener"><div class="t"><img src="assets/portfolio/${p[0]}" alt="${p[1]}" loading="lazy"></div><div class="c"><b>${p[1]}</b><span class="tag">${p[2]}</span></div></a>`).join('');
 
-  <header class="shadow p-6 flex flex-col items-center" style="background-color: #FCFCF7; color: #072B3C;">
-  <div class="mb-4">
-    <a href="index.html">
-      <img src="logo_transp.png" alt="Logo Wagner Jales" class="h-28 w-auto mx-auto">
-    </a>
-  </div>
-  <nav class="space-x-6 text-sm font-medium flex flex-wrap justify-center">
-    <a href="index.html#sobre">Sobre</a>
-    <a href="index.html#servicos">Serviços</a>
-    <a href="index.html#portfolio">Portfólio</a>
-    <a href="index.html#clientes">Clientes</a>
-    <a href="artigos.html">Artigos Acadêmicos</a> 
-    <a href="blog.html">Blog</a>
-    <a href="index.html#entrevistas">Entrevistas</a>
-    <a href="index.html#contato">Contato</a>
-  </nav>
-</header>
-  <main>
-    <section class="py-20 px-6 text-center" style="background-color: var(--azul-escuro); color: var(--branco-quase)">
-      <h1 class="text-4xl font-bold mb-4">Mobilidade Inteligente para Cidades, Empresas e Grandes Projetos</h1>
-      <p class="text-lg max-w-2xl mx-auto">Planejamento da Mobilidade, Simulação de Tráfego e Geointeligência para quem precisa tomar decisões certas.</p>
-    </section>
+const ARTIGOS=[
+ ["Regulação","O Marco Regulatório dos Transportes e da Mobilidade em Áreas de Preservação Histórica","https://www.wagnerjales.com.br/artigos/2007%20CLATPU.pdf"],
+ ["Morfologia Urbana","Configuração urbana do centro histórico de São Luís/MA","https://www.wagnerjales.com.br/artigos/2008%20PLURIS.pdf"],
+ ["Demanda de Transporte","Estimando a distribuição espacial da demanda de funcionários","https://www.wagnerjales.com.br/artigos/2011%20ANTP.pdf"],
+ ["Tráfego e Morfologia","Estimativas neurais de volumes de tráfego baseadas na morfologia urbana","https://www.wagnerjales.com.br/artigos/2012%20ANPET.pdf"],
+ ["Impacto Urbano","Os impactos urbanos de uma intervenção viária","https://vitruvius.com.br/revistas/read/arquitextos/15.171/5289"],
+ ["Fretamento","Checagem amostral da pontualidade do transporte de funcionários","https://www.wagnerjales.com.br/artigos/2015%20ANPET%20CT703.pdf"],
+ ["Fretamento","Análise do serviço de fretamento para deslocamentos casa-trabalho","https://www.wagnerjales.com.br/artigos/2015%20ANPET%20CT803.pdf"],
+ ["GPS e Transporte","Estimação neural de tempos de viagem de ônibus com GPS","https://www.scielo.br/j/jtl/a/QkCbVCGjxvZk4ZmLFs8CYXR/?lang=pt"],
+ ["Urbanismo Social","A lógica social do centro histórico de São Luís/MA","https://vitruvius.com.br/revistas/read/minhacidade/19.226/7365"],
+ ["Facilities Management","Uso de regressão estatística para gestão de Facilities","https://www.proceedings.blucher.com.br/article-details/uso-de-regresso-estatstica-para-comparao-de-equipes-de-gesto-de-facilities-management-em-unidades-de-uma-mineradora-35275"],
+ ["Business Intelligence","BI: Causas de acidentes com ônibus sob fretamento","https://www.wagnerjales.com.br/artigos/2021%20Ebook-Manual-SST.pdf"],
+ ["Segurança Viária","Ocorrências de fadiga e distração ao volante","https://www.wagnerjales.com.br/artigos/2022%20Ebook-Manual-SST.pdf"],
+ ["Zoneamento Urbano","São Luís e seu zoneamento obsoleto","https://vitruvius.com.br/revistas/read/minhacidade/22.263/8499"]
+];
+const BLOG=[
+ ["Mobilidade Urbana","Mobilidade urbana em São Luís: padrões de deslocamento (Smart Steps)","https://www.linkedin.com/pulse/mobilidade-urbana-em-s%25C3%25A3o-lu%25C3%25ADs-an%25C3%25A1lise-dos-padr%25C3%25B5es-de-partir-jales-fjzue/"],
+ ["Planejamento Urbano","Favelas são criadas por planejadores","https://www.linkedin.com/pulse/favelas-s%25C3%25A3o-criadas-por-planejadores-mas-voc%25C3%25AA-n%25C3%25A3o-est%25C3%25A1-wagner-jales-w691f/"],
+ ["Transporte Coletivo","Greves do transporte coletivo de São Luís numa perspectiva histórica","https://www.linkedin.com/pulse/greves-do-transporte-coletivo-de-s%25C3%25A3o-lu%25C3%25ADs-numa-hist%25C3%25B3rica-wagner-jales-szbbf/"],
+ ["Cidades Privadas","Cidades Privadas: resposta inovadora à urbanização global?","https://www.linkedin.com/pulse/cidades-privadas-uma-resposta-inovadora-aos-desafios-da-wagner-jales-4jl1f/"],
+ ["Obras de Mobilidade","Como o Metrô de Hong Kong virou um case mundial","https://www.linkedin.com/pulse/como-o-metr%25C3%25B4-de-hong-kong-virou-um-case-mundial-e-que-wagner-jales-faowf/"],
+ ["Planejamento Viário","Integração viária na RMGSL: o que a sintaxe espacial revela?","https://www.linkedin.com/pulse/integra%C3%A7%C3%A3o-vi%C3%A1ria-na-rmgsl-o-que-sintaxe-espacial-nos-wagner-jales-eppbf/"],
+ ["Arquitetura","Por que arquitetos precisam considerar a mobilidade urbana","https://www.linkedin.com/pulse/por-que-arquitetos-precisam-considerar-mobilidade-urbana-wagner-jales-mjjif/"],
+ ["Tecnologia","Veículos elétricos em São Luís: avanços e desafios","https://www.linkedin.com/pulse/ve%C3%ADculos-el%C3%A9tricos-em-s%C3%A3o-lu%C3%ADs-avan%C3%A7os-promissores-mas-wagner-jales-i0xuf/"],
+ ["Infraestrutura","Conexão Praia da Guia–Ilhinha: bem mais que uma ponte","https://www.linkedin.com/pulse/conex%C3%A3o-praia-da-guia-ilhinha-bem-mais-que-uma-ponte-mas-wagner-jales-9lfcf/"]
+];
+const entCard=it=>`<div class="ent"><div class="k">${it[0]}</div><h3>${it[1]}</h3><a href="${it[2]}" target="_blank" rel="noopener"><span data-i18n="read">Ler</span> ↗</a></div>`;
+document.getElementById('artList').innerHTML=ARTIGOS.map(entCard).join('');
+document.getElementById('blogList').innerHTML=BLOG.map(entCard).join('');
 
-    <section id="sobre" class="py-20 px-6 max-w-5xl mx-auto">
-      <div class="flex flex-col md:flex-row items-center">
-        <div class="flex-shrink-0">
-          <img src="perfil.png" alt="Foto de Wagner Jales" class="w-48 h-48 object-cover rounded-full shadow-md mb-6 md:mb-0 md:mr-8">
-        </div>
-        <div>
-          <h2 class="text-2xl font-bold mb-4">Quem é Wagner Jales</h2>
-          <p class="mb-4">Sou Wagner Jales, Arquiteto/Urbanista e Engenheiro de Transportes.
-Com mais de 18 anos de experiência para o setor público e privado, entrego soluções que combinam análise de dados, simulação de tráfego e inteligência territorial para transformar ideias em resultados viáveis.
-Se você precisa aprovar projetos, otimizar o transporte ou transformar a mobilidade da sua cidade, usando ferramentes como QGIS, Power BI, Python e PTV VISSIM, estou pronto para entregar mais que relatórios — entrego visão estratégica.</p>
+function applyLang(lang){
+  const d=I18N[lang]||I18N.pt;
+  document.documentElement.lang=d._l; document.title=d._t;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(d[k]!=null) el.textContent=d[k];});
+  document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.lang===lang?'true':'false'));
+  try{localStorage.setItem('wj_lang',lang);}catch(e){}
+}
+document.querySelectorAll('.langs button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+(function(){let l='pt'; try{l=localStorage.getItem('wj_lang')||'pt';}catch(e){} if(!I18N[l])l='pt'; if(l!=='pt')applyLang(l);})();
 
-        </div>
-      </div>
-    </section>
+// índice de cada item para a entrada escalonada do painel
+document.querySelectorAll('.panel-body').forEach(pb=>{ [...pb.children].forEach((c,i)=>c.style.setProperty('--i',i));
+  pb.querySelectorAll('.ents,.clis,.pg,.scards,.tools,.socials').forEach(g=>[...g.children].forEach((c,i)=>c.style.setProperty('--i',Math.min(i,12)))); });
+// ---- dia/noite ----
+(function(){
+  const btn=document.getElementById('themeBtn'), lbl=document.getElementById('themeLbl'), fade=document.getElementById('themeFade');
+  const paint=()=>{ const n=document.documentElement.dataset.theme==='night'; const key=n?'theme_day':'theme_night';
+    lbl.setAttribute('data-i18n',key); const d=I18N[document.documentElement.lang.slice(0,2)]||I18N.pt; lbl.textContent=d[key];
+    btn.setAttribute('aria-pressed',n?'true':'false'); btn.title=d[key]; };
+  paint(); document.querySelectorAll('.langs button').forEach(b=>b.addEventListener('click',paint));
+  btn.addEventListener('click',()=>{
+    const next=document.documentElement.dataset.theme==='night'?'day':'night';
+    const go=()=>{ document.documentElement.dataset.theme=next; try{localStorage.setItem('wj_theme',next)}catch(e){}
+      dispatchEvent(new CustomEvent('wj-theme',{detail:next})); paint(); };
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!fade){ go(); return; }
+    fade.classList.add('on'); setTimeout(()=>{ go(); requestAnimationFrame(()=>requestAnimationFrame(()=>fade.classList.remove('on'))); },290);
+  });
+})();
 
-    <section id="servicos" class="py-20 px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-8">Soluções Oferecidas</h2>
-    <div class="grid md:grid-cols-2 gap-6">
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Relatório de Impacto de Trânsito (RIT, EIV)</h3>
-        <p>Acelere aprovações e evite riscos jurídicos em novos empreendimentos.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Simulação de Tráfego (PTV Vissim)</h3>
-        <p>Visualize cenários reais e tome decisões embasadas.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Geoprocessamento Avançado</h3>
-        <p>Mapeamento e análise espacial para apoiar projetos estratégicos, na escala urbana e regional.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Dashboards de Mobilidade</h3>
-        <p>Monitoramento e análise de indicadores para gestão de transporte e território.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Roteirização</h3>
-        <p>Otimização e roteirização para o transporte de Cargas e Pessoas (transporte corporativo ou sob regime de fretamento).</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Soluções em Traffic Calming</h3>
-        <p>Reduza acidentes e conflitos viários com intervenções inteligentes e de baixo custo.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Masterplan</h3>
-        <p>Elaboração de diretrizes para ocupação do território articulando forma urbana, mobilidade, infraestrutura e meio ambiente.</p>
-      </div>
-      <div class="bg-white p-6 rounded shadow">
-        <h3 class="text-xl font-semibold mb-2">Mobilidade Regional</h3>
-        <p>Análise da mobilidade em escala regional.</p>
-      </div>
-    </div>
-  </section>
+document.getElementById('copyBtn').addEventListener('click',async function(){
+  const cur=document.documentElement.lang.slice(0,2); const done=(I18N[cur]||I18N.pt).cont_copied; const label=this.textContent;
+  try{await navigator.clipboard.writeText('wjales@gmail.com');}catch(e){const r=document.createRange(); r.selectNodeContents(document.getElementById('email')); const s=getSelection(); s.removeAllRanges(); s.addRange(r);}
+  this.textContent=done; setTimeout(()=>{this.textContent=label;},1500);
+});
+</script>
 
-<section id="portfolio" class="py-20 px-6 max-w-5xl mx-auto">
-  <h2 class="text-2xl font-bold mb-4">Portfólio</h2>
-  <p class="mb-6">Veja alguns trabalhos desenvolvidos</p>
+<!-- ===== CIDADE 3D: dia/noite ===== -->
+<script type="module">
+(async () => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const loader = document.getElementById('loader');
+  const fail = (why) => { console.error('Cidade 3D: '+why);
+    const n=document.createElement('div'); n.style.cssText='position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:50;font:12px IBM Plex Mono,monospace;background:#fff;border:1px solid #ccc;padding:.5rem .8rem;color:#333;max-width:92vw';
+    n.textContent='Modo 3D indisponível ('+why+'). Exibindo versão simples.'; document.body.appendChild(n); setTimeout(()=>n.remove(),9000);
+    loader.classList.add('gone'); setTimeout(()=>loader.remove(),600); };
 
-   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <!-- Corrigido: Removido h-full de todas as imagens -->
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://www.youtube.com/watch?v=_WJEr3M_O8s" target="_blank">
-            <img src="protifolio/Port_01.png" alt="Projeto 1" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Proposta de intervenção Rotatória do Calhau</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://www.youtube.com/watch?v=b0_s3nQQ1hw" target="_blank">
-            <img src="protifolio/Port_02.png" alt="Projeto 2" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Simulação intervenção viária - PGV</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://odilhasls.streamlit.app/" target="_blank">
-            <img src="protifolio/Port_03.png" alt="Projeto 3" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Painel interativo para mobilidade</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://app.powerbi.com/view?r=eyJrIjoiMTZkZjk4MWMtMWUxNy00OGVmLWI1OTQtOTFhMzEzMmVhNTkxIiwidCI6ImE2M2Q5OGZmLWRmOWYtNGFhMC1hZTI5LWQ1MjZhNzc3YzhiNSJ9" target="_blank">
-            <img src="protifolio/Port_04.png" alt="Projeto 4" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Dashboard Power BI (mobilidade)</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://youtu.be/qmBwfaC4CUU" target="_blank">
-            <img src="protifolio/Port_05.png" alt="Projeto 5" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Masterplan</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://www.linkedin.com/pulse/integra%C3%A7%C3%A3o-vi%C3%A1ria-na-rmgsl-o-que-sintaxe-espacial-nos-wagner-jales-eppbf/" target="_blank">
-            <img src="protifolio/Port_06.png" alt="Projeto 6" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Integração viária com sintaxe espacial</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://www.linkedin.com/pulse/acessibilidade-urbana-e-integra%C3%A7%C3%A3o-da-ilha-de-s%C3%A3o-lu%C3%ADs-wagner-jales-n6vzf/?trackingId=HiGYBGcGRpiYtxximc%2FWNA%3D%3D" target="_blank">
-            <img src="protifolio/Port_07.png" alt="Projeto 7" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Acessibilidade e integração territorial</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://www.linkedin.com/posts/wagner-jales-663b4831_sig-atendimento-estrataezgias-activity-7026603899297902592-F1t6/" target="_blank">
-            <img src="protifolio/Port_08.png" alt="Projeto 8" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">SIG para estratégias urbanas</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://www.linkedin.com/posts/wagner-jales-663b4831_ptvvissim-ptvvissim-simulaaexaeto-activity-7062827164424970241-d2b_/" target="_blank">
-            <img src="protifolio/Port_09.png" alt="Projeto 9" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Estudos com PTV Vissim</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://vitruvius.com.br/revistas/read/minhacidade/22.263/8499" target="_blank">
-            <img src="protifolio/Port_10.png" alt="Projeto 10" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Análise revisão Lei de Zoneamento</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://www.youtube.com/watch?v=zvHNId4J-0U" target="_blank">
-            <img src="protifolio/Port_11.png" alt="Projeto 11" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Projeto de intervenção viária</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://youtu.be/Bxnlj7lSEzg" target="_blank">
-            <img src="protifolio/Port_12.png" alt="Projeto 12" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Simulação ao longo da via</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://app.mapfry.com/historia/Barbearia" target="_blank">
-            <img src="protifolio/Port_13.png" alt="Projeto 13" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Geomarketing - Barbearia</div>
-        </div>
-        <div class="block overflow-hidden rounded shadow-md">
-          <a href="https://app.mapfry.com/historia/Atividade:-%22Passo-o-Ponto%22" target="_blank">
-            <img src="protifolio/Port_14.png" alt="Projeto 14" class="w-full object-cover">
-          </a>
-          <div class="p-2 bg-white text-sm font-medium text-gray-800 text-center">Geomarketing - Pizzaria</div>
-        </div>
-      </div>
-   
-  <a href="Portifolio.pdf" download class="inline-block bg-blue-700 text-white px-6 py-3 rounded hover:bg-blue-800 transition">Baixe o PDF</a>
-</section>
+  let THREE, viaMap=false, lastErr='';
+  try{ THREE=await import('three'); viaMap=true; }catch(e){ lastErr=String(e&&e.message||e); }
+  if(!THREE){ try{ THREE=await import('https://unpkg.com/three@0.160.0/build/three.module.js'); }catch(e){ lastErr=String(e&&e.message||e); } }
+  if(!THREE){ fail('biblioteca three.js não carregou: '+lastErr); return; }
 
+  const canvas = document.getElementById('city');
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias:true, powerPreference:'high-performance' }); }
+  catch(e){ fail('WebGL indisponível: '+(e&&e.message||e)); return; }
+  document.documentElement.classList.add('cityon');
+  const isMobile = matchMedia('(max-width:820px)').matches;
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1, isMobile?1.5:2));
+  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  const C=(h)=>new THREE.Color(h);
 
-<section id="clientes" class="py-20 px-6 max-w-5xl mx-auto">
-  <h2 class="text-2xl font-bold mb-8">Clientes</h2>
+  // ================= TEMAS =================
+  const T={
+    day:{ sky:0xe8e7e1, fog:[110,280], tone:THREE.NoToneMapping, exp:1, hemi:[0xffffff,0xeeeae0,2.1], sun:[0xfff6ea,1.7,[46,70,30]],
+      ground:0xe9e7e0, plateD:0xe9eef1, plateN:0xf3f1eb, pavHover:0xc7d7f2, pavFocus:0xdbe5ef,
+      pal:[0xf6f4ee,0xf2efe8,0xece9e1,0xe6e2d9,0xdcd8ce], ghost:0xcdcbc3, ghostK:0.62,
+      sel:C(0x1d4ed8).multiplyScalar(0.3), selHi:C(0x2f62ff).multiplyScalar(0.62), hov:C(0x3b6fe0).multiplyScalar(0.55),
+      edge:[0x0b3a52,0.3], plaza:0xfaf8f3, ring:0xdcd8ce, stone:0xf0ede6, stone2:0xe6e2d9, bench:0xe3dfd6, trunk:0x9a9488, crown:0xb4bfa9,
+      mk:0x0b3a52, mkSel:0x1d4ed8, mkHDR:false, car:0x1d4ed8, medRing:0x0b3a52, night:0 },
+    night:{ sky:0x0b101b, fog:[70,230], tone:THREE.ACESFilmicToneMapping, exp:1.0, hemi:[0x8fa3d6,0x0d1220,1.1], sun:[0xa8b8e0,1.1,[-40,62,28]],
+      ground:0x10151f, plateD:0x262c3a, plateN:0x262c3a, pavHover:0x223258, pavFocus:0x1d3a7a,
+      pal:[0x5a6378,0x515a6e,0x626c82,0x4a5265,0x6a7489], ghost:0x262c3a, ghostK:0.45,
+      sel:C(0x1d48c8), selHi:C(0x2a5cf0), hov:C(0x1d48c8),
+      edge:[0x8a96b8,0.14], plaza:0x323a4b, ring:0x4a5468, stone:0x9aa3b8, stone2:0x7d869c, bench:0x3b4456, trunk:0x1a1f28, crown:0x2a3a3c,
+      mk:0xff4d5e, mkSel:0xff4d5e, mkHDR:true, car:0x2b3243, medRing:0x80ccff, night:1 }
+  };
+  let themeName=document.documentElement.dataset.theme==='night'?'night':'day';
+  let TH=T[themeName];
 
-  <p class="mb-6">Confiança de grandes marcas!</p>
-  <div class="grid grid-cols-2 md:grid-cols-3 gap-8 items-center">
-    <img src="vale.png" alt="Vale S/A" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="alphaville.png" alt="Alphaville Condomínios" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="mrv.png" alt="MRV" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="fapead.png" alt="Fundação de Apoio a Ensino, Pesquisa e Extenção" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="vix.png" alt="VIX Logística" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="caema_marca_branca.png" alt="CAEMA" class="h-24 md:h-28 w-auto mx-auto object-contain">
-        <img src="bmpastor.png" alt="Colégio Bom Pastor" class="h-24 md:h-28 w-auto mx-auto object-contain">
-    <img src="ways.png" alt="Ways Bilingual School" class="h-24 md:h-28 w-auto mx-auto object-contain">
-  </div>
-</section>
+  const scene=new THREE.Scene(); scene.fog=new THREE.Fog(TH.sky,TH.fog[0],TH.fog[1]);
+  const camera=new THREE.PerspectiveCamera(54,1,0.1,1400);
+  const hemi=new THREE.HemisphereLight(0xffffff,0xffffff,1); scene.add(hemi);
+  const sun=new THREE.DirectionalLight(0xffffff,1); sun.castShadow=true;
+  sun.shadow.mapSize.set(isMobile?1024:1536, isMobile?1024:1536);
+  const sc=sun.shadow.camera; sc.left=-78;sc.right=78;sc.top=78;sc.bottom=-78;sc.near=1;sc.far=230; sun.shadow.bias=-0.0004; scene.add(sun);
 
-<section id="artigos" class="py-20 px-6 max-w-5xl mx-auto bg-white">
-  <h2 class="text-2xl font-bold mb-4">Artigos Acadêmicos</h2>
-  <p class="mb-6">Pesquisa e inovação técnica para transformar teoria em ação no planejamento urbano e na mobilidade.</p>
-    <a href="artigos.html" class="inline-block bg-blue-700 text-white px-6 py-3 rounded hover:bg-blue-800 transition">Artigos Acadêmicos</a>
-  </section>
+  let seed=20260117; const rnd=()=>{seed=(seed*1664525+1013904223)>>>0; return seed/4294967296;};
+  const city=new THREE.Group(); scene.add(city);
+  const COLS=5, ROWS=5, BLOCK=10, STREET=3.6, PITCH=BLOCK+STREET;
+  const cell=(i,j)=>new THREE.Vector3((i-(COLS-1)/2)*PITCH,0,(j-(ROWS-1)/2)*PITCH);
+  const M=(c,o)=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:1},o||{}));
 
-  <section id="blog" class="py-20 px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">Blog</h2>
-    <p class="mb-6">Reflexões e insights sobre mobilidade, urbanismo e tecnologia.</p>
-    <a href="blog.html" class="inline-block bg-blue-700 text-white px-6 py-3 rounded hover:bg-blue-800 transition">Acessar Blog</a>
-  </section>
+  const groundMat=M(0xffffff); const ground=new THREE.Mesh(new THREE.PlaneGeometry(1000,1000),groundMat);
+  ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; city.add(ground);
 
-    
-  <section id="entrevistas" class="py-20 px-6 max-w-5xl mx-auto bg-white">
-    <h2 class="text-2xl font-bold mb-4">Entrevistas e participações na mídia</h2>
-    <p class="mb-6">Coberturas e entrevistas com análises sobre mobilidade urbana em São Luís.</p>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <article class="bg-gray-50 rounded shadow p-5 flex flex-col">
-        <h3 class="text-lg font-semibold mb-2">Maranhenses usam motos e ônibus para ir ao trabalho</h3>
-        <p class="text-sm text-gray-600 mb-3">Reportagem sobre padrões de deslocamento no cotidiano urbano.</p>
-        <a href="https://g1.globo.com/ma/maranhao/videos-jmtv-2-edicao/video/maranhenses-usam-motos-e-onibus-para-ir-ao-trabalho-14003716.ghtml" target="_blank" class="text-blue-700 underline text-sm">Assistir entrevista</a>
-      </article>
-      <article class="bg-gray-50 rounded shadow p-5 flex flex-col">
-        <h3 class="text-lg font-semibold mb-2">Estudo de mobilidade urbana aponta novas soluções para a ilha</h3>
-        <p class="text-sm text-gray-600 mb-3">Discussão técnica sobre alternativas de melhoria para o sistema viário.</p>
-        <a href="https://g1.globo.com/ma/maranhao/videos-jmtv-2-edicao/video/estudo-de-mobilidade-urbana-aponta-novas-solucoes-para-a-ilha-14120932.ghtml" target="_blank" class="text-blue-700 underline text-sm">Assistir entrevista</a>
-      </article>
-      <article class="bg-gray-50 rounded shadow p-5 flex flex-col">
-        <h3 class="text-lg font-semibold mb-2">Moradores da Cohab cobram reforço de sinalização</h3>
-        <p class="text-sm text-gray-600 mb-3">Análise de segurança viária e soluções para reduzir riscos em corredores urbanos.</p>
-        <a href="https://g1.globo.com/ma/maranhao/videos-jmtv-1-edicao/video/moradores-da-cohab-cobram-reforco-de-sinalizacao-na-avenida-joaquim-mochel-14169121.ghtml" target="_blank" class="text-blue-700 underline text-sm">Assistir entrevista</a>
-      </article>
-      <article class="bg-gray-50 rounded shadow p-5 flex flex-col">
-        <h3 class="text-lg font-semibold mb-2">Entrevista no Globoplay</h3>
-        <p class="text-sm text-gray-600 mb-3">Participação com comentários sobre mobilidade e planejamento urbano.</p>
-        <a href="https://globoplay.globo.com/v/14388444/" target="_blank" class="text-blue-700 underline text-sm">Assistir entrevista</a>
-      </article>
-    </div>
-  </section>
+  const DISTRICTS=[ {key:'sobre', ij:[2,2], plaza:true}, {key:'servicos', ij:[1,1]}, {key:'portfolio', ij:[3,1]}, {key:'clientes', ij:[1,3]},
+    {key:'artigos', ij:[0,2]}, {key:'blog', ij:[4,2]}, {key:'midia', ij:[3,3]}, {key:'contato', ij:[2,0]} ];
+  const districtAt=(i,j)=>DISTRICTS.find(d=>d.ij[0]===i&&d.ij[1]===j);
 
-<section id="contato" class="py-16 px-6" style="background-color: #072B3C; color: #FCFCF7;">
-  
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-2xl font-bold mb-4">Vamos conversar?</h2>
-      <p class="mb-6">Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?</p>
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
-    <div class="flex items-center mb-8 md:mb-0">
-      <img src="lgohorizontal.png" alt="Logo Wagner Jales" class="h-20">
-    </div>
-    <div class="flex space-x-6">
-      <a href="https://www.linkedin.com/in/wagner-jales-663b4831/" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="h-10 w-10">
-      </a>
-      <a href="https://www.instagram.com/wagnerjales.arq/" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" class="h-10 w-10">
-      </a>
-     <a href="mailto:wjales@gmail.com" target="_blank">
-  <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="E-mail" class="h-10 w-10">
-</a>
-      <a href="https://wa.me/5598981445428" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" class="h-10 w-10">
-      </a>
-    </div>
-  </div>
-</section>
+  const buildings=[]; const treePos=[]; const plates=[];
+  const R_MAX=2.5*PITCH;
+  for(let i=0;i<COLS;i++) for(let j=0;j<ROWS;j++){
+    const c=cell(i,j); const d=districtAt(i,j);
+    const plate=new THREE.Mesh(new THREE.PlaneGeometry(BLOCK,BLOCK),M(0xffffff));
+    plate.rotation.x=-Math.PI/2; plate.position.set(c.x,0.04,c.z); plate.receiveShadow=true; city.add(plate); plates.push({m:plate,d:!!d});
+    if(d){ d.pav=plate; d.center=c; }
+    const off=BLOCK/2-0.8;
+    [[-off,-off],[off,-off],[-off,off],[off,off]].forEach(o=>{ if(rnd()<0.42) treePos.push([c.x+o[0],c.z+o[1]]); });
+    if(d&&d.plaza) continue;
+    const sb=1.2, inner=BLOCK-2*sb, nx=2+Math.floor(rnd()*2), nz=2+Math.floor(rnd()*2), lw=inner/nx, ld=inner/nz, gap=0.7;
+    const dist=Math.min(1,Math.hypot(c.x,c.z)/R_MAX);
+    for(let a=0;a<nx;a++) for(let b=0;b<nz;b++){
+      if(rnd()<0.1) continue;
+      const lx=c.x-inner/2+lw*(a+0.5), lz=c.z-inner/2+ld*(b+0.5);
+      const bw=Math.max(1.3,lw-gap-rnd()*0.35), bd=Math.max(1.3,ld-gap-rnd()*0.35);
+      const h=2.2+Math.pow(rnd(),1.6)*(4+(1-dist)*11);
+      const pi=(rnd()*5)|0, s=rnd(), key=d?d.key:null;
+      if(h>7.5){ buildings.push({x:lx,z:lz,w:bw,d:bd,h:1.3,pi,blk:key,s}); buildings.push({x:lx,z:lz,w:bw*0.68,d:bd*0.68,h,pi,blk:key,s}); }
+      else buildings.push({x:lx,z:lz,w:bw,d:bd,h,pi,blk:key,s});
+    }
+  }
 
-</main>
+  // ---- prédios (janelas procedurais acesas só à noite) ----
+  const N=buildings.length;
+  const boxGeo=new THREE.BoxGeometry(1,1,1);
+  const aGlow=new THREE.InstancedBufferAttribute(new Float32Array(N),1); aGlow.setUsage(THREE.DynamicDrawUsage);
+  boxGeo.setAttribute('aGlow',aGlow);
+  boxGeo.setAttribute('aSeed',new THREE.InstancedBufferAttribute(new Float32Array(buildings.map(b=>b.s)),1));
+  boxGeo.setAttribute('aTop',new THREE.InstancedBufferAttribute(new Float32Array(buildings.map(b=>b.h)),1));
+  const uNight={value:TH.night};
+  const bMat=new THREE.MeshStandardMaterial({roughness:0.9,metalness:0.0});
+  bMat.onBeforeCompile=(sh)=>{
+    sh.uniforms.uNight=uNight;
+    sh.vertexShader=sh.vertexShader
+      .replace('#include <common>','#include <common>\nattribute float aGlow; attribute float aSeed; attribute float aTop;\nvarying float vGlow; varying float vSeed; varying float vTop; varying vec3 vWPos; varying vec3 vWN;')
+      .replace('#include <project_vertex>',`#include <project_vertex>
+        vec4 wp=vec4(transformed,1.0);
+        #ifdef USE_INSTANCING
+          wp=instanceMatrix*wp;
+        #endif
+        wp=modelMatrix*wp; vWPos=wp.xyz;
+        vec3 wn=objectNormal;
+        #ifdef USE_INSTANCING
+          wn=mat3(instanceMatrix)*wn;
+        #endif
+        vWN=normalize(mat3(modelMatrix)*wn); vGlow=aGlow; vSeed=aSeed; vTop=aTop;`);
+    sh.fragmentShader=sh.fragmentShader
+      .replace('#include <common>','#include <common>\nuniform float uNight; varying float vGlow; varying float vSeed; varying float vTop; varying vec3 vWPos; varying vec3 vWN;')
+      .replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
+        if(uNight>0.5){
+          float side=1.0-step(0.5,abs(vWN.y));
+          float u=abs(vWN.x)>0.5?vWPos.z:vWPos.x;
+          vec2 g=vec2(u/0.52,(vWPos.y-0.2)/0.66);
+          vec2 cl=floor(g); vec2 f=fract(g);
+          float win=step(0.24,f.x)*step(f.x,0.76)*step(0.28,f.y)*step(f.y,0.74)*side*step(0.95,vWPos.y)*step(vWPos.y,vTop-0.25);
+          float face=floor(vWN.x*2.0+vWN.z*3.0+5.0);
+          float h=fract(sin(dot(cl+vec2(vSeed*91.7,face*13.1),vec2(12.9898,78.233)))*43758.5453);
+          float lit=step(h,0.015+0.16*step(0.55,vSeed)*vSeed);
+          vec3 warm=vec3(1.0,0.74,0.4)*1.7*lit*win*(1.0-vGlow);
+          vec3 cool=(vec3(0.35,0.78,1.0)*2.1*win + vec3(0.02,0.12,0.75)*0.62*side + vec3(0.04,0.2,0.9)*0.25*(1.0-side))*vGlow;
+          totalEmissiveRadiance+=warm+cool;
+        }`);
+  };
+  const bMesh=new THREE.InstancedMesh(boxGeo,bMat,N); bMesh.castShadow=true; bMesh.receiveShadow=true;
+  const dummy=new THREE.Object3D();
+  buildings.forEach((b,idx)=>{ dummy.position.set(b.x,b.h/2,b.z); dummy.rotation.set(0,0,0); dummy.scale.set(b.w,b.h,b.d); dummy.updateMatrix(); bMesh.setMatrixAt(idx,dummy.matrix); bMesh.setColorAt(idx,C(0xffffff)); });
+  bMesh.instanceMatrix.needsUpdate=true; city.add(bMesh);
 
-<footer class="border-t py-4 text-center text-sm" style="background-color: #072B3C; color: #FCFCF7;">
-  &copy; 2025 Wagner Jales. Todos os direitos reservados.
-</footer>
+  const CC=[[-.5,0,-.5],[.5,0,-.5],[.5,0,.5],[-.5,0,.5],[-.5,1,-.5],[.5,1,-.5],[.5,1,.5],[-.5,1,.5]];
+  const EE=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+  const ep=[]; buildings.forEach(b=>{ for(const e of EE) for(const k of e){ const q=CC[k]; ep.push(b.x+q[0]*b.w,q[1]*b.h+0.003,b.z+q[2]*b.d); } });
+  const eg=new THREE.BufferGeometry(); eg.setAttribute('position',new THREE.Float32BufferAttribute(ep,3));
+  const edgeMat=new THREE.LineBasicMaterial({transparent:true}); city.add(new THREE.LineSegments(eg,edgeMat));
+  DISTRICTS.forEach(d=>{ if(d.plaza){ d.maxH=4.4; return; } let m=0; buildings.forEach(b=>{ if(b.blk===d.key) m=Math.max(m,b.h); }); d.maxH=m||5; });
+
+  // ---- foco/hover ----
+  const bCur=buildings.map(()=>C(0xffffff)), bTgt=buildings.map(()=>C(0xffffff)), baseCol=buildings.map(()=>C(0xffffff));
+  const gCur=new Float32Array(N), gTgt=new Float32Array(N);
+  let focusKey=null, hoverKey=null, bAnim=false;
+  const ghostC=C(0), pulseC=C(0);
+  function retarget(){ ghostC.set(TH.ghost);
+    buildings.forEach((b,idx)=>{ const sel=focusKey&&b.blk===focusKey, hov=hoverKey&&b.blk===hoverKey;
+      gTgt[idx]=TH.night?(sel?1:(hov?0.6:0)):0;
+      if(sel) bTgt[idx].copy(TH.sel); else if(hov) bTgt[idx].copy(TH.hov);
+      else if(focusKey) bTgt[idx].copy(baseCol[idx]).lerp(ghostC,TH.ghostK); else bTgt[idx].copy(baseCol[idx]); });
+    plates.forEach(p=>p.m.material.color.set(p.d?TH.plateD:TH.plateN));
+    DISTRICTS.forEach(d=>{ if(!d.pav) return; if(d.key===focusKey) d.pav.material.color.set(TH.pavFocus); else if(d.key===hoverKey) d.pav.material.color.set(TH.pavHover); });
+    bAnim=true; }
+  function setFocus(key){ focusKey=key; retarget(); }
+  function setHover(key){ if(key===hoverKey) return; hoverKey=key; retarget();
+    DISTRICTS.forEach(d=>{ if(d.el) d.el.classList.toggle('hot',d.key===key); });
+    canvas.style.cursor=key&&!dragging?'pointer':''; }
+  let pulseT=0;
+  function stepFocus(dt){
+    const k=Math.min(1,dt*4.5); pulseT+=dt; const s=0.5+0.5*Math.sin(pulseT*5.0);
+    let moving=false, gl=false;
+    for(let idx=0;idx<N;idx++){
+      if(bAnim){ const c=bCur[idx], t=bTgt[idx];
+        if(Math.abs(c.r-t.r)+Math.abs(c.g-t.g)+Math.abs(c.b-t.b)>0.004){ c.lerp(t,k); moving=true; } else c.copy(t); bMesh.setColorAt(idx,c); }
+      let gt=gTgt[idx]; if(gt>=1) gt=0.72+0.28*s;
+      const g=gCur[idx]+(gt-gCur[idx])*Math.min(1,dt*6);
+      if(Math.abs(g-gCur[idx])>1e-4||gCur[idx]>0){ gCur[idx]=g; aGlow.array[idx]=g; gl=true; }
+    }
+    if(!bAnim && focusKey){ pulseC.copy(TH.sel).lerp(TH.selHi,s);
+      for(let idx=0;idx<N;idx++) if(buildings[idx].blk===focusKey) bMesh.setColorAt(idx,pulseC); bMesh.instanceColor.needsUpdate=true; }
+    if(bAnim) bMesh.instanceColor.needsUpdate=true;
+    if(gl) aGlow.needsUpdate=true;
+    bAnim=moving;
+  }
+
+  // ---- postes (luz só à noite) ----
+  const sP=[-2.5,-1.5,-0.5,0.5,1.5,2.5].map(k=>k*PITCH);
+  const lampPos=[]; sP.forEach(x=>sP.forEach(z=>lampPos.push([x+STREET/2-0.3,z+STREET/2-0.3])));
+  const poleMat=M(0x2a3040); const pole=new THREE.InstancedMesh(new THREE.CylinderGeometry(0.04,0.05,1.6,6),poleMat,lampPos.length);
+  const bulbMat=new THREE.MeshBasicMaterial(); bulbMat.color.setRGB(2.2,1.5,0.8);
+  const bulb=new THREE.InstancedMesh(new THREE.SphereGeometry(0.11,10,8),bulbMat,lampPos.length);
+  const pool=new THREE.InstancedMesh(new THREE.CircleGeometry(1.2,24),new THREE.MeshBasicMaterial({color:0xffc98a,transparent:true,opacity:0.035,blending:THREE.AdditiveBlending,depthWrite:false}),lampPos.length);
+  lampPos.forEach((p,i)=>{ dummy.scale.set(1,1,1); dummy.rotation.set(0,0,0);
+    dummy.position.set(p[0],0.8,p[1]); dummy.updateMatrix(); pole.setMatrixAt(i,dummy.matrix);
+    dummy.position.set(p[0],1.65,p[1]); dummy.updateMatrix(); bulb.setMatrixAt(i,dummy.matrix);
+    dummy.position.set(p[0],0.06,p[1]); dummy.rotation.set(-Math.PI/2,0,0); dummy.updateMatrix(); pool.setMatrixAt(i,dummy.matrix); });
+  dummy.rotation.set(0,0,0); city.add(pole); city.add(bulb); city.add(pool);
+
+  // ---- tráfego ----
+  const LF=44, CPL=isMobile?2:3; const lanes=[];
+  sP.forEach(p=>{ for(const axis of [0,1]) for(const side of [-1,1]) lanes.push({axis,p:p+side*0.75,dir:side*(axis?1:-1),sp:2.6+rnd()*2.2,ph:rnd()*2*LF}); });
+  const CN=lanes.length*CPL;
+  const carMat=new THREE.MeshStandardMaterial({roughness:0.6,metalness:0.2});
+  const carBody=new THREE.InstancedMesh(new THREE.BoxGeometry(0.46,0.26,0.92),carMat,CN);
+  const headMat=new THREE.MeshBasicMaterial(); headMat.color.setRGB(3.4,3.1,2.6);
+  const tailMat=new THREE.MeshBasicMaterial(); tailMat.color.setRGB(3.2,0.15,0.18);
+  const lampGeo=new THREE.BoxGeometry(0.38,0.07,0.04);
+  const heads=new THREE.InstancedMesh(lampGeo,headMat,CN), tails=new THREE.InstancedMesh(lampGeo,tailMat,CN);
+  const beamGeo=new THREE.PlaneGeometry(0.5,2.2); beamGeo.rotateX(-Math.PI/2);
+  const trailGeo=new THREE.PlaneGeometry(0.3,1.3); trailGeo.rotateX(-Math.PI/2);
+  const beams=new THREE.InstancedMesh(beamGeo,new THREE.MeshBasicMaterial({color:0xfff0d0,transparent:true,opacity:0.08,blending:THREE.AdditiveBlending,depthWrite:false}),CN);
+  const trails=new THREE.InstancedMesh(trailGeo,new THREE.MeshBasicMaterial({color:0xff3344,transparent:true,opacity:0.13,blending:THREE.AdditiveBlending,depthWrite:false}),CN);
+  const carParts=[carBody,heads,tails,beams,trails]; carParts.forEach(m=>{ m.frustumCulled=false; city.add(m); }); carBody.castShadow=true;
+  function setPart(mesh,n,x,z,rot,offZ,y,sx,sy,sz){ dummy.position.set(x,y,z); dummy.rotation.set(0,rot,0); dummy.scale.set(sx||1,sy||1,sz||1); dummy.translateZ(offZ); dummy.updateMatrix(); mesh.setMatrixAt(n,dummy.matrix); }
+  function stepTraffic(t){ let n=0; const kk=reduce?0.35:1;
+    for(const L of lanes) for(let q=0;q<CPL;q++,n++){
+      const s=((L.ph+q*(2*LF/CPL)+t*L.sp*kk*L.dir)%(2*LF)+2*LF)%(2*LF)-LF;
+      let x,z,rot; if(L.axis===0){ x=L.p; z=s; rot=L.dir>0?0:Math.PI; } else { x=s; z=L.p; rot=L.dir>0?Math.PI/2:-Math.PI/2; }
+      if(TH.night) setPart(carBody,n,x,z,rot,0,0.2); else setPart(carBody,n,x,z,rot,0,0.07,0.24,0.18,1.35);   // de dia: traço azul de fluxo
+      if(TH.night){ setPart(heads,n,x,z,rot,0.47,0.2); setPart(tails,n,x,z,rot,-0.47,0.2); setPart(beams,n,x,z,rot,1.6,0.055); setPart(trails,n,x,z,rot,-1.1,0.05); }
+    }
+    carParts.forEach(m=>m.instanceMatrix.needsUpdate=true); dummy.rotation.set(0,0,0); }
+
+  // ---- praça + estela ----
+  const pc=cell(2,2);
+  const plazaMat=M(0xffffff), ringM=M(0xffffff,{side:THREE.DoubleSide});
+  const plaza=new THREE.Mesh(new THREE.CircleGeometry(4.4,64),plazaMat); plaza.rotation.x=-Math.PI/2; plaza.position.set(pc.x,0.06,pc.z); plaza.receiveShadow=true; city.add(plaza);
+  [[4.4,4.55],[3.0,3.1]].forEach(rr=>{ const r=new THREE.Mesh(new THREE.RingGeometry(rr[0],rr[1],64),ringM); r.rotation.x=-Math.PI/2; r.position.set(pc.x,0.065,pc.z); city.add(r); });
+  const stone=M(0xffffff,{roughness:0.92}), stone2=M(0xffffff,{roughness:0.92});
+  const stele=new THREE.Group(); stele.position.set(pc.x,0,pc.z); stele.rotation.y=Math.PI/4;
+  const st1=new THREE.Mesh(new THREE.CylinderGeometry(2.75,2.85,0.28,48),stone2); st1.position.y=0.14;
+  const st2=new THREE.Mesh(new THREE.CylinderGeometry(2.2,2.3,0.28,48),stone); st2.position.y=0.42;
+  const body=new THREE.Mesh(new THREE.BoxGeometry(2.3,3.5,0.55),stone); body.position.y=0.56+1.75;
+  const cap=new THREE.Mesh(new THREE.BoxGeometry(2.6,0.2,0.75),stone2); cap.position.y=0.56+3.5+0.1;
+  [st1,st2,body,cap].forEach(m=>{ m.castShadow=true; m.receiveShadow=true; stele.add(m); });
+  const medMat=new THREE.MeshBasicMaterial({color:0x9aa3b8}); medMat.toneMapped=false;
+  new THREE.TextureLoader().load('data:image/jpeg;base64,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',t=>{ t.colorSpace=THREE.SRGBColorSpace; medMat.map=t; medMat.color.set(0xffffff); medMat.needsUpdate=true; });
+  const ringMat=new THREE.MeshBasicMaterial({side:THREE.DoubleSide});
+  [1,-1].forEach(sgn=>{ const med=new THREE.Mesh(new THREE.CircleGeometry(0.98,48),medMat), rg=new THREE.Mesh(new THREE.RingGeometry(0.98,1.1,48),ringMat);
+    med.position.set(0,0.56+2.15,sgn*0.285); rg.position.set(0,0.56+2.15,sgn*0.283); if(sgn<0){ med.rotation.y=Math.PI; rg.rotation.y=Math.PI; } stele.add(med); stele.add(rg); });
+  city.add(stele);
+  const spot=new THREE.PointLight(0xffd9a8,0,9,2); spot.position.set(pc.x+2.2,3.2,pc.z+2.2); city.add(spot);
+  const benchMat=M(0xffffff);
+  for(let k=0;k<8;k++){ const ang=k/8*Math.PI*2+Math.PI/8; const bench=new THREE.Mesh(new THREE.BoxGeometry(1.3,0.28,0.4),benchMat);
+    bench.position.set(pc.x+Math.cos(ang)*3.7,0.2,pc.z+Math.sin(ang)*3.7); bench.rotation.y=-ang+Math.PI/2; bench.castShadow=bench.receiveShadow=true; city.add(bench); }
+  for(let k=0;k<10;k++){ const a=k/10*Math.PI*2; treePos.push([pc.x+Math.cos(a)*5.45,pc.z+Math.sin(a)*5.45]); }
+  const trunkMat=M(0xffffff), crownMat=M(0xffffff);
+  const trunk=new THREE.InstancedMesh(new THREE.CylinderGeometry(0.06,0.09,0.7,6),trunkMat,treePos.length);
+  const crown=new THREE.InstancedMesh(new THREE.SphereGeometry(0.58,14,10),crownMat,treePos.length); crown.castShadow=true;
+  treePos.forEach((p,idx)=>{ const s=0.85+rnd()*0.45;
+    dummy.position.set(p[0],0.35,p[1]); dummy.scale.set(1,1,1); dummy.updateMatrix(); trunk.setMatrixAt(idx,dummy.matrix);
+    dummy.position.set(p[0],0.7+0.5*s,p[1]); dummy.scale.set(s,s,s); dummy.updateMatrix(); crown.setMatrixAt(idx,dummy.matrix); });
+  city.add(trunk); city.add(crown);
+
+  // ---- marcadores ----
+  const labelsEl=document.getElementById('labels');
+  const curLang=()=>I18N[document.documentElement.lang.slice(0,2)]?document.documentElement.lang.slice(0,2):'pt';
+  const stemGeo=new THREE.CylinderGeometry(0.032,0.032,1,6), nodeGeo=new THREE.SphereGeometry(0.21,16,12);
+  DISTRICTS.forEach((ds,i)=>{
+    const y0=ds.plaza?4.5:ds.maxH, y1=ds.plaza?8.6:ds.maxH+3.2, H=y1-y0;
+    const sMat=new THREE.MeshBasicMaterial({transparent:true,opacity:.8});
+    const stem=new THREE.Mesh(stemGeo,sMat); stem.scale.set(1,H,1); stem.position.set(ds.center.x,y0+H/2,ds.center.z); city.add(stem);
+    const nMat=new THREE.MeshBasicMaterial({transparent:true,opacity:1});
+    const node=new THREE.Mesh(nodeGeo,nMat); node.position.set(ds.center.x,y1,ds.center.z); city.add(node);
+    ds.sMat=sMat; ds.nMat=nMat; ds.node=node; ds.markerWorld=new THREE.Vector3(ds.center.x,y1+0.25,ds.center.z);
+    const btn=document.createElement('button'); btn.className='mk'; btn.innerHTML='<span class="cap"><span class="t"></span></span>';
+    btn.addEventListener('click',()=>selectDistrict(i)); btn.addEventListener('mouseenter',()=>setHover(ds.key)); btn.addEventListener('mouseleave',()=>setHover(null));
+    labelsEl.appendChild(btn); ds.el=btn; ds.capEl=btn.querySelector('.t');
+  });
+  function paintMarkers(){ DISTRICTS.forEach((o,j)=>{ const on=j===selected, any=selected>=0;
+    const col=C(on?TH.mkSel:TH.mk); if(TH.mkHDR) col.setRGB(2.6,0.35,0.42);
+    o.nMat.color.copy(col); o.sMat.color.set(TH.mk);
+    o.nMat.opacity=any&&!on?0.4:1; o.sMat.opacity=any&&!on?0.22:0.8; o.node.scale.setScalar(on?1.25:1);
+    o.el.style.opacity=any&&!on?'0.45':'1'; o.el.classList.toggle('sel',on); }); }
+  function refreshLabels(){ const d=I18N[curLang()];
+    const map={sobre:'nav_sobre',servicos:'nav_serv',portfolio:'nav_port',clientes:'nav_cli',artigos:'nav_art',blog:'nav_blog',midia:'nav_ent',contato:'nav_cont'};
+    DISTRICTS.forEach(ds=>ds.capEl.textContent=d[map[ds.key]]); }
+  refreshLabels(); document.querySelectorAll('.langs button').forEach(b=>b.addEventListener('click',refreshLabels));
+
+  // ---- bloom (noite, desktop), carregado sob demanda ----
+  let composer=null, composerTried=false;
+  async function ensureComposer(){
+    if(composer||composerTried||!viaMap||isMobile) return; composerTried=true;
+    try{
+      const [{EffectComposer},{RenderPass},{UnrealBloomPass},{OutputPass}]=await Promise.all([
+        import('three/addons/postprocessing/EffectComposer.js'), import('three/addons/postprocessing/RenderPass.js'),
+        import('three/addons/postprocessing/UnrealBloomPass.js'), import('three/addons/postprocessing/OutputPass.js')]);
+      const cp=new EffectComposer(renderer); cp.addPass(new RenderPass(scene,camera));
+      cp.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.55,0.4,0.9)); cp.addPass(new OutputPass());
+      cp.setPixelRatio(renderer.getPixelRatio()); cp.setSize(innerWidth,innerHeight); composer=cp;
+    }catch(e){ console.warn('bloom indisponível',e); }
+  }
+
+  // ---- aplicar tema ----
+  function applyTheme(name){
+    themeName=name; TH=T[name]; uNight.value=TH.night;
+    renderer.setClearColor(TH.sky,1); scene.fog.color.set(TH.sky); scene.fog.near=TH.fog[0]; scene.fog.far=TH.fog[1];
+    if(renderer.toneMapping!==TH.tone){ renderer.toneMapping=TH.tone; scene.traverse(o=>{ if(o.material){ (Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.needsUpdate=true); } }); }
+    renderer.toneMappingExposure=TH.exp;
+    hemi.color.set(TH.hemi[0]); hemi.groundColor.set(TH.hemi[1]); hemi.intensity=TH.hemi[2];
+    sun.color.set(TH.sun[0]); sun.intensity=TH.sun[1]; sun.position.set(...TH.sun[2]);
+    groundMat.color.set(TH.ground);
+    buildings.forEach((b,idx)=>baseCol[idx].set(TH.pal[b.pi]));
+    edgeMat.color.set(TH.edge[0]); edgeMat.opacity=TH.edge[1];
+    plazaMat.color.set(TH.plaza); ringM.color.set(TH.ring); stone.color.set(TH.stone); stone2.color.set(TH.stone2); benchMat.color.set(TH.bench);
+    trunkMat.color.set(TH.trunk); crownMat.color.set(TH.crown); carMat.color.set(TH.car); ringMat.color.set(TH.medRing);
+    poleMat.color.set(0x2a3040); pole.visible=!!TH.night; carBody.castShadow=!!TH.night;
+    [bulb,pool,heads,tails,beams,trails].forEach(m=>m.visible=!!TH.night);
+    spot.intensity=TH.night?14:0;
+    if(TH.night) ensureComposer();
+    retarget(); paintMarkers();
+  }
+
+  // ---- câmera ----
+  const overviewR=()=>{ const a=innerWidth/innerHeight; return a>=1.15?54:54+(1.15-a)*70; };
+  const cam={tgt:new THREE.Vector3(0,3,0),theta:Math.PI*0.25,phi:1.2,r:overviewR()};
+  const OVERVIEW={tgt:new THREE.Vector3(0,3,0),theta:Math.PI*0.25,phi:1.2,r:overviewR()};
+  function place(){ const sp=Math.sin(cam.phi);
+    camera.position.set(cam.tgt.x+cam.r*sp*Math.sin(cam.theta),cam.tgt.y+cam.r*Math.cos(cam.phi),cam.tgt.z+cam.r*sp*Math.cos(cam.theta)); camera.lookAt(cam.tgt); }
+  const vo={x:0,y:0}, voT={x:0,y:0};
+  function applyVO(){ const w=innerWidth,h=innerHeight; camera.setViewOffset(w,h,vo.x,vo.y,w,h); }
+  function setVOTarget(open){ const mob=matchMedia('(max-width:820px)').matches;
+    if(!open){ voT.x=0; voT.y=innerHeight*(mob?0.03:0.08); return; }
+    if(mob){ voT.x=0; voT.y=innerHeight*0.30; } else { voT.x=(Math.min(460,innerWidth*0.42)+18)/2; voT.y=0; } }
+  function stepVO(dt){ const k=Math.min(1,dt*3.4); vo.x+=(voT.x-vo.x)*k; vo.y+=(voT.y-vo.y)*k; applyVO(); }
+
+  let dragging=false,lastX=0,lastY=0,lastTouchDist=0,idle=0,selected=-1,tween=null;
+  const el=document.getElementById('stage');
+  function onDown(x,y){ dragging=true; lastX=x; lastY=y; idle=0; tween=null; hideHint(); }
+  function onMove(x,y){ if(!dragging) return; const dx=x-lastX,dy=y-lastY; lastX=x; lastY=y; cam.theta-=dx*0.005; cam.phi=Math.min(1.42,Math.max(0.2,cam.phi-dy*0.005)); idle=0; }
+  function onUp(){ dragging=false; }
+  const ray=new THREE.Raycaster(), mouse=new THREE.Vector2(); let downX=0, downY=0;
+  const pickables=[bMesh, plaza, stele, ...DISTRICTS.filter(d=>d.pav).map(d=>d.pav)];
+  function pick(x,y){ mouse.set(x/innerWidth*2-1,-(y/innerHeight)*2+1); ray.setFromCamera(mouse,camera);
+    const hit=ray.intersectObjects(pickables,true)[0]; if(!hit) return null;
+    if(hit.object===bMesh) return buildings[hit.instanceId].blk;
+    if(hit.object===plaza||stele.children.includes(hit.object)) return 'sobre';
+    const d=DISTRICTS.find(q=>q.pav===hit.object); return d?d.key:null; }
+  el.addEventListener('mousemove',e=>{ if(dragging||tween) return; try{ setHover(pick(e.clientX,e.clientY)); }catch(_){} });
+  el.addEventListener('mouseleave',()=>setHover(null));
+  el.addEventListener('mousedown',e=>{ downX=e.clientX; downY=e.clientY; onDown(e.clientX,e.clientY); });
+  el.addEventListener('click',e=>{ if(Math.hypot(e.clientX-downX,e.clientY-downY)>5) return; const k=pick(e.clientX,e.clientY); const i=DISTRICTS.findIndex(d=>d.key===k); if(i>=0&&i!==selected) selectDistrict(i); });
+  addEventListener('mousemove',e=>onMove(e.clientX,e.clientY)); addEventListener('mouseup',onUp);
+  el.addEventListener('wheel',e=>{ e.preventDefault(); cam.r=Math.min(130,Math.max(14,cam.r*(1+e.deltaY*0.0012))); idle=0; },{passive:false});
+  el.addEventListener('touchstart',e=>{ if(e.touches.length===1) onDown(e.touches[0].clientX,e.touches[0].clientY);
+    else if(e.touches.length===2){ dragging=false; lastTouchDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY); } },{passive:true});
+  el.addEventListener('touchmove',e=>{ if(e.touches.length===1) onMove(e.touches[0].clientX,e.touches[0].clientY);
+    else if(e.touches.length===2){ const dd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+      if(lastTouchDist) cam.r=Math.min(130,Math.max(14,cam.r*(lastTouchDist/dd))); lastTouchDist=dd; idle=0; } },{passive:true});
+  el.addEventListener('touchend',onUp);
+  function hideHint(){ const h=document.getElementById('hint'); if(h) h.style.opacity='0'; }
+
+  const easeIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const panel=document.getElementById('panel');
+  function flyTo(goal,after){
+    const from={tgt:cam.tgt.clone(),theta:cam.theta,phi:cam.phi,r:cam.r};
+    let dth=goal.theta-from.theta; while(dth>Math.PI)dth-=2*Math.PI; while(dth<-Math.PI)dth+=2*Math.PI;
+    const dur=reduce?700:1150, t0=performance.now(), bump=Math.min(14,Math.abs(from.r-goal.r)*0.35+Math.abs(dth)*6);
+    tween=(now)=>{ const k=Math.min(1,(now-t0)/dur), e=easeIO(k);
+      cam.tgt.lerpVectors(from.tgt,goal.tgt,e); cam.theta=from.theta+dth*e; cam.phi=from.phi+(goal.phi-from.phi)*e;
+      cam.r=from.r+(goal.r-from.r)*e+Math.sin(e*Math.PI)*bump; if(k>=1){ tween=null; if(after) after(); } };
+  }
+  function selectDistrict(i){
+    selected=i; const ds=DISTRICTS[i];
+    let theta=Math.PI*0.5; if(Math.hypot(ds.center.x,ds.center.z)>0.5) theta=Math.atan2(ds.center.x,ds.center.z);
+    theta+=0.62; if(ds.plaza) theta=Math.PI*0.25;
+    flyTo({tgt:new THREE.Vector3(ds.center.x,3,ds.center.z),theta,phi:ds.plaza?0.98:0.96,r:ds.plaza?17:20});
+    setFocus(ds.key); setVOTarget(true); paintMarkers();
+    document.querySelectorAll('.panel-sec').forEach(s=>s.classList.toggle('active',s.dataset.key===ds.key));
+    panel.classList.remove('open'); void panel.offsetWidth; panel.classList.add('open');   // reinicia a entrada de baixo para cima
+    const pb=panel.querySelector('.panel-sec.active .panel-body'); if(pb) pb.scrollTop=0;
+    document.getElementById('overviewBtn').style.display='inline-flex';
+    document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current',c.dataset.go===ds.key?'true':'false'));
+    const ho=document.getElementById('heroOv'); if(ho) ho.style.opacity='0'; hideHint();
+  }
+  function goOverview(){
+    selected=-1; OVERVIEW.r=overviewR(); flyTo(OVERVIEW); setFocus(null); setVOTarget(false); paintMarkers();
+    panel.classList.remove('open'); document.getElementById('overviewBtn').style.display='none';
+    document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current','false'));
+    const ho=document.getElementById('heroOv'); if(ho) ho.style.opacity='1';
+  }
+  document.getElementById('overviewBtn').addEventListener('click',goOverview);
+  document.querySelectorAll('.pclose').forEach(b=>b.addEventListener('click',goOverview));
+  document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{ const idx=DISTRICTS.findIndex(d=>d.key===c.dataset.go); if(idx>=0) selectDistrict(idx); }));
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&selected>=0) goOverview(); });
+
+  // botão dia/noite (o CSS da página troca via data-theme; aqui troca a cena)
+  addEventListener('wj-theme',e=>applyTheme(e.detail));
+
+  const v=new THREE.Vector3();
+  function projectLabels(){ const w=innerWidth,h=innerHeight;
+    DISTRICTS.forEach(ds=>{ v.copy(ds.markerWorld); v.project(camera);
+      if(v.z>1){ ds.el.style.display='none'; return; }
+      ds.el.style.display='flex'; ds.el.style.left=((v.x*0.5+0.5)*w)+'px'; ds.el.style.top=((-v.y*0.5+0.5)*h)+'px'; }); }
+  function resize(){ const w=innerWidth,h=innerHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); setVOTarget(selected>=0);
+    if(composer){ composer.setPixelRatio(renderer.getPixelRatio()); composer.setSize(w,h); } }
+  resize(); vo.x=voT.x; vo.y=voT.y; addEventListener('resize',resize,{passive:true});
+
+  let running=true, looping=false;
+  document.addEventListener('visibilitychange',()=>{ running=!document.hidden; if(running&&!looping){ last=performance.now(); loop(); } });
+  canvas.addEventListener('webglcontextlost',e=>{ e.preventDefault(); running=false; });
+  canvas.addEventListener('webglcontextrestored',()=>location.reload());
+  let last=performance.now(), trafT=0;
+  const draw=()=>{ if(TH.night&&composer) composer.render(); else renderer.render(scene,camera); };
+  function loop(){ if(!running){ looping=false; return; } looping=true;
+    const now=performance.now(), dt=Math.min((now-last)/1000,0.05); last=now;
+    if(tween) tween(now); else { idle+=dt; if(!dragging&&selected<0&&idle>1.6&&!reduce) cam.theta+=dt*0.05; }
+    trafT+=dt; stepTraffic(trafT); stepFocus(dt); stepVO(dt);
+    place(); projectLabels(); draw(); requestAnimationFrame(loop); }
+  applyTheme(themeName);
+  for(let i=0;i<N;i++){ bCur[i].copy(bTgt[i]); bMesh.setColorAt(i,bCur[i]); } bMesh.instanceColor.needsUpdate=true;
+  stepTraffic(0); place(); applyVO(); projectLabels(); draw();
+  loader.classList.add('gone'); setTimeout(()=>loader.remove(),600);
+  { const alias={entrevistas:'midia',media:'midia',contact:'contato'}; let k=(location.hash||'').slice(1).toLowerCase(); k=alias[k]||k;
+    const di=DISTRICTS.findIndex(d=>d.key===k); if(di>=0) setTimeout(()=>selectDistrict(di),reduce?100:900); }
+  if(!reduce){ cam.r=150; cam.phi=0.7; cam.theta=Math.PI*0.05; setTimeout(()=>flyTo(OVERVIEW),350); }
+  loop();
+})();
+</script>
 </body>
 </html>
-
