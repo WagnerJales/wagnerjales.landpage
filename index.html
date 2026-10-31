@@ -296,32 +296,11 @@ html.m-dark:not([data-theme="night"]).cityon .panel-head h2, html.m-dark:not([da
 <div class="hint" id="hint" data-i18n="hint">Arraste para girar a cidade · toque num marcador</div>
 <button class="btn btn-ghost" id="overviewBtn" data-i18n="overview">◂ Visão geral</button>
 
-<div class="modes" id="modes" role="group" aria-label="Leituras da cidade">
-  <div class="modes-lbl" data-i18n="mode_lbl">Leituras da cidade</div>
+<div class="modes" id="modes" role="group" aria-label="Trabalhamos com">
+  <div class="modes-lbl" data-i18n="mode_lbl">Trabalhamos com</div>
   <button type="button" class="mode" data-mode="arch" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V8l5-3v16M9 21V3l7 4v14M16 21v-9l4 2v7M2 21h20"/><path d="M11.5 8h2M11.5 11h2M11.5 14h2M11.5 17h2"/></svg><span data-i18n="mode_arch">Arquitetura</span></button>
   <button type="button" class="mode" data-mode="urb" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="5"/><rect x="13" y="10" width="8" height="11"/><rect x="3" y="13" width="8" height="8"/></svg><span data-i18n="mode_urb">Urbanismo</span></button>
   <button type="button" class="mode" data-mode="mob" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 17h18M8 3v18M16 3v18"/></svg><span data-i18n="mode_mob">Mobilidade</span></button>
-  <div class="legend" id="legUrb" hidden>
-    <div class="lt" data-i18n="leg_urb">Zoneamento (ilustrativo)</div>
-    <i style="--c:#e9cf98"></i><span data-i18n="z_res">Residencial</span>
-    <i style="--c:#d98a4e"></i><span data-i18n="z_mix">Uso misto</span>
-    <i style="--c:#b8402c"></i><span data-i18n="z_com">Comércio e serviços</span>
-    <i style="--c:#3f8f8a"></i><span data-i18n="z_inst">Institucional</span>
-    <i style="--c:#8fc28a"></i><span data-i18n="z_green">Áreas verdes</span>
-    <i style="--c:#a8a39a"></i><span data-i18n="z_ind">Logística</span>
-  </div>
-  <div class="legend" id="legArch" hidden>
-    <div class="lt" data-i18n="leg_arch">Gabarito (altura)</div>
-    <i style="--c:#d9622b"></i><span data-i18n="h_low">Baixo</span>
-    <i style="--c:#eda36a"></i><span data-i18n="h_mid">Médio</span>
-    <i style="--c:#f3e9da"></i><span data-i18n="h_high">Alto</span>
-  </div>
-  <div class="legend" id="legMob" hidden>
-    <div class="lt" data-i18n="leg_mob">Hierarquia viária (ilustrativa)</div>
-    <i class="ln" style="--c:#ff8a3d;--w:7px"></i><span data-i18n="v_exp">Via expressa / anel</span>
-    <i class="ln" style="--c:#d9622b;--w:5px"></i><span data-i18n="v_art">Arterial</span>
-    <i class="ln" style="--c:#9a4a2a;--w:3px"></i><span data-i18n="v_col">Coletora</span>
-  </div>
 </div>
 
 <div id="panel" role="dialog" aria-label="Conteúdo do distrito">
@@ -433,7 +412,7 @@ const I18N={
   port_h2:"Portfólio",port_lead:"Alguns projetos desenvolvidos em mobilidade, simulação e geointeligência.",port_pdf:"Baixar portfólio (PDF)",
   cli_h2:"Clientes",cli_lead:"Projetos entregues para grandes marcas e instituições.",
   ent_h2:"Entrevistas e mídia",ent_watch:"Assistir",
-  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Leituras da cidade",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Mobilidade",leg_arch:"Gabarito (altura)",h_low:"Baixo",h_mid:"Médio",h_high:"Alto",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
+  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Trabalhamos com",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Mobilidade",leg_arch:"Gabarito (altura)",h_low:"Baixo",h_mid:"Médio",h_high:"Alto",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
  en:{_t:"Wagner Jales City",_l:"en",nav_sobre:"About",nav_serv:"Services",nav_port:"Portfolio",nav_cli:"Clients",nav_ent:"Media",nav_cont:"Contact",theme_night:"Night",theme_day:"Day",
   hint:"Drag to rotate the city · tap a marker",overview:"◂ Overview",fallback:"Full interactive 3D city: open in a WebGL-capable browser.",
   nav_art:"Articles",nav_blog:"Blog",read:"Read",
@@ -445,7 +424,7 @@ const I18N={
   port_h2:"Portfolio",port_lead:"Selected projects in mobility, simulation and geo-intelligence.",port_pdf:"Download portfolio (PDF)",
   cli_h2:"Clients",cli_lead:"Projects delivered for major brands and institutions.",
   ent_h2:"Interviews & media",ent_watch:"Watch",
-  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",mode_lbl:"City readings",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Mobility",leg_arch:"Building height",h_low:"Low",h_mid:"Mid",h_high:"High",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
+  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",mode_lbl:"We work with",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Mobility",leg_arch:"Building height",h_low:"Low",h_mid:"Mid",h_high:"High",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
  es:{_t:"Ciudad Wagner Jales",_l:"es",nav_sobre:"Perfil",nav_serv:"Servicios",nav_port:"Portafolio",nav_cli:"Clientes",nav_ent:"Medios",nav_cont:"Contacto",theme_night:"Noche",theme_day:"Día",
   hint:"Arrastra para girar la ciudad · toca un marcador",overview:"◂ Vista general",fallback:"Ciudad 3D interactiva completa: ábrela en un navegador con WebGL.",
   nav_art:"Artículos",nav_blog:"Blog",read:"Leer",
@@ -457,7 +436,7 @@ const I18N={
   port_h2:"Portafolio",port_lead:"Algunos proyectos en movilidad, simulación y geointeligencia.",port_pdf:"Descargar portafolio (PDF)",
   cli_h2:"Clientes",cli_lead:"Proyectos entregados para grandes marcas e instituciones.",
   ent_h2:"Entrevistas y medios",ent_watch:"Ver",
-  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Lecturas de la ciudad",mode_arch:"Arquitectura",mode_urb:"Urbanismo",mode_mob:"Movilidad",leg_arch:"Altura de edificación",h_low:"Baja",h_mid:"Media",h_high:"Alta",leg_urb:"Zonificación (ilustrativa)",leg_mob:"Jerarquía vial (ilustrativa)",z_res:"Residencial",z_mix:"Uso mixto",z_com:"Comercio y servicios",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Vía expresa / anillo",v_art:"Arterial",v_col:"Colectora"}
+  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Trabajamos con",mode_arch:"Arquitectura",mode_urb:"Urbanismo",mode_mob:"Movilidad",leg_arch:"Altura de edificación",h_low:"Baja",h_mid:"Media",h_high:"Alta",leg_urb:"Zonificación (ilustrativa)",leg_mob:"Jerarquía vial (ilustrativa)",z_res:"Residencial",z_mix:"Uso mixto",z_com:"Comercio y servicios",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Vía expresa / anillo",v_art:"Arterial",v_col:"Colectora"}
 };
 const PORT=[
  ["Port_01.jpg","Rotatória do Calhau","Vídeo","https://www.youtube.com/watch?v=_WJEr3M_O8s"],
@@ -857,7 +836,6 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   function setMode(m){ MODE.cur=(MODE.cur===m)?null:m; modesDirty=true;
     document.querySelectorAll('.mode').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===MODE.cur?'true':'false'));
     document.documentElement.classList.toggle('m-dark',MODE.cur==='mob');
-    document.getElementById('legArch').hidden=MODE.cur!=='arch'; document.getElementById('legUrb').hidden=MODE.cur!=='urb'; document.getElementById('legMob').hidden=MODE.cur!=='mob';
     idle=0; hideHint();
     const ho=document.getElementById('heroOv'); if(ho&&selected<0) ho.style.opacity=MODE.cur?'0':'1';
     if(selected<0) flyTo(modeView()); }
