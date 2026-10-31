@@ -220,6 +220,7 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 .themebtn .i-sun{display:none} html[data-theme="night"] .themebtn .i-sun{display:block} html[data-theme="night"] .themebtn .i-moon{display:none}
 #themeFade{position:fixed; inset:0; z-index:35; pointer-events:none; opacity:0; transition:opacity .28s; background:var(--bg)}
 #themeFade.on{opacity:1}
+.mode,.mk .cap,.chip,.themebtn,.langs button,.hint,.hero-ov,.hero-ov h1,.hero-ov p,#overviewBtn,.pclose,.scard,.ent,.cli,.pg a{transition:background-color .9s,color .9s,border-color .9s,text-shadow .9s,background .9s}
 @media (max-width:440px){ .brand b{display:none} .themebtn span{display:none} .themebtn{padding:.32rem .45rem} }
 .chips{flex-wrap:nowrap}
 @media (max-width:1320px){ .chips{gap:.5rem} .chip{font-size:.72rem; letter-spacing:.06em; padding:.35rem .2rem} .themebtn{font-size:.7rem} }
@@ -514,8 +515,7 @@ document.querySelectorAll('.panel-body').forEach(pb=>{ let s=0;
     const next=document.documentElement.dataset.theme==='night'?'day':'night';
     const go=()=>{ document.documentElement.dataset.theme=next; try{localStorage.setItem('wj_theme',next)}catch(e){}
       dispatchEvent(new CustomEvent('wj-theme',{detail:next})); paint(); };
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!fade){ go(); return; }
-    fade.classList.add('on'); setTimeout(()=>{ go(); requestAnimationFrame(()=>requestAnimationFrame(()=>fade.classList.remove('on'))); },290);
+    go();   // sem véu: a cena 3D faz a passagem dia↔noite gradualmente
   });
 })();
 
@@ -639,7 +639,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     sh.fragmentShader=sh.fragmentShader
       .replace('#include <common>','#include <common>\nuniform float uNight; uniform float uArch; varying float vGlow; varying float vSeed; varying float vTop; varying vec3 vWPos; varying vec3 vWN;')
       .replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
-        if(uNight>0.5){
+        if(uNight>0.001){
           float side=1.0-step(0.5,abs(vWN.y));
           float u=abs(vWN.x)>0.5?vWPos.z:vWPos.x;
           vec2 g=vec2(u/0.52,(vWPos.y-0.2)/0.66);
@@ -650,7 +650,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
           float lit=step(h,0.015+0.16*step(0.55,vSeed)*vSeed);
           vec3 warm=vec3(1.0,0.74,0.4)*1.7*lit*win*(1.0-vGlow);
           vec3 cool=(vec3(0.35,0.78,1.0)*2.1*win + vec3(0.02,0.12,0.75)*0.62*side + vec3(0.04,0.2,0.9)*0.25*(1.0-side))*vGlow;
-          totalEmissiveRadiance+=warm+cool;
+          totalEmissiveRadiance+=(warm+cool)*uNight;
         }`);
   };
   const bMesh=new THREE.InstancedMesh(boxGeo,bMat,N); bMesh.castShadow=true; bMesh.receiveShadow=true;
@@ -706,7 +706,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     return t<0.5?C(0xd9622b).lerp(C(0xeda36a),t*2):C(0xeda36a).lerp(C(0xf3e9da),(t-0.5)*2); });
   const urbCol=C(0xfbfaf7), mobCol=C(0x74767b), tintC=C(0), mixC=C(0);
   function tint(idx,c){ const aW=wA+wG, sw=aW+wU+wM; if(sw<1e-4||hotIdx[idx]) return c;
-    const nb=TH.night?1.6:1;   // de noite a luz azulada escurece as cores: compensa para o branco e o gabarito continuarem legíveis
+    const nb=1+0.6*uNight.value;   // de noite a luz azulada escurece as cores: compensa para o branco e o gabarito continuarem legíveis
     mixC.setRGB(0,0,0).add(tintC.copy(archCol[idx]).multiplyScalar(aW*nb)).add(tintC.copy(urbCol).multiplyScalar(wU*nb)).add(tintC.copy(mobCol).multiplyScalar(wM));
     return tintC.copy(c).multiplyScalar(Math.max(0,1-sw)).add(mixC); }
   let pulseT=0;
@@ -846,7 +846,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     // fundo: arquitetura clara (de dia); mobilidade cinza (de dia ou de noite)
     tmpC.set(TH.sky).lerp(archSky,dA).lerp(graySky,g*(n?0.8:1)).lerp(geoSky,wG); scene.fog.color.copy(tmpC);
     // com o pós-processamento (noite) a cor de limpeza era codificada duas vezes e o céu ficava mais claro que o chão: faixa no horizonte
-    renderer.setClearColor((TH.night&&composer)?tmpE.copy(tmpC).convertSRGBToLinear():tmpC,1);
+    renderer.setClearColor(useComposer()?tmpE.copy(tmpC).convertSRGBToLinear():tmpC,1);
     groundMat.color.set(TH.ground).lerp(archGround,dA).lerp(grayGround,g*(n?0.75:1)).lerp(geoSky,wG);
     // quadras: zona (urbanismo), brancas (arquitetura de dia), cinza (mobilidade)
     const eU=Math.min(1,wU+wG), yP=2*GEO_GAP*wG;
@@ -859,7 +859,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     geoGrp.visible=wG>0.004; geoLineMat.opacity=0.55*wG; geoFaintMat.opacity=0.12*wG; geoContMat.opacity=0.6*wG; geoGlassMat.opacity=0.045*wG; geoBaseMat.opacity=wG;
     geoLayers.forEach((L,i)=>L.position.y=i*GEO_GAP*wG+(i?0:0.03));
     const hideG=wG>0.08; stele.visible=!hideG; benches.forEach(b=>b.visible=!hideG); trunk.visible=crown.visible=!hideG;
-    pole.visible=bulb.visible=pool.visible=!!TH.night&&!hideG; spot.visible=!hideG; carBody.visible=!hideG; [heads,tails,beams,trails].forEach(m=>m.visible=!!TH.night&&!hideG);
+    const ln=uNight.value>0.01; pole.visible=bulb.visible=pool.visible=ln&&!hideG; spot.visible=!hideG; carBody.visible=!hideG; [heads,tails,beams,trails].forEach(m=>m.visible=!!TH.night&&!hideG);
     labelsEl.style.opacity=String(1-wG); labelsEl.style.pointerEvents=wG>0.5?'none':'';
     DISTRICTS.forEach(ds=>{ if(ds.stem){ ds.stem.visible=ds.node.visible=!hideG; } });
     // prédios: translúcidos na mobilidade (a cor por leitura é aplicada em tint())
@@ -867,9 +867,9 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     if(Math.abs(wM+wA*2+wG*4-prevM)>1e-4){ prevM=wM+wA*2+wG*4; placeRoads(wA,wM,wG,GEO_GAP*wG); }
     // árvores somem na arquitetura e na mobilidade; carros somem só na arquitetura (na mobilidade eles correm sobre as vias)
     const opT=1-0.9*Math.max(wA,wM,wG), opC=1-0.9*Math.max(wA,wG);
-    [trunkMat,crownMat].forEach(m=>fade(m,opT)); [carMat,headMat,tailMat].forEach(m=>fade(m,opC));
+    [trunkMat,crownMat].forEach(m=>fade(m,opT)); fade(carMat,opC); fade(headMat,opC*uNight.value); fade(tailMat,opC*uNight.value);
     carMat.color.set(TH.car).lerp(carMob,g);   // na mobilidade o fluxo fica claro sobre as vias laranja
-    beams.material.opacity=0.08*opC; trails.material.opacity=0.13*opC;
+    beams.material.opacity=0.08*opC*uNight.value; trails.material.opacity=0.13*opC*uNight.value;
     crown.castShadow=opT>0.5; carBody.castShadow=!!TH.night&&opC>0.5;
   }
   function modeView(){ const g={tgt:new THREE.Vector3(0,3,0),theta:cam.theta,phi:1.2,r:overviewR()};
@@ -926,24 +926,37 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     }catch(e){ console.warn('bloom indisponível',e); }
   }
 
-  // ---- aplicar tema ----
-  function applyTheme(name){
-    themeName=name; TH=T[name]; uNight.value=TH.night;
+  // ---- aplicar tema: mistura contínua dia↔noite (wN 0→1) ----
+  const NIGHT_BOOST=1.46;   // prédios noturnos mais claros (+22% e depois +20%)
+  let wN=themeName==='night'?1:0, tN=wN;
+  const lerpN=(x,y,t)=>x+(y-x)*t, cl=(x,y,t)=>C(x).lerp(C(y),t);
+  function blendTheme(t){ const a=T.day, b=T.night;
+    return { sky:cl(a.sky,b.sky,t), fog:[lerpN(a.fog[0],b.fog[0],t),lerpN(a.fog[1],b.fog[1],t)], tone:t>=0.999?b.tone:a.tone, exp:1,
+      hemi:[cl(a.hemi[0],b.hemi[0],t),cl(a.hemi[1],b.hemi[1],t),lerpN(a.hemi[2],b.hemi[2],t)],
+      sun:[cl(a.sun[0],b.sun[0],t),lerpN(a.sun[1],b.sun[1],t),a.sun[2].map((v,i)=>lerpN(v,b.sun[2][i],t))],
+      ground:cl(a.ground,b.ground,t), plateD:cl(a.plateD,b.plateD,t), plateN:cl(a.plateN,b.plateN,t), pavHover:cl(a.pavHover,b.pavHover,t), pavFocus:cl(a.pavFocus,b.pavFocus,t),
+      pal:a.pal.map((x,i)=>C(x).lerp(C(b.pal[i]).multiplyScalar(NIGHT_BOOST),t)), ghost:cl(a.ghost,b.ghost,t), ghostK:lerpN(a.ghostK,b.ghostK,t),
+      sel:a.sel.clone().lerp(b.sel,t), selHi:a.selHi.clone().lerp(b.selHi,t), hov:a.hov.clone().lerp(b.hov,t),
+      edge:[cl(a.edge[0],b.edge[0],t),lerpN(a.edge[1],b.edge[1],t)], plaza:cl(a.plaza,b.plaza,t), ring:cl(a.ring,b.ring,t), stone:cl(a.stone,b.stone,t), stone2:cl(a.stone2,b.stone2,t),
+      bench:cl(a.bench,b.bench,t), trunk:cl(a.trunk,b.trunk,t), crown:cl(a.crown,b.crown,t), mk:cl(a.mk,b.mk,t), mkSel:cl(a.mkSel,b.mkSel,t), mkHDR:t>0.5,
+      car:cl(a.car,b.car,t), medRing:cl(a.medRing,b.medRing,t), night:t>=0.5?1:0 }; }
+  const useComposer=()=>!!composer&&tN===1&&wN>=0.999;
+  function applyTheme(name){ themeName=name; tN=name==='night'?1:0; if(tN) ensureComposer(); }
+  function applyBlend(){
+    const e=wN*wN*(3-2*wN); TH=blendTheme(e); uNight.value=e;
     renderer.setClearColor(TH.sky,1); scene.fog.color.set(TH.sky); scene.fog.near=TH.fog[0]; scene.fog.far=TH.fog[1];
     if(renderer.toneMapping!==TH.tone){ renderer.toneMapping=TH.tone; scene.traverse(o=>{ if(o.material){ (Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.needsUpdate=true); } }); }
     renderer.toneMappingExposure=TH.exp;
     hemi.color.set(TH.hemi[0]); hemi.groundColor.set(TH.hemi[1]); hemi.intensity=TH.hemi[2];
     sun.color.set(TH.sun[0]); sun.intensity=TH.sun[1]; sun.position.set(...TH.sun[2]);
     groundMat.color.set(TH.ground);
-    buildings.forEach((b,idx)=>{ baseCol[idx].set(TH.pal[b.pi]); if(TH.night) baseCol[idx].multiplyScalar(1.22); });
+    buildings.forEach((b,idx)=>baseCol[idx].set(TH.pal[b.pi]));
     edgeMat.color.set(TH.edge[0]); edgeMat.opacity=TH.edge[1];
     plazaMat.color.set(TH.plaza); ringM.color.set(TH.ring); stone.color.set(TH.stone); stone2.color.set(TH.stone2); benchMat.color.set(TH.bench);
     trunkMat.color.set(TH.trunk); crownMat.color.set(TH.crown); carMat.color.set(TH.car); ringMat.color.set(TH.medRing);
-    poleMat.color.set(0x2a3040); pole.visible=!!TH.night; carBody.castShadow=!!TH.night;
-    [bulb,pool,heads,tails,beams,trails].forEach(m=>m.visible=!!TH.night);
-    spot.intensity=TH.night?14:0;
-    if(TH.night) ensureComposer();
-    retarget(); paintMarkers();
+    poleMat.color.set(0x2a3040); carBody.castShadow=!!TH.night;
+    fade(bulbMat,e); pool.material.opacity=0.035*e; spot.intensity=14*e;
+    retarget(); paintMarkers(); modesDirty=true;
   }
 
   // ---- câmera ----
@@ -1037,13 +1050,14 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   canvas.addEventListener('webglcontextlost',e=>{ e.preventDefault(); running=false; });
   canvas.addEventListener('webglcontextrestored',()=>location.reload());
   let last=performance.now(), trafT=0;
-  const draw=()=>{ if(TH.night&&composer) composer.render(); else renderer.render(scene,camera); };
+  const draw=()=>{ if(useComposer()) composer.render(); else renderer.render(scene,camera); };
   function loop(){ if(!running){ looping=false; return; } looping=true;
     const now=performance.now(), dt=Math.min((now-last)/1000,0.05); last=now;
     if(tween) tween(now); else { idle+=dt; if(!dragging&&selected<0&&idle>1.0) cam.theta+=dt*(reduce?0.06:0.09); }   // giro automático na visão geral (mais lento se o sistema pede menos movimento)
+    if(wN!==tN){ wN=tN>wN?Math.min(tN,wN+dt/1.6):Math.max(tN,wN-dt/1.6); applyBlend(); }
     trafT+=dt; stepModes(dt); stepTraffic(trafT); stepFocus(dt); stepVO(dt);
     place(); projectLabels(); draw(); requestAnimationFrame(loop); }
-  applyTheme(themeName);
+  applyTheme(themeName); applyBlend();
   for(let i=0;i<N;i++){ bCur[i].copy(bTgt[i]); bMesh.setColorAt(i,bCur[i]); } bMesh.instanceColor.needsUpdate=true;
   stepTraffic(0); place(); applyVO(); projectLabels(); draw();
   loader.classList.add('gone'); setTimeout(()=>loader.remove(),600);
