@@ -220,7 +220,7 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 .themebtn .i-sun{display:none} html[data-theme="night"] .themebtn .i-sun{display:block} html[data-theme="night"] .themebtn .i-moon{display:none}
 #themeFade{position:fixed; inset:0; z-index:35; pointer-events:none; opacity:0; transition:opacity .28s; background:var(--bg)}
 #themeFade.on{opacity:1}
-.mode,.mk .cap,.chip,.themebtn,.langs button,.hint,.hero-ov,.hero-ov h1,.hero-ov p,#overviewBtn,.pclose,.scard,.ent,.cli,.pg a{transition:background-color .9s,color .9s,border-color .9s,text-shadow .9s,background .9s}
+.mode,.mk .cap,.chip,.themebtn,.langs button,.hint,#overviewBtn,.pclose,.scard,.ent,.cli,.pg a{transition:background-color .9s,color .9s,border-color .9s,text-shadow .9s,background .9s}
 @media (max-width:440px){ .brand b{display:none} .themebtn span{display:none} .themebtn{padding:.32rem .45rem} }
 .chips{flex-wrap:nowrap}
 @media (max-width:1320px){ .chips{gap:.5rem} .chip{font-size:.72rem; letter-spacing:.06em; padding:.35rem .2rem} .themebtn{font-size:.7rem} }
@@ -260,6 +260,22 @@ html.m-dark:not([data-theme="night"]).cityon .panel-head h2, html.m-dark:not([da
   .legend{flex-basis:100%; grid-template-columns:auto 1fr auto 1fr; font-size:.68rem}
   .hint{top:calc(112px + env(safe-area-inset-top,0px))}
 }
+/* ===== fundos do título e do topo: camada clara + camada escura, dosadas por --n (0 dia → 1 noite).
+   --n é escrito pelo 3D a cada quadro da passagem, então a interface acompanha a cena no mesmo ritmo, mesmo em máquina lenta ===== */
+html{--n:0} html[data-theme="night"]{--n:1}
+.hero-ov,.topbar{background:none!important}
+.hero-ov::before,.hero-ov::after,.topbar::before,.topbar::after{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none}
+.hero-ov::before,.hero-ov::after{border-radius:4px}
+.hero-ov::before{background:radial-gradient(ellipse closest-side at center, rgba(244,242,235,.9) 0%, rgba(244,242,235,.78) 60%, rgba(244,242,235,0) 100%); opacity:calc(1 - var(--n))}
+.hero-ov::after{background:radial-gradient(ellipse closest-side at center, rgba(5,11,28,.82) 0%, rgba(5,11,28,.65) 60%, rgba(5,11,28,0) 100%); opacity:var(--n)}
+.topbar::before{background:linear-gradient(180deg, rgba(238,241,239,.92), rgba(238,241,239,0)); opacity:calc(1 - var(--n))}
+.topbar::after{background:linear-gradient(180deg, rgba(5,7,11,.92) 0%, rgba(5,7,11,.55) 60%, rgba(5,7,11,0) 100%); opacity:var(--n)}
+html.m-dark .topbar::before{opacity:0} html.m-dark .topbar::after{opacity:1}
+html:root .hero-ov h1{color:color-mix(in srgb, #f2f6ff calc(var(--n)*100%), #072b3c)!important;
+  text-shadow:0 1px 14px color-mix(in srgb, rgba(5,11,28,.9) calc(var(--n)*100%), rgba(238,241,239,.96)), 0 1px 3px color-mix(in srgb, rgba(5,11,28,.6) calc(var(--n)*100%), rgba(238,241,239,.92))!important}
+html:root .hero-ov p{color:color-mix(in srgb, #c4d3f2 calc(var(--n)*100%), #26353a)!important;
+  text-shadow:0 1px 10px color-mix(in srgb, rgba(5,11,28,.9) calc(var(--n)*100%), rgba(238,241,239,.96))!important}
+html:not(.cityon) .topbar::before, html:not(.cityon) .topbar::after{display:none}
 </style>
 </head>
 <body>
@@ -943,7 +959,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   const useComposer=()=>!!composer&&tN===1&&wN>=0.999;
   function applyTheme(name){ themeName=name; tN=name==='night'?1:0; if(tN) ensureComposer(); }
   function applyBlend(){
-    const e=wN*wN*(3-2*wN); TH=blendTheme(e); uNight.value=e;
+    const e=wN*wN*(3-2*wN); TH=blendTheme(e); uNight.value=e; { const q=Math.min(1,Math.max(0,(e-0.4)/0.2)); document.documentElement.style.setProperty('--n',(q*q*(3-2*q)).toFixed(3)); }   // título/topo viram no miolo da passagem: texto e fundo trocam juntos, sem ficar cinza sobre cinza
     renderer.setClearColor(TH.sky,1); scene.fog.color.set(TH.sky); scene.fog.near=TH.fog[0]; scene.fog.far=TH.fog[1];
     if(renderer.toneMapping!==TH.tone){ renderer.toneMapping=TH.tone; scene.traverse(o=>{ if(o.material){ (Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.needsUpdate=true); } }); }
     renderer.toneMappingExposure=TH.exp;
