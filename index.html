@@ -180,7 +180,6 @@ html[data-theme="night"] .topbar{background:linear-gradient(180deg, rgba(5,7,11,
 html[data-theme="night"] .mk .cap{background:transparent!important; color:#e3e9f6!important; border-color:transparent!important; font-size:.92rem!important; text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 12px rgba(5,10,22,.9)}
 html[data-theme="night"] .mk:hover .cap,html[data-theme="night"] .mk:focus-visible .cap,html[data-theme="night"] .mk.hot .cap,html[data-theme="night"] .mk.sel .cap{background:rgba(32,42,62,.88)!important; color:#fff!important; border-color:rgba(160,180,215,.45)!important; text-shadow:none}
 html[data-theme="night"] .hint{background:rgba(8,18,44,.8)!important; color:#cfe0ff!important}
-html[data-theme="night"] .hero-ov{background:radial-gradient(ellipse closest-side at center, rgba(5,11,28,.82) 0%, rgba(5,11,28,.65) 60%, rgba(5,11,28,0) 100%)!important}
 html[data-theme="night"] .hero-ov h1{color:#f2f6ff!important; text-shadow:0 1px 14px rgba(5,11,28,.9)!important}
 html[data-theme="night"] .hero-ov p{color:#c4d3f2!important; text-shadow:0 1px 10px rgba(5,11,28,.9)!important}
 html[data-theme="night"] #overviewBtn,html[data-theme="night"] .pclose,html[data-theme="night"] .socials a,html[data-theme="night"] .mailrow{background:rgba(8,18,44,.85)!important; color:#eaf1ff!important; border-color:var(--line)!important}
@@ -247,7 +246,6 @@ html:not(.cityon) .modes{display:none!important}
 html.m-dark:not([data-theme="night"]) .topbar{background:linear-gradient(180deg, rgba(8,11,18,.9), rgba(8,11,18,0))}
 html.m-dark:not([data-theme="night"]) .brand img{filter:brightness(0) invert(1)}
 html.m-dark:not([data-theme="night"]) .chip, html.m-dark:not([data-theme="night"]) .themebtn, html.m-dark:not([data-theme="night"]) .langs button{color:#e6eeff}
-html.m-dark:not([data-theme="night"]) .hero-ov{background:radial-gradient(ellipse closest-side at center, rgba(5,8,14,.8) 0%, rgba(5,8,14,.6) 60%, rgba(5,8,14,0) 100%)}
 html.m-dark:not([data-theme="night"]) .hero-ov h1{color:#f2f6ff; text-shadow:0 1px 14px rgba(5,8,14,.9)}
 html.m-dark:not([data-theme="night"]) .hero-ov p{color:#c9d4ea; text-shadow:0 1px 10px rgba(5,8,14,.9)}
 html.m-dark:not([data-theme="night"]) .hint{background:rgba(8,12,22,.8)!important; color:#d6e2ff}
@@ -263,7 +261,7 @@ html.m-dark:not([data-theme="night"]).cityon .panel-head h2, html.m-dark:not([da
 /* ===== fundos do título e do topo: camada clara + camada escura, dosadas por --n (0 dia → 1 noite).
    --n é escrito pelo 3D a cada quadro da passagem, então a interface acompanha a cena no mesmo ritmo, mesmo em máquina lenta ===== */
 html{--n:0} html[data-theme="night"]{--n:1}
-.hero-ov,.topbar{background:none!important}
+html:root .hero-ov,html:root .topbar{background:none!important}
 .hero-ov::before,.hero-ov::after,.topbar::before,.topbar::after{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none}
 .hero-ov::before,.hero-ov::after{border-radius:4px}
 .hero-ov::before{background:radial-gradient(ellipse closest-side at center, rgba(244,242,235,.9) 0%, rgba(244,242,235,.78) 60%, rgba(244,242,235,0) 100%); opacity:calc(1 - var(--n))}
@@ -276,10 +274,10 @@ html:root .hero-ov h1{color:color-mix(in srgb, #f2f6ff calc(var(--n)*100%), #072
 html:root .hero-ov p{color:color-mix(in srgb, #c4d3f2 calc(var(--n)*100%), #26353a)!important;
   text-shadow:0 1px 10px color-mix(in srgb, rgba(5,11,28,.9) calc(var(--n)*100%), transparent), 0 1px 10px color-mix(in srgb, rgba(238,241,239,.96) calc((1 - var(--n))*100%), transparent)!important}
 html:not(.cityon) .topbar::before, html:not(.cityon) .topbar::after{display:none}
-/* noite sem degradê escuro: some a sombra escura do título e o degradê escuro do topo (o céu já é escuro) */
-html:root .hero-ov h1{text-shadow:0 1px 14px color-mix(in srgb, rgba(238,241,239,.96) calc((1 - var(--n))*100%), transparent), 0 1px 3px color-mix(in srgb, rgba(238,241,239,.92) calc((1 - var(--n))*100%), transparent)!important}
-html:root .hero-ov p{text-shadow:0 1px 10px color-mix(in srgb, rgba(238,241,239,.96) calc((1 - var(--n))*100%), transparent)!important}
-html:root .topbar::after{display:none}
+/* noite sem halo escuro no título; o halo claro do dia some logo no início da passagem (var --h) */
+html{--h:1} html[data-theme="night"]{--h:0}
+html:root .hero-ov h1{text-shadow:0 1px 14px color-mix(in srgb, rgba(238,241,239,.96) calc(var(--h)*100%), transparent), 0 1px 3px color-mix(in srgb, rgba(238,241,239,.92) calc(var(--h)*100%), transparent)!important}
+html:root .hero-ov p{text-shadow:0 1px 10px color-mix(in srgb, rgba(238,241,239,.96) calc(var(--h)*100%), transparent)!important}
 /* título sem fundo: só o texto muda de cor (o halo do text-shadow garante a leitura sobre a cidade) */
 .hero-ov::before,.hero-ov::after{display:none!important}
 </style>
@@ -965,7 +963,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   const useComposer=()=>!!composer&&tN===1&&wN>=0.999;
   function applyTheme(name){ themeName=name; tN=name==='night'?1:0; if(tN) ensureComposer(); }
   function applyBlend(){
-    const e=wN*wN*(3-2*wN); TH=blendTheme(e); uNight.value=e; { const q=Math.min(1,Math.max(0,(e-0.4)/0.2)); document.documentElement.style.setProperty('--n',(q*q*(3-2*q)).toFixed(3)); }   // título/topo viram no miolo da passagem: texto e fundo trocam juntos, sem ficar cinza sobre cinza
+    const e=wN*wN*(3-2*wN); TH=blendTheme(e); uNight.value=e; { const q=Math.min(1,Math.max(0,(e-0.4)/0.2)); document.documentElement.style.setProperty('--n',(q*q*(3-2*q)).toFixed(3)); const hh=Math.max(0,1-e/0.12); document.documentElement.style.setProperty('--h',(hh*hh).toFixed(3)); }   // título/topo viram no miolo da passagem: texto e fundo trocam juntos, sem ficar cinza sobre cinza
     renderer.setClearColor(TH.sky,1); scene.fog.color.set(TH.sky); scene.fog.near=TH.fog[0]; scene.fog.far=TH.fog[1];
     if(renderer.toneMapping!==TH.tone){ renderer.toneMapping=TH.tone; scene.traverse(o=>{ if(o.material){ (Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.needsUpdate=true); } }); }
     renderer.toneMappingExposure=TH.exp;
