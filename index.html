@@ -205,11 +205,13 @@ html[data-theme="night"].cityon .ent, html[data-theme="night"].cityon .scard, ht
 html.cityon .panel-body::-webkit-scrollbar{width:6px} html.cityon .panel-body::-webkit-scrollbar-thumb{background:rgba(120,130,150,.45); border-radius:3px}
 html.cityon .panel-body{scrollbar-width:thin}
 /* entrada escalonada */
-html.cityon #panel.open .panel-sec.active .panel-head{animation:riseIn .5s cubic-bezier(.2,.8,.2,1) both}
-html.cityon #panel.open .panel-sec.active .panel-body > *:not(.clis):not(.ents):not(.pg):not(.scards){animation:riseIn .55s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(.08s + var(--i,0) * .09s)}
-html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.socials) > *{animation:riseIn .55s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(.18s + var(--i,0) * .09s)}
-@keyframes riseIn{from{opacity:0; transform:translateY(34px)} to{opacity:1; transform:none}}
-@media (prefers-reduced-motion: reduce){ html.cityon #panel.open, html.cityon #panel.open *{animation-duration:.01s!important; animation-delay:0s!important} }
+/* Cada elemento entra sozinho, em sequência (--s = ordem global no painel, definida via JS).
+   Mantido mesmo com "reduzir movimento" do sistema, a pedido do autor: é a assinatura da navegação. */
+html.cityon #panel.open .panel-sec.active .panel-head{animation:riseIn .6s cubic-bezier(.2,.8,.2,1) both}
+html.cityon #panel.open .panel-sec.active .panel-body > *:not(.clis):not(.ents):not(.pg):not(.scards):not(.tools):not(.socials),
+html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.socials) > *{
+  animation:riseIn .62s cubic-bezier(.2,.8,.2,1) both; animation-delay:calc(.22s + var(--s,0) * .16s)}
+@keyframes riseIn{from{opacity:0; transform:translateY(46px)} to{opacity:1; transform:none}}
 /* botão dia/noite */
 .themebtn{display:inline-flex; align-items:center; gap:.4rem; font-family:"IBM Plex Mono",monospace; font-size:.76rem; letter-spacing:.06em; text-transform:uppercase;
   color:var(--ink); background:transparent; border:1px solid var(--line); border-radius:2px; padding:.32rem .6rem; cursor:pointer; transition:.2s}
@@ -222,6 +224,41 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 .chips{flex-wrap:nowrap}
 @media (max-width:1320px){ .chips{gap:.5rem} .chip{font-size:.72rem; letter-spacing:.06em; padding:.35rem .2rem} .themebtn{font-size:.7rem} }
 @media (max-width:1120px){ .brand b{display:none} }
+/* ===== LEITURAS DA CIDADE (arquitetura / urbanismo / mobilidade) ===== */
+.modes{position:fixed; left:max(18px,env(safe-area-inset-left,0px)); top:50%; transform:translateY(-50%); z-index:13; display:flex; flex-direction:column; gap:.4rem; align-items:flex-start; max-width:240px}
+.modes-lbl{white-space:nowrap; font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 .15rem .1rem}
+.mode{display:inline-flex; align-items:center; gap:.55rem; font-family:"IBM Plex Mono",monospace; font-size:.74rem; letter-spacing:.08em; text-transform:uppercase; color:var(--navy);
+  background:rgba(250,248,243,.9); border:1px solid rgba(11,58,82,.22); border-radius:2px; padding:.5rem .75rem .5rem .6rem; cursor:pointer; transition:background .25s,color .25s,border-color .25s,transform .25s}
+.mode svg{width:18px; height:18px; flex:0 0 auto}
+.mode:hover{border-color:var(--accent); color:var(--accent); transform:translateX(3px)}
+.mode[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+.legend{display:grid; grid-template-columns:auto 1fr; gap:.32rem .55rem; align-items:center; margin-top:.35rem; padding:.7rem .8rem; background:rgba(250,248,243,.92); border:1px solid rgba(11,58,82,.18); border-radius:2px;
+  font-size:.76rem; color:var(--ink); animation:riseIn .45s cubic-bezier(.2,.8,.2,1) both}
+.legend .lt{grid-column:1/-1; font-family:"IBM Plex Mono",monospace; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:.1rem}
+.legend i{width:14px; height:14px; background:var(--c); border-radius:2px; display:block}
+.legend i.ln{width:22px; height:var(--w); border-radius:2px}
+html[data-theme="night"] .mode, html.m-arch .mode{background:rgba(10,16,32,.82); color:#e6eeff; border-color:rgba(150,185,255,.28)}
+html[data-theme="night"] .mode[aria-pressed="true"], html.m-arch .mode[aria-pressed="true"]{background:#2a5cf0; border-color:#7aa8ff; color:#fff}
+html[data-theme="night"] .legend{background:rgba(10,16,32,.85); color:#e6eeff; border-color:rgba(150,185,255,.25)}
+html[data-theme="night"] .modes-lbl, html.m-arch .modes-lbl{color:#a8b8da}
+html:not(.cityon) .modes{display:none!important}
+/* arquitetura de dia: cena escurece, então o topo e o título passam para claro */
+html.m-arch:not([data-theme="night"]) .topbar{background:linear-gradient(180deg, rgba(8,11,18,.9), rgba(8,11,18,0))}
+html.m-arch:not([data-theme="night"]) .brand img{filter:brightness(0) invert(1)}
+html.m-arch:not([data-theme="night"]) .chip, html.m-arch:not([data-theme="night"]) .themebtn, html.m-arch:not([data-theme="night"]) .langs button{color:#e6eeff}
+html.m-arch:not([data-theme="night"]) .hero-ov{background:radial-gradient(ellipse closest-side at center, rgba(5,8,14,.8) 0%, rgba(5,8,14,.6) 60%, rgba(5,8,14,0) 100%)}
+html.m-arch:not([data-theme="night"]) .hero-ov h1{color:#f2f6ff; text-shadow:0 1px 14px rgba(5,8,14,.9)}
+html.m-arch:not([data-theme="night"]) .hero-ov p{color:#c9d4ea; text-shadow:0 1px 10px rgba(5,8,14,.9)}
+html.m-arch:not([data-theme="night"]) .hint{background:rgba(8,12,22,.8)!important; color:#d6e2ff}
+html.m-arch:not([data-theme="night"]).cityon .panel-head h2, html.m-arch:not([data-theme="night"]).cityon .panel-head .num, html.m-arch:not([data-theme="night"]).cityon .panel-body > p, html.m-arch:not([data-theme="night"]).cityon .panel-body .lead{color:#eef3ff; text-shadow:0 0 14px rgba(8,12,22,.98), 0 0 4px rgba(8,12,22,.95)}
+#overviewBtn{bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+@media (max-width:820px){
+  .modes{top:calc(64px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); flex-direction:row; flex-wrap:wrap; justify-content:center; max-width:94vw; gap:.3rem}
+  .modes-lbl{display:none}
+  .mode{font-size:.64rem; padding:.4rem .5rem; gap:.35rem} .mode svg{width:15px; height:15px}
+  .legend{flex-basis:100%; grid-template-columns:auto 1fr auto 1fr; font-size:.68rem}
+  .hint{top:calc(112px + env(safe-area-inset-top,0px))}
+}
 </style>
 </head>
 <body>
@@ -258,6 +295,28 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 </div>
 <div class="hint" id="hint" data-i18n="hint">Arraste para girar a cidade · toque num marcador</div>
 <button class="btn btn-ghost" id="overviewBtn" data-i18n="overview">◂ Visão geral</button>
+
+<div class="modes" id="modes" role="group" aria-label="Leituras da cidade">
+  <div class="modes-lbl" data-i18n="mode_lbl">Leituras da cidade</div>
+  <button type="button" class="mode" data-mode="arch" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V8l5-3v16M9 21V3l7 4v14M16 21v-9l4 2v7M2 21h20"/><path d="M11.5 8h2M11.5 11h2M11.5 14h2M11.5 17h2"/></svg><span data-i18n="mode_arch">Arquitetura</span></button>
+  <button type="button" class="mode" data-mode="urb" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="5"/><rect x="13" y="10" width="8" height="11"/><rect x="3" y="13" width="8" height="8"/></svg><span data-i18n="mode_urb">Urbanismo</span></button>
+  <button type="button" class="mode" data-mode="mob" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 17h18M8 3v18M16 3v18"/></svg><span data-i18n="mode_mob">Mobilidade</span></button>
+  <div class="legend" id="legUrb" hidden>
+    <div class="lt" data-i18n="leg_urb">Zoneamento (ilustrativo)</div>
+    <i style="--c:#f2c84b"></i><span data-i18n="z_res">Residencial</span>
+    <i style="--c:#f08a3c"></i><span data-i18n="z_mix">Uso misto</span>
+    <i style="--c:#e0484e"></i><span data-i18n="z_com">Comércio e serviços</span>
+    <i style="--c:#4a7fd6"></i><span data-i18n="z_inst">Institucional</span>
+    <i style="--c:#5cae5f"></i><span data-i18n="z_green">Áreas verdes</span>
+    <i style="--c:#8e6cc4"></i><span data-i18n="z_ind">Logística</span>
+  </div>
+  <div class="legend" id="legMob" hidden>
+    <div class="lt" data-i18n="leg_mob">Hierarquia viária (ilustrativa)</div>
+    <i class="ln" style="--c:#e63946;--w:7px"></i><span data-i18n="v_exp">Via expressa / anel</span>
+    <i class="ln" style="--c:#f4a024;--w:5px"></i><span data-i18n="v_art">Arterial</span>
+    <i class="ln" style="--c:#2f7fd8;--w:3px"></i><span data-i18n="v_col">Coletora</span>
+  </div>
+</div>
 
 <div id="panel" role="dialog" aria-label="Conteúdo do distrito">
   <div class="fallback-note" data-i18n="fallback">Versão completa com cidade 3D interativa: abra em um navegador com WebGL.</div>
@@ -368,7 +427,7 @@ const I18N={
   port_h2:"Portfólio",port_lead:"Alguns projetos desenvolvidos em mobilidade, simulação e geointeligência.",port_pdf:"Baixar portfólio (PDF)",
   cli_h2:"Clientes",cli_lead:"Projetos entregues para grandes marcas e instituições.",
   ent_h2:"Entrevistas e mídia",ent_watch:"Assistir",
-  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado"},
+  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Leituras da cidade",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Mobilidade",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
  en:{_t:"Wagner Jales City",_l:"en",nav_sobre:"About",nav_serv:"Services",nav_port:"Portfolio",nav_cli:"Clients",nav_ent:"Media",nav_cont:"Contact",theme_night:"Night",theme_day:"Day",
   hint:"Drag to rotate the city · tap a marker",overview:"◂ Overview",fallback:"Full interactive 3D city: open in a WebGL-capable browser.",
   nav_art:"Articles",nav_blog:"Blog",read:"Read",
@@ -380,7 +439,7 @@ const I18N={
   port_h2:"Portfolio",port_lead:"Selected projects in mobility, simulation and geo-intelligence.",port_pdf:"Download portfolio (PDF)",
   cli_h2:"Clients",cli_lead:"Projects delivered for major brands and institutions.",
   ent_h2:"Interviews & media",ent_watch:"Watch",
-  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied"},
+  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",mode_lbl:"City readings",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Mobility",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
  es:{_t:"Ciudad Wagner Jales",_l:"es",nav_sobre:"Perfil",nav_serv:"Servicios",nav_port:"Portafolio",nav_cli:"Clientes",nav_ent:"Medios",nav_cont:"Contacto",theme_night:"Noche",theme_day:"Día",
   hint:"Arrastra para girar la ciudad · toca un marcador",overview:"◂ Vista general",fallback:"Ciudad 3D interactiva completa: ábrela en un navegador con WebGL.",
   nav_art:"Artículos",nav_blog:"Blog",read:"Leer",
@@ -392,7 +451,7 @@ const I18N={
   port_h2:"Portafolio",port_lead:"Algunos proyectos en movilidad, simulación y geointeligencia.",port_pdf:"Descargar portafolio (PDF)",
   cli_h2:"Clientes",cli_lead:"Proyectos entregados para grandes marcas e instituciones.",
   ent_h2:"Entrevistas y medios",ent_watch:"Ver",
-  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado"}
+  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Lecturas de la ciudad",mode_arch:"Arquitectura",mode_urb:"Urbanismo",mode_mob:"Movilidad",leg_urb:"Zonificación (ilustrativa)",leg_mob:"Jerarquía vial (ilustrativa)",z_res:"Residencial",z_mix:"Uso mixto",z_com:"Comercio y servicios",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Vía expresa / anillo",v_art:"Arterial",v_col:"Colectora"}
 };
 const PORT=[
  ["Port_01.jpg","Rotatória do Calhau","Vídeo","https://www.youtube.com/watch?v=_WJEr3M_O8s"],
@@ -453,8 +512,11 @@ document.querySelectorAll('.langs button').forEach(b=>b.addEventListener('click'
 (function(){let l='pt'; try{l=localStorage.getItem('wj_lang')||'pt';}catch(e){} if(!I18N[l])l='pt'; if(l!=='pt')applyLang(l);})();
 
 // índice de cada item para a entrada escalonada do painel
-document.querySelectorAll('.panel-body').forEach(pb=>{ [...pb.children].forEach((c,i)=>c.style.setProperty('--i',i));
-  pb.querySelectorAll('.ents,.clis,.pg,.scards,.tools,.socials').forEach(g=>[...g.children].forEach((c,i)=>c.style.setProperty('--i',Math.min(i,12)))); });
+// ordem global (--s): parágrafo, depois cada card/logo/link um a um, depois o botão final
+const GROUPS='.ents,.clis,.pg,.scards,.tools,.socials';
+document.querySelectorAll('.panel-body').forEach(pb=>{ let s=0;
+  const walk=el=>[...el.children].forEach(c=>{ if(c.matches(GROUPS)) walk(c); else c.style.setProperty('--s',Math.min(s++,14)); });
+  walk(pb); });
 // ---- dia/noite ----
 (function(){
   const btn=document.getElementById('themeBtn'), lbl=document.getElementById('themeLbl'), fade=document.getElementById('themeFade');
@@ -526,7 +588,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   const hemi=new THREE.HemisphereLight(0xffffff,0xffffff,1); scene.add(hemi);
   const sun=new THREE.DirectionalLight(0xffffff,1); sun.castShadow=true;
   sun.shadow.mapSize.set(isMobile?1024:1536, isMobile?1024:1536);
-  const sc=sun.shadow.camera; sc.left=-78;sc.right=78;sc.top=78;sc.bottom=-78;sc.near=1;sc.far=230; sun.shadow.bias=-0.0004; scene.add(sun);
+  const sc=sun.shadow.camera; sc.left=-78;sc.right=78;sc.top=78;sc.bottom=-78;sc.near=1;sc.far=230; sun.shadow.bias=-0.0004; sun.shadow.normalBias=0.035; scene.add(sun);
 
   let seed=20260117; const rnd=()=>{seed=(seed*1664525+1013904223)>>>0; return seed/4294967296;};
   const city=new THREE.Group(); scene.add(city);
@@ -546,7 +608,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   for(let i=0;i<COLS;i++) for(let j=0;j<ROWS;j++){
     const c=cell(i,j); const d=districtAt(i,j);
     const plate=new THREE.Mesh(new THREE.PlaneGeometry(BLOCK,BLOCK),M(0xffffff));
-    plate.rotation.x=-Math.PI/2; plate.position.set(c.x,0.04,c.z); plate.receiveShadow=true; city.add(plate); plates.push({m:plate,d:!!d});
+    plate.rotation.x=-Math.PI/2; plate.position.set(c.x,0.04,c.z); plate.receiveShadow=true; city.add(plate); plates.push({m:plate,d:!!d,i,j,baseC:C(0xffffff)});
     if(d){ d.pav=plate; d.center=c; }
     const off=BLOCK/2-0.8;
     [[-off,-off],[off,-off],[-off,off],[off,off]].forEach(o=>{ if(rnd()<0.42) treePos.push([c.x+o[0],c.z+o[1]]); });
@@ -571,10 +633,10 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   boxGeo.setAttribute('aGlow',aGlow);
   boxGeo.setAttribute('aSeed',new THREE.InstancedBufferAttribute(new Float32Array(buildings.map(b=>b.s)),1));
   boxGeo.setAttribute('aTop',new THREE.InstancedBufferAttribute(new Float32Array(buildings.map(b=>b.h)),1));
-  const uNight={value:TH.night};
+  const uNight={value:TH.night}, uArch={value:0};
   const bMat=new THREE.MeshStandardMaterial({roughness:0.9,metalness:0.0});
   bMat.onBeforeCompile=(sh)=>{
-    sh.uniforms.uNight=uNight;
+    sh.uniforms.uNight=uNight; sh.uniforms.uArch=uArch;
     sh.vertexShader=sh.vertexShader
       .replace('#include <common>','#include <common>\nattribute float aGlow; attribute float aSeed; attribute float aTop;\nvarying float vGlow; varying float vSeed; varying float vTop; varying vec3 vWPos; varying vec3 vWN;')
       .replace('#include <project_vertex>',`#include <project_vertex>
@@ -589,7 +651,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
         #endif
         vWN=normalize(mat3(modelMatrix)*wn); vGlow=aGlow; vSeed=aSeed; vTop=aTop;`);
     sh.fragmentShader=sh.fragmentShader
-      .replace('#include <common>','#include <common>\nuniform float uNight; varying float vGlow; varying float vSeed; varying float vTop; varying vec3 vWPos; varying vec3 vWN;')
+      .replace('#include <common>','#include <common>\nuniform float uNight; uniform float uArch; varying float vGlow; varying float vSeed; varying float vTop; varying vec3 vWPos; varying vec3 vWN;')
       .replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
         if(uNight>0.5){
           float side=1.0-step(0.5,abs(vWN.y));
@@ -603,6 +665,27 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
           vec3 warm=vec3(1.0,0.74,0.4)*1.7*lit*win*(1.0-vGlow);
           vec3 cool=(vec3(0.35,0.78,1.0)*2.1*win + vec3(0.02,0.12,0.75)*0.62*side + vec3(0.04,0.2,0.9)*0.25*(1.0-side))*vGlow;
           totalEmissiveRadiance+=warm+cool;
+        }
+        if(uArch>0.001){   // leitura "Arquitetura": lajes, montantes, vidro e térreo recuado
+          float sideA=1.0-step(0.5,abs(vWN.y));
+          float uA=abs(vWN.x)>0.5?vWPos.z:vWPos.x;
+          vec2 gA=vec2(uA/0.52,(vWPos.y-0.2)/0.66); vec2 fA=fract(gA); vec2 cA=floor(gA);
+          float above=step(0.95,vWPos.y)*step(vWPos.y,vTop-0.22);
+          float glass=step(0.09,fA.x)*step(fA.x,0.91)*step(0.2,fA.y)*step(fA.y,0.93)*sideA*above;
+          float slab=(1.0-step(0.13,fA.y))*sideA*above;
+          float podium=sideA*(1.0-step(0.95,vWPos.y))*step(0.12,vWPos.y);
+          float parapet=sideA*step(vTop-0.22,vWPos.y);
+          float roof=step(0.5,vWN.y);
+          vec3 sky=mix(vec3(0.07,0.09,0.12),vec3(0.30,0.37,0.46),fA.y);
+          vec3 det=diffuseColor.rgb;
+          det=mix(det,det*0.62,sideA*above);                  // montantes um tom abaixo
+          det=mix(det,sky,glass);                             // pano de vidro com reflexo
+          det=mix(det,min(diffuseColor.rgb*1.12,vec3(1.0)),slab+parapet); // lajes e platibanda claras
+          det=mix(det,vec3(0.10,0.11,0.13),podium*0.85);      // térreo recuado, sombra
+          det=mix(det,diffuseColor.rgb*0.78,roof*(1.0-step(0.985,abs(fract(vWPos.x*1.7)-0.5)*2.0)));
+          diffuseColor.rgb=mix(diffuseColor.rgb,det,uArch);
+          float hA=fract(sin(dot(cA+vec2(vSeed*57.3,floor(vWN.x*2.0+vWN.z*3.0)*7.7),vec2(12.9898,78.233)))*43758.5453);
+          totalEmissiveRadiance+=vec3(1.0,0.76,0.46)*0.85*step(hA,0.16)*glass*uArch*(1.0-vGlow);
         }`);
   };
   const bMesh=new THREE.InstancedMesh(boxGeo,bMat,N); bMesh.castShadow=true; bMesh.receiveShadow=true;
@@ -617,6 +700,22 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   const edgeMat=new THREE.LineBasicMaterial({transparent:true}); /* contornos dos blocos removidos a pedido: LineSegments não é mais adicionado à cena */
   DISTRICTS.forEach(d=>{ if(d.plaza){ d.maxH=4.4; return; } let m=0; buildings.forEach(b=>{ if(b.blk===d.key) m=Math.max(m,b.h); }); d.maxH=m||5; });
 
+  // ---- sistema viário (aparece e se eleva na leitura "Mobilidade") ----
+  const sP=[-2.5,-1.5,-0.5,0.5,1.5,2.5].map(k=>k*PITCH);
+  const LF=44;
+  const ROADLV=[ {col:0xe63946, w:3.0, elev:2.5}, {col:0xf4a024, w:2.5, elev:1.6}, {col:0x2f7fd8, w:1.9, elev:0.85} ];  // expressa, arterial, coletora
+  const roadLevel=p=>{ const a=Math.round(Math.abs(p)/PITCH*2)/2; return a>=2.5?0:(a<=0.5?1:2); };
+  const ROAD_T=0.32;
+  const roads=ROADLV.map((L,lv)=>{ const segs=sP.filter(p=>roadLevel(p)===lv);
+    const mat=new THREE.MeshStandardMaterial({color:L.col,emissive:L.col,emissiveIntensity:0.25,roughness:0.7,transparent:true,opacity:0});
+    const m=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),mat,segs.length*2); m.castShadow=true; m.receiveShadow=true; m.visible=false; m.frustumCulled=false;
+    const list=[]; segs.forEach(p=>{ list.push({x:p,z:0,w:L.w,d:2*LF,ax:0}); list.push({x:0,z:p,w:2*LF,d:L.w,ax:1}); });
+    city.add(m); return {m,mat,list,L}; });
+  function placeRoads(w){ roads.forEach(R=>{ R.m.visible=w>0.004; if(!R.m.visible) return;
+      const top=R.L.elev*w+0.06; R.mat.opacity=Math.min(1,w*1.6);
+      R.list.forEach((q,k)=>{ dummy.position.set(q.x,top-ROAD_T/2+(q.ax?0.004:0),q.z); dummy.rotation.set(0,0,0); dummy.scale.set(q.w,ROAD_T,q.d); dummy.updateMatrix(); R.m.setMatrixAt(k,dummy.matrix); });
+      R.m.instanceMatrix.needsUpdate=true; }); }
+
   // ---- foco/hover ----
   const bCur=buildings.map(()=>C(0xffffff)), bTgt=buildings.map(()=>C(0xffffff)), baseCol=buildings.map(()=>C(0xffffff));
   const gCur=new Float32Array(N), gTgt=new Float32Array(N);
@@ -627,8 +726,9 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
       gTgt[idx]=TH.night?(sel?1:(hov?0.6:0)):0;
       if(sel) bTgt[idx].copy(TH.sel); else if(hov) bTgt[idx].copy(TH.hov);
       else if(focusKey) bTgt[idx].copy(baseCol[idx]).lerp(ghostC,TH.ghostK); else bTgt[idx].copy(baseCol[idx]); });
-    plates.forEach(p=>p.m.material.color.set(p.d?TH.plateD:TH.plateN));
-    DISTRICTS.forEach(d=>{ if(!d.pav) return; if(d.key===focusKey) d.pav.material.color.set(TH.pavFocus); else if(d.key===hoverKey) d.pav.material.color.set(TH.pavHover); });
+    plates.forEach(p=>p.baseC.set(p.d?TH.plateD:TH.plateN));
+    DISTRICTS.forEach(d=>{ if(!d.pav) return; const pl=plates.find(q=>q.m===d.pav); if(d.key===focusKey) pl.baseC.set(TH.pavFocus); else if(d.key===hoverKey) pl.baseC.set(TH.pavHover); });
+    modesDirty=true;
     bAnim=true; }
   function setFocus(key){ focusKey=key; retarget(); }
   function setHover(key){ if(key===hoverKey) return; hoverKey=key; retarget();
@@ -653,7 +753,6 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   }
 
   // ---- postes (luz só à noite) ----
-  const sP=[-2.5,-1.5,-0.5,0.5,1.5,2.5].map(k=>k*PITCH);
   const lampPos=[]; sP.forEach(x=>sP.forEach(z=>lampPos.push([x+STREET/2-0.3,z+STREET/2-0.3])));
   const poleMat=M(0x2a3040); const pole=new THREE.InstancedMesh(new THREE.CylinderGeometry(0.04,0.05,1.6,6),poleMat,lampPos.length);
   const bulbMat=new THREE.MeshBasicMaterial(); bulbMat.color.setRGB(2.2,1.5,0.8);
@@ -666,8 +765,8 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   dummy.rotation.set(0,0,0); city.add(pole); city.add(bulb); city.add(pool);
 
   // ---- tráfego ----
-  const LF=44, CPL=isMobile?2:3; const lanes=[];
-  sP.forEach(p=>{ for(const axis of [0,1]) for(const side of [-1,1]) lanes.push({axis,p:p+side*0.75,dir:side*(axis?1:-1),sp:2.6+rnd()*2.2,ph:rnd()*2*LF}); });
+  const CPL=isMobile?2:3; const lanes=[];
+  sP.forEach(p=>{ for(const axis of [0,1]) for(const side of [-1,1]) lanes.push({axis,p:p+side*0.75,lv:roadLevel(p),dir:side*(axis?1:-1),sp:2.6+rnd()*2.2,ph:rnd()*2*LF}); });
   const CN=lanes.length*CPL;
   const carMat=new THREE.MeshStandardMaterial({roughness:0.6,metalness:0.2});
   const carBody=new THREE.InstancedMesh(new THREE.BoxGeometry(0.46,0.26,0.92),carMat,CN);
@@ -684,9 +783,9 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   function stepTraffic(t){ let n=0; const kk=reduce?0.35:1;
     for(const L of lanes) for(let q=0;q<CPL;q++,n++){
       const s=((L.ph+q*(2*LF/CPL)+t*L.sp*kk*L.dir)%(2*LF)+2*LF)%(2*LF)-LF;
-      let x,z,rot; if(L.axis===0){ x=L.p; z=s; rot=L.dir>0?0:Math.PI; } else { x=s; z=L.p; rot=L.dir>0?Math.PI/2:-Math.PI/2; }
-      if(TH.night) setPart(carBody,n,x,z,rot,0,0.2); else setPart(carBody,n,x,z,rot,0,0.07,0.24,0.18,1.35);   // de dia: traço azul de fluxo
-      if(TH.night){ setPart(heads,n,x,z,rot,0.47,0.2); setPart(tails,n,x,z,rot,-0.47,0.2); setPart(beams,n,x,z,rot,1.6,0.055); setPart(trails,n,x,z,rot,-1.1,0.05); }
+      const yo=wMob>0.004?ROADLV[L.lv].elev*wMob+0.06:0; let x,z,rot; if(L.axis===0){ x=L.p; z=s; rot=L.dir>0?0:Math.PI; } else { x=s; z=L.p; rot=L.dir>0?Math.PI/2:-Math.PI/2; }
+      if(TH.night) setPart(carBody,n,x,z,rot,0,0.2+yo); else setPart(carBody,n,x,z,rot,0,0.07+yo,0.24,0.18,1.35);   // de dia: traço azul de fluxo
+      if(TH.night){ setPart(heads,n,x,z,rot,0.47,0.2+yo); setPart(tails,n,x,z,rot,-0.47,0.2+yo); setPart(beams,n,x,z,rot,1.6,0.055+yo); setPart(trails,n,x,z,rot,-1.1,0.05+yo); }
     }
     carParts.forEach(m=>m.instanceMatrix.needsUpdate=true); dummy.rotation.set(0,0,0); }
 
@@ -721,6 +820,58 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     dummy.position.set(p[0],0.7+0.5*s,p[1]); dummy.scale.set(s,s,s); dummy.updateMatrix(); crown.setMatrixAt(idx,dummy.matrix); });
   city.add(trunk); city.add(crown);
 
+  // ================= LEITURAS: arquitetura / urbanismo / mobilidade =================
+  // Pesos contínuos (0→1) interpolados a cada quadro: as passagens entre leituras são sempre animadas.
+  const MODE={cur:null}; let wA=0,wU=0,wM=0,wMob=0,prevM=-1,modesDirty=true;
+  const ZONES={R:0xf2c84b,M:0xf08a3c,C:0xe0484e,I:0x4a7fd6,V:0x5cae5f,L:0x8e6cc4};
+  const ZGRID=['VRIRL','RCMMR','MCVCM','RMCCR','LRIRV'];   // [i][j] — zoneamento ilustrativo, não é um mapa real
+  plates.forEach(p=>{ p.zone=C(ZONES[ZGRID[p.i][p.j]]); });
+  const zoneGreen=C(ZONES.V), darkSky=C(0x070a11), darkGround=C(0x10131a), darkPlate=C(0x191d26), tmpC=C(0), tmpE=C(0);
+  function fade(mat,op){ const tr=op<0.995; if(mat.transparent!==tr){ mat.transparent=tr; mat.needsUpdate=true; } mat.opacity=op; mat.depthWrite=op>0.45; }
+  function stepModes(dt){
+    const k=Math.min(1,dt*2.1), tA=MODE.cur==='arch'?1:0, tU=MODE.cur==='urb'?1:0, tM=MODE.cur==='mob'?1:0;
+    const moving=Math.abs(tA-wA)+Math.abs(tU-wU)+Math.abs(tM-wM)>2e-4;
+    if(!moving&&!modesDirty) return;
+    const ap=(w,t)=>Math.abs(t-w)<1e-3?t:w+(t-w)*k;
+    wA=ap(wA,tA); wU=ap(wU,tU); wM=ap(wM,tM); wMob=wM; modesDirty=false;
+    const n=TH.night?1:0, dA=wA*(n?0.6:1);
+    // luz e fundo: "Arquitetura" escurece a cena e deixa o sol desenhar os volumes
+    hemi.intensity=TH.hemi[2]*(1-0.64*wA); sun.intensity=TH.sun[1]*(1+0.15*wA);
+    tmpC.set(TH.sky).lerp(darkSky,dA); renderer.setClearColor(tmpC,1); scene.fog.color.copy(tmpC);
+    groundMat.color.set(TH.ground).lerp(darkGround,dA);
+    uArch.value=wA;
+    // quadras: cor-base → zona (urbanismo) e escurecidas (arquitetura)
+    plates.forEach(p=>{ const m=p.m.material; m.color.copy(p.baseC).lerp(p.zone,wU*0.92).lerp(darkPlate,dA*(1-wU));
+      m.emissive.copy(p.zone).multiplyScalar(wU*(n?0.5:0.1)); });
+    plazaMat.color.set(TH.plaza).lerp(zoneGreen,wU*0.8).lerp(darkPlate,dA*0.7);
+    // prédios: transparentes no urbanismo; achatados em planta na mobilidade
+    fade(bMat,1-0.86*wU); bMesh.castShadow=wU<0.5;
+    if(Math.abs(wM-prevM)>1e-4){ prevM=wM;
+      buildings.forEach((b,idx)=>{ const h=b.h+(0.14-b.h)*wM; dummy.position.set(b.x,h/2,b.z); dummy.rotation.set(0,0,0); dummy.scale.set(b.w,h,b.d); dummy.updateMatrix(); bMesh.setMatrixAt(idx,dummy.matrix); });
+      bMesh.instanceMatrix.needsUpdate=true; bMesh.computeBoundingSphere();
+      DISTRICTS.forEach(ds=>{ if(ds.plaza||!ds.stem) return; const y0=ds.y0+(0.15-ds.y0)*wM, y1=ds.y1+(4.4-ds.y1)*wM, H=y1-y0;
+        ds.stem.scale.set(1,H,1); ds.stem.position.y=y0+H/2; ds.node.position.y=y1; ds.markerWorld.y=y1+0.25; });
+      placeRoads(wM); }
+    // árvores e carros quase somem na arquitetura
+    const op=1-0.9*wA;
+    [trunkMat,crownMat,carMat,headMat,tailMat].forEach(m=>fade(m,op));
+    beams.material.opacity=0.08*op; trails.material.opacity=0.13*op;
+    crown.castShadow=wA<0.5; carBody.castShadow=!!TH.night&&wA<0.5;
+  }
+  function modeView(){ const g={tgt:new THREE.Vector3(0,3,0),theta:cam.theta,phi:1.2,r:overviewR()};
+    if(MODE.cur==='arch'){ g.phi=1.16; g.r=overviewR()*0.8; g.tgt.set(0,4.2,0); }
+    if(MODE.cur==='urb'){ g.phi=0.74; g.r=overviewR()*1.06; g.tgt.set(0,0,0); }
+    if(MODE.cur==='mob'){ g.phi=0.52; g.r=overviewR()*1.14; g.tgt.set(0,0.5,0); }
+    return g; }
+  function setMode(m){ MODE.cur=(MODE.cur===m)?null:m; modesDirty=true;
+    document.querySelectorAll('.mode').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===MODE.cur?'true':'false'));
+    document.documentElement.classList.toggle('m-arch',MODE.cur==='arch');
+    document.getElementById('legUrb').hidden=MODE.cur!=='urb'; document.getElementById('legMob').hidden=MODE.cur!=='mob';
+    idle=0; hideHint();
+    const ho=document.getElementById('heroOv'); if(ho&&selected<0) ho.style.opacity=MODE.cur?'0':'1';
+    if(selected<0) flyTo(modeView()); }
+  document.querySelectorAll('.mode').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+
   // ---- marcadores ----
   const labelsEl=document.getElementById('labels');
   const curLang=()=>I18N[document.documentElement.lang.slice(0,2)]?document.documentElement.lang.slice(0,2):'pt';
@@ -731,7 +882,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     const stem=new THREE.Mesh(stemGeo,sMat); stem.scale.set(1,H,1); stem.position.set(ds.center.x,y0+H/2,ds.center.z); city.add(stem);
     const nMat=new THREE.MeshBasicMaterial({transparent:true,opacity:1});
     const node=new THREE.Mesh(nodeGeo,nMat); node.position.set(ds.center.x,y1,ds.center.z); city.add(node);
-    ds.sMat=sMat; ds.nMat=nMat; ds.node=node; ds.markerWorld=new THREE.Vector3(ds.center.x,y1+0.25,ds.center.z);
+    ds.sMat=sMat; ds.nMat=nMat; ds.node=node; ds.stem=stem; ds.y0=y0; ds.y1=y1; ds.markerWorld=new THREE.Vector3(ds.center.x,y1+0.25,ds.center.z);
     const btn=document.createElement('button'); btn.className='mk'; btn.innerHTML='<span class="cap"><span class="t"></span></span>';
     btn.addEventListener('click',()=>selectDistrict(i)); btn.addEventListener('mouseenter',()=>setHover(ds.key)); btn.addEventListener('mouseleave',()=>setHover(null));
     labelsEl.appendChild(btn); ds.el=btn; ds.capEl=btn.querySelector('.t');
@@ -843,10 +994,10 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     const ho=document.getElementById('heroOv'); if(ho) ho.style.opacity='0'; hideHint();
   }
   function goOverview(){
-    selected=-1; OVERVIEW.r=overviewR(); flyTo(OVERVIEW); setFocus(null); setVOTarget(false); paintMarkers();
+    selected=-1; OVERVIEW.r=overviewR(); flyTo(MODE.cur?modeView():OVERVIEW); setFocus(null); setVOTarget(false); paintMarkers();
     panel.classList.remove('open'); document.getElementById('overviewBtn').style.display='none';
     document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current','false'));
-    const ho=document.getElementById('heroOv'); if(ho) ho.style.opacity='1';
+    const ho=document.getElementById('heroOv'); if(ho) ho.style.opacity=MODE.cur?'0':'1';
   }
   document.getElementById('overviewBtn').addEventListener('click',goOverview);
   document.querySelectorAll('.pclose').forEach(b=>b.addEventListener('click',goOverview));
@@ -874,7 +1025,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   function loop(){ if(!running){ looping=false; return; } looping=true;
     const now=performance.now(), dt=Math.min((now-last)/1000,0.05); last=now;
     if(tween) tween(now); else { idle+=dt; if(!dragging&&selected<0&&idle>1.0) cam.theta+=dt*(reduce?0.06:0.09); }   // giro automático na visão geral (mais lento se o sistema pede menos movimento)
-    trafT+=dt; stepTraffic(trafT); stepFocus(dt); stepVO(dt);
+    trafT+=dt; stepModes(dt); stepTraffic(trafT); stepFocus(dt); stepVO(dt);
     place(); projectLabels(); draw(); requestAnimationFrame(loop); }
   applyTheme(themeName);
   for(let i=0;i<N;i++){ bCur[i].copy(bTgt[i]); bMesh.setColorAt(i,bCur[i]); } bMesh.instanceColor.needsUpdate=true;
