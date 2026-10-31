@@ -237,20 +237,20 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 .legend .lt{grid-column:1/-1; font-family:"IBM Plex Mono",monospace; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:.1rem}
 .legend i{width:14px; height:14px; background:var(--c); border-radius:2px; display:block}
 .legend i.ln{width:22px; height:var(--w); border-radius:2px}
-html[data-theme="night"] .mode, html.m-arch .mode{background:rgba(10,16,32,.82); color:#e6eeff; border-color:rgba(150,185,255,.28)}
-html[data-theme="night"] .mode[aria-pressed="true"], html.m-arch .mode[aria-pressed="true"]{background:#2a5cf0; border-color:#7aa8ff; color:#fff}
+html[data-theme="night"] .mode, html.m-dark .mode{background:rgba(10,16,32,.82); color:#e6eeff; border-color:rgba(150,185,255,.28)}
+html[data-theme="night"] .mode[aria-pressed="true"], html.m-dark .mode[aria-pressed="true"]{background:#2a5cf0; border-color:#7aa8ff; color:#fff}
 html[data-theme="night"] .legend{background:rgba(10,16,32,.85); color:#e6eeff; border-color:rgba(150,185,255,.25)}
-html[data-theme="night"] .modes-lbl, html.m-arch .modes-lbl{color:#a8b8da}
+html[data-theme="night"] .modes-lbl, html.m-dark .modes-lbl{color:#a8b8da}
 html:not(.cityon) .modes{display:none!important}
 /* arquitetura de dia: cena escurece, então o topo e o título passam para claro */
-html.m-arch:not([data-theme="night"]) .topbar{background:linear-gradient(180deg, rgba(8,11,18,.9), rgba(8,11,18,0))}
-html.m-arch:not([data-theme="night"]) .brand img{filter:brightness(0) invert(1)}
-html.m-arch:not([data-theme="night"]) .chip, html.m-arch:not([data-theme="night"]) .themebtn, html.m-arch:not([data-theme="night"]) .langs button{color:#e6eeff}
-html.m-arch:not([data-theme="night"]) .hero-ov{background:radial-gradient(ellipse closest-side at center, rgba(5,8,14,.8) 0%, rgba(5,8,14,.6) 60%, rgba(5,8,14,0) 100%)}
-html.m-arch:not([data-theme="night"]) .hero-ov h1{color:#f2f6ff; text-shadow:0 1px 14px rgba(5,8,14,.9)}
-html.m-arch:not([data-theme="night"]) .hero-ov p{color:#c9d4ea; text-shadow:0 1px 10px rgba(5,8,14,.9)}
-html.m-arch:not([data-theme="night"]) .hint{background:rgba(8,12,22,.8)!important; color:#d6e2ff}
-html.m-arch:not([data-theme="night"]).cityon .panel-head h2, html.m-arch:not([data-theme="night"]).cityon .panel-head .num, html.m-arch:not([data-theme="night"]).cityon .panel-body > p, html.m-arch:not([data-theme="night"]).cityon .panel-body .lead{color:#eef3ff; text-shadow:0 0 14px rgba(8,12,22,.98), 0 0 4px rgba(8,12,22,.95)}
+html.m-dark:not([data-theme="night"]) .topbar{background:linear-gradient(180deg, rgba(8,11,18,.9), rgba(8,11,18,0))}
+html.m-dark:not([data-theme="night"]) .brand img{filter:brightness(0) invert(1)}
+html.m-dark:not([data-theme="night"]) .chip, html.m-dark:not([data-theme="night"]) .themebtn, html.m-dark:not([data-theme="night"]) .langs button{color:#e6eeff}
+html.m-dark:not([data-theme="night"]) .hero-ov{background:radial-gradient(ellipse closest-side at center, rgba(5,8,14,.8) 0%, rgba(5,8,14,.6) 60%, rgba(5,8,14,0) 100%)}
+html.m-dark:not([data-theme="night"]) .hero-ov h1{color:#f2f6ff; text-shadow:0 1px 14px rgba(5,8,14,.9)}
+html.m-dark:not([data-theme="night"]) .hero-ov p{color:#c9d4ea; text-shadow:0 1px 10px rgba(5,8,14,.9)}
+html.m-dark:not([data-theme="night"]) .hint{background:rgba(8,12,22,.8)!important; color:#d6e2ff}
+html.m-dark:not([data-theme="night"]).cityon .panel-head h2, html.m-dark:not([data-theme="night"]).cityon .panel-head .num, html.m-dark:not([data-theme="night"]).cityon .panel-body > p, html.m-dark:not([data-theme="night"]).cityon .panel-body .lead{color:#eef3ff; text-shadow:0 0 14px rgba(8,12,22,.98), 0 0 4px rgba(8,12,22,.95)}
 #overviewBtn{bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 @media (max-width:820px){
   .modes{top:calc(64px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); flex-direction:row; flex-wrap:wrap; justify-content:center; max-width:94vw; gap:.3rem}
@@ -303,18 +303,24 @@ html.m-arch:not([data-theme="night"]).cityon .panel-head h2, html.m-arch:not([da
   <button type="button" class="mode" data-mode="mob" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 17h18M8 3v18M16 3v18"/></svg><span data-i18n="mode_mob">Mobilidade</span></button>
   <div class="legend" id="legUrb" hidden>
     <div class="lt" data-i18n="leg_urb">Zoneamento (ilustrativo)</div>
-    <i style="--c:#f2c84b"></i><span data-i18n="z_res">Residencial</span>
-    <i style="--c:#f08a3c"></i><span data-i18n="z_mix">Uso misto</span>
-    <i style="--c:#e0484e"></i><span data-i18n="z_com">Comércio e serviços</span>
-    <i style="--c:#4a7fd6"></i><span data-i18n="z_inst">Institucional</span>
-    <i style="--c:#5cae5f"></i><span data-i18n="z_green">Áreas verdes</span>
-    <i style="--c:#8e6cc4"></i><span data-i18n="z_ind">Logística</span>
+    <i style="--c:#e9cf98"></i><span data-i18n="z_res">Residencial</span>
+    <i style="--c:#d98a4e"></i><span data-i18n="z_mix">Uso misto</span>
+    <i style="--c:#b8402c"></i><span data-i18n="z_com">Comércio e serviços</span>
+    <i style="--c:#3f8f8a"></i><span data-i18n="z_inst">Institucional</span>
+    <i style="--c:#8fc28a"></i><span data-i18n="z_green">Áreas verdes</span>
+    <i style="--c:#a8a39a"></i><span data-i18n="z_ind">Logística</span>
+  </div>
+  <div class="legend" id="legArch" hidden>
+    <div class="lt" data-i18n="leg_arch">Gabarito (altura)</div>
+    <i style="--c:#d9622b"></i><span data-i18n="h_low">Baixo</span>
+    <i style="--c:#eda36a"></i><span data-i18n="h_mid">Médio</span>
+    <i style="--c:#f3e9da"></i><span data-i18n="h_high">Alto</span>
   </div>
   <div class="legend" id="legMob" hidden>
     <div class="lt" data-i18n="leg_mob">Hierarquia viária (ilustrativa)</div>
-    <i class="ln" style="--c:#e63946;--w:7px"></i><span data-i18n="v_exp">Via expressa / anel</span>
-    <i class="ln" style="--c:#f4a024;--w:5px"></i><span data-i18n="v_art">Arterial</span>
-    <i class="ln" style="--c:#2f7fd8;--w:3px"></i><span data-i18n="v_col">Coletora</span>
+    <i class="ln" style="--c:#ff8a3d;--w:7px"></i><span data-i18n="v_exp">Via expressa / anel</span>
+    <i class="ln" style="--c:#d9622b;--w:5px"></i><span data-i18n="v_art">Arterial</span>
+    <i class="ln" style="--c:#9a4a2a;--w:3px"></i><span data-i18n="v_col">Coletora</span>
   </div>
 </div>
 
@@ -427,7 +433,7 @@ const I18N={
   port_h2:"Portfólio",port_lead:"Alguns projetos desenvolvidos em mobilidade, simulação e geointeligência.",port_pdf:"Baixar portfólio (PDF)",
   cli_h2:"Clientes",cli_lead:"Projetos entregues para grandes marcas e instituições.",
   ent_h2:"Entrevistas e mídia",ent_watch:"Assistir",
-  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Leituras da cidade",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Mobilidade",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
+  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Leituras da cidade",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Mobilidade",leg_arch:"Gabarito (altura)",h_low:"Baixo",h_mid:"Médio",h_high:"Alto",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
  en:{_t:"Wagner Jales City",_l:"en",nav_sobre:"About",nav_serv:"Services",nav_port:"Portfolio",nav_cli:"Clients",nav_ent:"Media",nav_cont:"Contact",theme_night:"Night",theme_day:"Day",
   hint:"Drag to rotate the city · tap a marker",overview:"◂ Overview",fallback:"Full interactive 3D city: open in a WebGL-capable browser.",
   nav_art:"Articles",nav_blog:"Blog",read:"Read",
@@ -439,7 +445,7 @@ const I18N={
   port_h2:"Portfolio",port_lead:"Selected projects in mobility, simulation and geo-intelligence.",port_pdf:"Download portfolio (PDF)",
   cli_h2:"Clients",cli_lead:"Projects delivered for major brands and institutions.",
   ent_h2:"Interviews & media",ent_watch:"Watch",
-  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",mode_lbl:"City readings",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Mobility",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
+  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",mode_lbl:"City readings",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Mobility",leg_arch:"Building height",h_low:"Low",h_mid:"Mid",h_high:"High",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
  es:{_t:"Ciudad Wagner Jales",_l:"es",nav_sobre:"Perfil",nav_serv:"Servicios",nav_port:"Portafolio",nav_cli:"Clientes",nav_ent:"Medios",nav_cont:"Contacto",theme_night:"Noche",theme_day:"Día",
   hint:"Arrastra para girar la ciudad · toca un marcador",overview:"◂ Vista general",fallback:"Ciudad 3D interactiva completa: ábrela en un navegador con WebGL.",
   nav_art:"Artículos",nav_blog:"Blog",read:"Leer",
@@ -451,7 +457,7 @@ const I18N={
   port_h2:"Portafolio",port_lead:"Algunos proyectos en movilidad, simulación y geointeligencia.",port_pdf:"Descargar portafolio (PDF)",
   cli_h2:"Clientes",cli_lead:"Proyectos entregados para grandes marcas e instituciones.",
   ent_h2:"Entrevistas y medios",ent_watch:"Ver",
-  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Lecturas de la ciudad",mode_arch:"Arquitectura",mode_urb:"Urbanismo",mode_mob:"Movilidad",leg_urb:"Zonificación (ilustrativa)",leg_mob:"Jerarquía vial (ilustrativa)",z_res:"Residencial",z_mix:"Uso mixto",z_com:"Comercio y servicios",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Vía expresa / anillo",v_art:"Arterial",v_col:"Colectora"}
+  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Lecturas de la ciudad",mode_arch:"Arquitectura",mode_urb:"Urbanismo",mode_mob:"Movilidad",leg_arch:"Altura de edificación",h_low:"Baja",h_mid:"Media",h_high:"Alta",leg_urb:"Zonificación (ilustrativa)",leg_mob:"Jerarquía vial (ilustrativa)",z_res:"Residencial",z_mix:"Uso mixto",z_com:"Comercio y servicios",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Vía expresa / anillo",v_art:"Arterial",v_col:"Colectora"}
 };
 const PORT=[
  ["Port_01.jpg","Rotatória do Calhau","Vídeo","https://www.youtube.com/watch?v=_WJEr3M_O8s"],
@@ -665,27 +671,6 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
           vec3 warm=vec3(1.0,0.74,0.4)*1.7*lit*win*(1.0-vGlow);
           vec3 cool=(vec3(0.35,0.78,1.0)*2.1*win + vec3(0.02,0.12,0.75)*0.62*side + vec3(0.04,0.2,0.9)*0.25*(1.0-side))*vGlow;
           totalEmissiveRadiance+=warm+cool;
-        }
-        if(uArch>0.001){   // leitura "Arquitetura": lajes, montantes, vidro e térreo recuado
-          float sideA=1.0-step(0.5,abs(vWN.y));
-          float uA=abs(vWN.x)>0.5?vWPos.z:vWPos.x;
-          vec2 gA=vec2(uA/0.52,(vWPos.y-0.2)/0.66); vec2 fA=fract(gA); vec2 cA=floor(gA);
-          float above=step(0.95,vWPos.y)*step(vWPos.y,vTop-0.22);
-          float glass=step(0.09,fA.x)*step(fA.x,0.91)*step(0.2,fA.y)*step(fA.y,0.93)*sideA*above;
-          float slab=(1.0-step(0.13,fA.y))*sideA*above;
-          float podium=sideA*(1.0-step(0.95,vWPos.y))*step(0.12,vWPos.y);
-          float parapet=sideA*step(vTop-0.22,vWPos.y);
-          float roof=step(0.5,vWN.y);
-          vec3 sky=mix(vec3(0.07,0.09,0.12),vec3(0.30,0.37,0.46),fA.y);
-          vec3 det=diffuseColor.rgb;
-          det=mix(det,det*0.62,sideA*above);                  // montantes um tom abaixo
-          det=mix(det,sky,glass);                             // pano de vidro com reflexo
-          det=mix(det,min(diffuseColor.rgb*1.12,vec3(1.0)),slab+parapet); // lajes e platibanda claras
-          det=mix(det,vec3(0.10,0.11,0.13),podium*0.85);      // térreo recuado, sombra
-          det=mix(det,diffuseColor.rgb*0.78,roof*(1.0-step(0.985,abs(fract(vWPos.x*1.7)-0.5)*2.0)));
-          diffuseColor.rgb=mix(diffuseColor.rgb,det,uArch);
-          float hA=fract(sin(dot(cA+vec2(vSeed*57.3,floor(vWN.x*2.0+vWN.z*3.0)*7.7),vec2(12.9898,78.233)))*43758.5453);
-          totalEmissiveRadiance+=vec3(1.0,0.76,0.46)*0.85*step(hA,0.16)*glass*uArch*(1.0-vGlow);
         }`);
   };
   const bMesh=new THREE.InstancedMesh(boxGeo,bMat,N); bMesh.castShadow=true; bMesh.receiveShadow=true;
@@ -703,16 +688,18 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   // ---- sistema viário (aparece e se eleva na leitura "Mobilidade") ----
   const sP=[-2.5,-1.5,-0.5,0.5,1.5,2.5].map(k=>k*PITCH);
   const LF=44;
-  const ROADLV=[ {col:0xe63946, w:3.0, elev:2.5}, {col:0xf4a024, w:2.5, elev:1.6}, {col:0x2f7fd8, w:1.9, elev:0.85} ];  // expressa, arterial, coletora
+  const ROADLV=[ {col:0xff8a3d, w:2.6, elev:0.42}, {col:0xd9622b, w:2.0, elev:0.26}, {col:0x9a4a2a, w:1.3, elev:0.14} ];  // expressa, arterial, coletora (mesmo tom, intensidades diferentes)
   const roadLevel=p=>{ const a=Math.round(Math.abs(p)/PITCH*2)/2; return a>=2.5?0:(a<=0.5?1:2); };
-  const ROAD_T=0.32;
+  const ROAD_T=0.12; const roadGray=C(0x3d4047), roadTmp=C(0);
   const roads=ROADLV.map((L,lv)=>{ const segs=sP.filter(p=>roadLevel(p)===lv);
     const mat=new THREE.MeshStandardMaterial({color:L.col,emissive:L.col,emissiveIntensity:0.25,roughness:0.7,transparent:true,opacity:0});
     const m=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),mat,segs.length*2); m.castShadow=true; m.receiveShadow=true; m.visible=false; m.frustumCulled=false;
     const list=[]; segs.forEach(p=>{ list.push({x:p,z:0,w:L.w,d:2*LF,ax:0}); list.push({x:0,z:p,w:2*LF,d:L.w,ax:1}); });
     city.add(m); return {m,mat,list,L}; });
-  function placeRoads(w){ roads.forEach(R=>{ R.m.visible=w>0.004; if(!R.m.visible) return;
-      const top=R.L.elev*w+0.06; R.mat.opacity=Math.min(1,w*1.6);
+  function placeRoads(wArch,wMobi){ const w=Math.max(wArch,wMobi), f=wMobi/Math.max(1e-4,wArch+wMobi);
+    roads.forEach(R=>{ R.m.visible=w>0.004; if(!R.m.visible) return;
+      const top=R.L.elev*wMobi+0.07; R.mat.opacity=Math.min(1,w*1.6);
+      roadTmp.set(R.L.col); R.mat.color.copy(roadGray).lerp(roadTmp,f); R.mat.emissive.copy(roadTmp).multiplyScalar(f*(TH.night?0.9:0.55)); R.mat.emissiveIntensity=1;
       R.list.forEach((q,k)=>{ dummy.position.set(q.x,top-ROAD_T/2+(q.ax?0.004:0),q.z); dummy.rotation.set(0,0,0); dummy.scale.set(q.w,ROAD_T,q.d); dummy.updateMatrix(); R.m.setMatrixAt(k,dummy.matrix); });
       R.m.instanceMatrix.needsUpdate=true; }); }
 
@@ -722,7 +709,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   let focusKey=null, hoverKey=null, bAnim=false;
   const ghostC=C(0), pulseC=C(0);
   function retarget(){ ghostC.set(TH.ghost);
-    buildings.forEach((b,idx)=>{ const sel=focusKey&&b.blk===focusKey, hov=hoverKey&&b.blk===hoverKey;
+    buildings.forEach((b,idx)=>{ const sel=focusKey&&b.blk===focusKey, hov=hoverKey&&b.blk===hoverKey; hotIdx[idx]=(sel||hov)?1:0;
       gTgt[idx]=TH.night?(sel?1:(hov?0.6:0)):0;
       if(sel) bTgt[idx].copy(TH.sel); else if(hov) bTgt[idx].copy(TH.hov);
       else if(focusKey) bTgt[idx].copy(baseCol[idx]).lerp(ghostC,TH.ghostK); else bTgt[idx].copy(baseCol[idx]); });
@@ -734,13 +721,21 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   function setHover(key){ if(key===hoverKey) return; hoverKey=key; retarget();
     DISTRICTS.forEach(d=>{ if(d.el) d.el.classList.toggle('hot',d.key===key); });
     canvas.style.cursor=key&&!dragging?'pointer':''; }
+  // cor por leitura: arquitetura = gabarito (baixo laranja → alto creme); urbanismo = branco; mobilidade = cinza
+  const hotIdx=new Uint8Array(N), archCol=buildings.map(b=>{ const t=Math.min(1,Math.max(0,(b.h-2.2)/10));
+    return t<0.5?C(0xd9622b).lerp(C(0xeda36a),t*2):C(0xeda36a).lerp(C(0xf3e9da),(t-0.5)*2); });
+  const urbCol=C(0xfbfaf7), mobCol=C(0x74767b), tintC=C(0), mixC=C(0);
+  function tint(idx,c){ const sw=wA+wU+wM; if(sw<1e-4||hotIdx[idx]) return c;
+    const nb=TH.night?1.45:1;   // de noite a luz azulada escurece as cores: compensa para o branco e o gabarito continuarem legíveis
+    mixC.setRGB(0,0,0).add(tintC.copy(archCol[idx]).multiplyScalar(wA*nb)).add(tintC.copy(urbCol).multiplyScalar(wU*nb)).add(tintC.copy(mobCol).multiplyScalar(wM));
+    return tintC.copy(c).multiplyScalar(Math.max(0,1-sw)).add(mixC); }
   let pulseT=0;
   function stepFocus(dt){
     const k=Math.min(1,dt*4.5); pulseT+=dt; const s=0.5+0.5*Math.sin(pulseT*5.0);
     let moving=false, gl=false;
     for(let idx=0;idx<N;idx++){
       if(bAnim){ const c=bCur[idx], t=bTgt[idx];
-        if(Math.abs(c.r-t.r)+Math.abs(c.g-t.g)+Math.abs(c.b-t.b)>0.004){ c.lerp(t,k); moving=true; } else c.copy(t); bMesh.setColorAt(idx,c); }
+        if(Math.abs(c.r-t.r)+Math.abs(c.g-t.g)+Math.abs(c.b-t.b)>0.004){ c.lerp(t,k); moving=true; } else c.copy(t); bMesh.setColorAt(idx,tint(idx,c)); }
       let gt=gTgt[idx]; if(gt>=1) gt=0.72+0.28*s;
       const g=gCur[idx]+(gt-gCur[idx])*Math.min(1,dt*6);
       if(Math.abs(g-gCur[idx])>1e-4||gCur[idx]>0){ gCur[idx]=g; aGlow.array[idx]=g; gl=true; }
@@ -823,10 +818,10 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   // ================= LEITURAS: arquitetura / urbanismo / mobilidade =================
   // Pesos contínuos (0→1) interpolados a cada quadro: as passagens entre leituras são sempre animadas.
   const MODE={cur:null}; let wA=0,wU=0,wM=0,wMob=0,prevM=-1,modesDirty=true;
-  const ZONES={R:0xf2c84b,M:0xf08a3c,C:0xe0484e,I:0x4a7fd6,V:0x5cae5f,L:0x8e6cc4};
+  const ZONES={R:0xe9cf98,M:0xd98a4e,C:0xb8402c,I:0x3f8f8a,V:0x8fc28a,L:0xa8a39a};
   const ZGRID=['VRIRL','RCMMR','MCVCM','RMCCR','LRIRV'];   // [i][j] — zoneamento ilustrativo, não é um mapa real
   plates.forEach(p=>{ p.zone=C(ZONES[ZGRID[p.i][p.j]]); });
-  const zoneGreen=C(ZONES.V), darkSky=C(0x070a11), darkGround=C(0x10131a), darkPlate=C(0x191d26), tmpC=C(0), tmpE=C(0);
+  const zoneGreen=C(ZONES.V), graySky=C(0x232428), grayGround=C(0x38393d), grayPlate=C(0x434448), archGround=C(0xe7e6e1), archPlate=C(0xf4f3ef), archSky=C(0xf1f0ec), carMob=C(0xfff1e0), tmpC=C(0), tmpE=C(0);
   function fade(mat,op){ const tr=op<0.995; if(mat.transparent!==tr){ mat.transparent=tr; mat.needsUpdate=true; } mat.opacity=op; mat.depthWrite=op>0.45; }
   function stepModes(dt){
     const k=Math.min(1,dt*2.1), tA=MODE.cur==='arch'?1:0, tU=MODE.cur==='urb'?1:0, tM=MODE.cur==='mob'?1:0;
@@ -834,39 +829,35 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     if(!moving&&!modesDirty) return;
     const ap=(w,t)=>Math.abs(t-w)<1e-3?t:w+(t-w)*k;
     wA=ap(wA,tA); wU=ap(wU,tU); wM=ap(wM,tM); wMob=wM; modesDirty=false;
-    const n=TH.night?1:0, dA=wA*(n?0.6:1);
-    // luz e fundo: "Arquitetura" escurece a cena e deixa o sol desenhar os volumes
-    hemi.intensity=TH.hemi[2]*(1-0.64*wA); sun.intensity=TH.sun[1]*(1+0.15*wA);
-    tmpC.set(TH.sky).lerp(darkSky,dA); renderer.setClearColor(tmpC,1); scene.fog.color.copy(tmpC);
-    groundMat.color.set(TH.ground).lerp(darkGround,dA);
-    uArch.value=wA;
-    // quadras: cor-base → zona (urbanismo) e escurecidas (arquitetura)
-    plates.forEach(p=>{ const m=p.m.material; m.color.copy(p.baseC).lerp(p.zone,wU*0.92).lerp(darkPlate,dA*(1-wU));
-      m.emissive.copy(p.zone).multiplyScalar(wU*(n?0.5:0.1)); });
-    plazaMat.color.set(TH.plaza).lerp(zoneGreen,wU*0.8).lerp(darkPlate,dA*0.7);
-    // prédios: transparentes no urbanismo; achatados em planta na mobilidade
-    fade(bMat,1-0.86*wU); bMesh.castShadow=wU<0.5;
-    if(Math.abs(wM-prevM)>1e-4){ prevM=wM;
-      buildings.forEach((b,idx)=>{ const h=b.h+(0.14-b.h)*wM; dummy.position.set(b.x,h/2,b.z); dummy.rotation.set(0,0,0); dummy.scale.set(b.w,h,b.d); dummy.updateMatrix(); bMesh.setMatrixAt(idx,dummy.matrix); });
-      bMesh.instanceMatrix.needsUpdate=true; bMesh.computeBoundingSphere();
-      DISTRICTS.forEach(ds=>{ if(ds.plaza||!ds.stem) return; const y0=ds.y0+(0.15-ds.y0)*wM, y1=ds.y1+(4.4-ds.y1)*wM, H=y1-y0;
-        ds.stem.scale.set(1,H,1); ds.stem.position.y=y0+H/2; ds.node.position.y=y1; ds.markerWorld.y=y1+0.25; });
-      placeRoads(wM); }
-    // árvores e carros quase somem na arquitetura
-    const op=1-0.9*wA;
-    [trunkMat,crownMat,carMat,headMat,tailMat].forEach(m=>fade(m,op));
-    beams.material.opacity=0.08*op; trails.material.opacity=0.13*op;
-    crown.castShadow=wA<0.5; carBody.castShadow=!!TH.night&&wA<0.5;
+    const n=TH.night?1:0, dA=wA*(1-n), g=wM;
+    bAnim=true;   // reescreve as cores dos prédios durante a passagem
+    hemi.intensity=TH.hemi[2]; sun.intensity=TH.sun[1];
+    // fundo: arquitetura clara (de dia); mobilidade cinza (de dia ou de noite)
+    tmpC.set(TH.sky).lerp(archSky,dA).lerp(graySky,g*(n?0.8:1)); renderer.setClearColor(tmpC,1); scene.fog.color.copy(tmpC);
+    groundMat.color.set(TH.ground).lerp(archGround,dA).lerp(grayGround,g*(n?0.75:1));
+    // quadras: zona (urbanismo), brancas (arquitetura de dia), cinza (mobilidade)
+    plates.forEach(p=>{ const m=p.m.material; m.color.copy(p.baseC).lerp(p.zone,wU*0.95).lerp(archPlate,dA).lerp(grayPlate,g*(n?0.75:1));
+      m.emissive.copy(p.zone).multiplyScalar(wU*(n?0.45:0.06)); });
+    plazaMat.color.set(TH.plaza).lerp(zoneGreen,wU*0.85).lerp(grayPlate,g);
+    // prédios: translúcidos na mobilidade (a cor por leitura é aplicada em tint())
+    fade(bMat,1-0.72*wM); bMesh.castShadow=wM<0.5;
+    if(Math.abs(wM+wA*2-prevM)>1e-4){ prevM=wM+wA*2; placeRoads(wA,wM); }
+    // árvores somem na arquitetura e na mobilidade; carros somem só na arquitetura (na mobilidade eles correm sobre as vias)
+    const opT=1-0.9*Math.max(wA,wM), opC=1-0.9*wA;
+    [trunkMat,crownMat].forEach(m=>fade(m,opT)); [carMat,headMat,tailMat].forEach(m=>fade(m,opC));
+    carMat.color.set(TH.car).lerp(carMob,g);   // na mobilidade o fluxo fica claro sobre as vias laranja
+    beams.material.opacity=0.08*opC; trails.material.opacity=0.13*opC;
+    crown.castShadow=opT>0.5; carBody.castShadow=!!TH.night&&opC>0.5;
   }
   function modeView(){ const g={tgt:new THREE.Vector3(0,3,0),theta:cam.theta,phi:1.2,r:overviewR()};
-    if(MODE.cur==='arch'){ g.phi=1.16; g.r=overviewR()*0.8; g.tgt.set(0,4.2,0); }
+    if(MODE.cur==='arch'){ g.phi=1.08; g.r=overviewR()*0.9; g.tgt.set(0,2.5,0); }
     if(MODE.cur==='urb'){ g.phi=0.74; g.r=overviewR()*1.06; g.tgt.set(0,0,0); }
-    if(MODE.cur==='mob'){ g.phi=0.52; g.r=overviewR()*1.14; g.tgt.set(0,0.5,0); }
+    if(MODE.cur==='mob'){ g.phi=0.82; g.r=overviewR()*1.05; g.tgt.set(0,0.5,0); }
     return g; }
   function setMode(m){ MODE.cur=(MODE.cur===m)?null:m; modesDirty=true;
     document.querySelectorAll('.mode').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===MODE.cur?'true':'false'));
-    document.documentElement.classList.toggle('m-arch',MODE.cur==='arch');
-    document.getElementById('legUrb').hidden=MODE.cur!=='urb'; document.getElementById('legMob').hidden=MODE.cur!=='mob';
+    document.documentElement.classList.toggle('m-dark',MODE.cur==='mob');
+    document.getElementById('legArch').hidden=MODE.cur!=='arch'; document.getElementById('legUrb').hidden=MODE.cur!=='urb'; document.getElementById('legMob').hidden=MODE.cur!=='mob';
     idle=0; hideHint();
     const ho=document.getElementById('heroOv'); if(ho&&selected<0) ho.style.opacity=MODE.cur?'0':'1';
     if(selected<0) flyTo(modeView()); }
