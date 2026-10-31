@@ -171,12 +171,12 @@ html.cityon .panel-sec{display:none}
 html.cityon .panel-sec.active{display:flex; flex-direction:column; flex:1 1 auto; min-height:0}
 
 /* ===== TEMA NOITE (ativado pelo botão) ===== */
-html[data-theme="night"]{ --bg:#0b101b; --navy:#eaf1ff; --panel:#0b1530; --surface:#16203a; --surface-2:#1b2744;
+html[data-theme="night"]{ --bg:#05070b; --navy:#eaf1ff; --panel:#0b1530; --surface:#16203a; --surface-2:#1b2744;
   --line:rgba(150,185,255,.22); --line-strong:rgba(150,185,255,.4); --ink:#e6eeff; --muted:#a8b8da;
   --accent:#7aa8ff; --accent-strong:#9dc0ff; --accent-soft:rgba(122,168,255,.18); --accent-ink:#06122e; --chip:rgba(255,255,255,.08);
   color-scheme:dark; }
 html[data-theme="night"] .brand img{filter:brightness(0) invert(1)}
-html[data-theme="night"] .topbar{background:linear-gradient(180deg, rgba(11,16,27,.92) 0%, rgba(11,16,27,.55) 60%, rgba(11,16,27,0) 100%)}
+html[data-theme="night"] .topbar{background:linear-gradient(180deg, rgba(5,7,11,.92) 0%, rgba(5,7,11,.55) 60%, rgba(5,7,11,0) 100%)}
 html[data-theme="night"] .mk .cap{background:transparent!important; color:#e3e9f6!important; border-color:transparent!important; font-size:.92rem!important; text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 12px rgba(5,10,22,.9)}
 html[data-theme="night"] .mk:hover .cap,html[data-theme="night"] .mk:focus-visible .cap,html[data-theme="night"] .mk.hot .cap,html[data-theme="night"] .mk.sel .cap{background:rgba(32,42,62,.88)!important; color:#fff!important; border-color:rgba(160,180,215,.45)!important; text-shadow:none}
 html[data-theme="night"] .hint{background:rgba(8,18,44,.8)!important; color:#cfe0ff!important}
@@ -220,6 +220,8 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 .themebtn .i-sun{display:none} html[data-theme="night"] .themebtn .i-sun{display:block} html[data-theme="night"] .themebtn .i-moon{display:none}
 #themeFade{position:fixed; inset:0; z-index:35; pointer-events:none; opacity:0; transition:opacity .28s; background:var(--bg)}
 #themeFade.on{opacity:1}
+/* no geoprocessamento a troca dia/noite passa por um escurecimento mais longo, na cor do fundo da caixa */
+html.m-geo #themeFade{background:#090b10; transition:opacity .6s ease}
 @media (max-width:440px){ .brand b{display:none} .themebtn span{display:none} .themebtn{padding:.32rem .45rem} }
 .chips{flex-wrap:nowrap}
 @media (max-width:1320px){ .chips{gap:.5rem} .chip{font-size:.72rem; letter-spacing:.06em; padding:.35rem .2rem} .themebtn{font-size:.7rem} }
@@ -514,8 +516,9 @@ document.querySelectorAll('.panel-body').forEach(pb=>{ let s=0;
     const next=document.documentElement.dataset.theme==='night'?'day':'night';
     const go=()=>{ document.documentElement.dataset.theme=next; try{localStorage.setItem('wj_theme',next)}catch(e){}
       dispatchEvent(new CustomEvent('wj-theme',{detail:next})); paint(); };
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!fade){ go(); return; }
-    fade.classList.add('on'); setTimeout(()=>{ go(); requestAnimationFrame(()=>requestAnimationFrame(()=>fade.classList.remove('on'))); },290);
+    if(!fade){ go(); return; }   // a transição com escurecimento roda sempre (inclusive com 'reduzir movimento'), a pedido
+    const geo=document.documentElement.classList.contains('m-geo');
+    fade.classList.add('on'); setTimeout(()=>{ go(); setTimeout(()=>fade.classList.remove('on'),geo?260:0); },geo?620:290);
   });
 })();
 
@@ -559,7 +562,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
       sel:C(0x1d4ed8).multiplyScalar(0.3), selHi:C(0x2f62ff).multiplyScalar(0.62), hov:C(0x3b6fe0).multiplyScalar(0.55),
       edge:[0x0b3a52,0.3], plaza:0xfaf8f3, ring:0xdcd8ce, stone:0xf0ede6, stone2:0xe6e2d9, bench:0xe3dfd6, trunk:0x9a9488, crown:0xb4bfa9,
       mk:0x0b3a52, mkSel:0x1d4ed8, mkHDR:false, car:0x1d4ed8, medRing:0x0b3a52, night:0 },
-    night:{ sky:0x0b101b, fog:[70,230], tone:THREE.ACESFilmicToneMapping, exp:1.0, hemi:[0x8fa3d6,0x0d1220,1.1], sun:[0xa8b8e0,1.1,[-40,62,28]],
+    night:{ sky:0x05070b, fog:[70,230], tone:THREE.ACESFilmicToneMapping, exp:1.0, hemi:[0x8fa3d6,0x0d1220,1.1], sun:[0xa8b8e0,1.1,[-40,62,28]],
       ground:0x10151f, plateD:0x262c3a, plateN:0x262c3a, pavHover:0x223258, pavFocus:0x1d3a7a,
       pal:[0x5a6378,0x515a6e,0x626c82,0x4a5265,0x6a7489], ghost:0x262c3a, ghostK:0.45,
       sel:C(0x1d48c8), selHi:C(0x2a5cf0), hov:C(0x1d48c8),
@@ -706,7 +709,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     return t<0.5?C(0xd9622b).lerp(C(0xeda36a),t*2):C(0xeda36a).lerp(C(0xf3e9da),(t-0.5)*2); });
   const urbCol=C(0xfbfaf7), mobCol=C(0x74767b), tintC=C(0), mixC=C(0);
   function tint(idx,c){ const aW=wA+wG, sw=aW+wU+wM; if(sw<1e-4||hotIdx[idx]) return c;
-    const nb=TH.night?1.45:1;   // de noite a luz azulada escurece as cores: compensa para o branco e o gabarito continuarem legíveis
+    const nb=TH.night?1.6:1;   // de noite a luz azulada escurece as cores: compensa para o branco e o gabarito continuarem legíveis
     mixC.setRGB(0,0,0).add(tintC.copy(archCol[idx]).multiplyScalar(aW*nb)).add(tintC.copy(urbCol).multiplyScalar(wU*nb)).add(tintC.copy(mobCol).multiplyScalar(wM));
     return tintC.copy(c).multiplyScalar(Math.max(0,1-sw)).add(mixC); }
   let pulseT=0;
@@ -844,7 +847,9 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     bAnim=true;   // reescreve as cores dos prédios durante a passagem
     hemi.intensity=TH.hemi[2]; sun.intensity=TH.sun[1];
     // fundo: arquitetura clara (de dia); mobilidade cinza (de dia ou de noite)
-    tmpC.set(TH.sky).lerp(archSky,dA).lerp(graySky,g*(n?0.8:1)).lerp(geoSky,wG); renderer.setClearColor(tmpC,1); scene.fog.color.copy(tmpC);
+    tmpC.set(TH.sky).lerp(archSky,dA).lerp(graySky,g*(n?0.8:1)).lerp(geoSky,wG); scene.fog.color.copy(tmpC);
+    // com o pós-processamento (noite) a cor de limpeza era codificada duas vezes e o céu ficava mais claro que o chão: faixa no horizonte
+    renderer.setClearColor((TH.night&&composer)?tmpE.copy(tmpC).convertSRGBToLinear():tmpC,1);
     groundMat.color.set(TH.ground).lerp(archGround,dA).lerp(grayGround,g*(n?0.75:1)).lerp(geoSky,wG);
     // quadras: zona (urbanismo), brancas (arquitetura de dia), cinza (mobilidade)
     const eU=Math.min(1,wU+wG), yP=2*GEO_GAP*wG;
@@ -878,7 +883,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     return g; }
   function syncModeUI(){ modesDirty=true;
     document.querySelectorAll('.mode').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===MODE.cur?'true':'false'));
-    document.documentElement.classList.toggle('m-dark',MODE.cur==='mob'||MODE.cur==='geo'); }
+    document.documentElement.classList.toggle('m-dark',MODE.cur==='mob'||MODE.cur==='geo'); document.documentElement.classList.toggle('m-geo',MODE.cur==='geo'); }
   function setMode(m){ MODE.cur=(MODE.cur===m)?null:m; syncModeUI();
     idle=0; hideHint();
     const ho=document.getElementById('heroOv'); if(ho&&selected<0) ho.style.opacity=MODE.cur?'0':'1';
@@ -920,7 +925,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
         import('three/addons/postprocessing/UnrealBloomPass.js'), import('three/addons/postprocessing/OutputPass.js')]);
       const cp=new EffectComposer(renderer); cp.addPass(new RenderPass(scene,camera));
       cp.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.55,0.4,0.9)); cp.addPass(new OutputPass());
-      cp.setPixelRatio(renderer.getPixelRatio()); cp.setSize(innerWidth,innerHeight); composer=cp;
+      cp.setPixelRatio(renderer.getPixelRatio()); cp.setSize(innerWidth,innerHeight); composer=cp; modesDirty=true;
     }catch(e){ console.warn('bloom indisponível',e); }
   }
 
@@ -933,7 +938,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     hemi.color.set(TH.hemi[0]); hemi.groundColor.set(TH.hemi[1]); hemi.intensity=TH.hemi[2];
     sun.color.set(TH.sun[0]); sun.intensity=TH.sun[1]; sun.position.set(...TH.sun[2]);
     groundMat.color.set(TH.ground);
-    buildings.forEach((b,idx)=>{ baseCol[idx].set(TH.pal[b.pi]); if(TH.night) baseCol[idx].multiplyScalar(1.10); });
+    buildings.forEach((b,idx)=>{ baseCol[idx].set(TH.pal[b.pi]); if(TH.night) baseCol[idx].multiplyScalar(1.22); });
     edgeMat.color.set(TH.edge[0]); edgeMat.opacity=TH.edge[1];
     plazaMat.color.set(TH.plaza); ringM.color.set(TH.ring); stone.color.set(TH.stone); stone2.color.set(TH.stone2); benchMat.color.set(TH.bench);
     trunkMat.color.set(TH.trunk); crownMat.color.set(TH.crown); carMat.color.set(TH.car); ringMat.color.set(TH.medRing);
