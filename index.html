@@ -272,10 +272,12 @@ html{--n:0} html[data-theme="night"]{--n:1}
 .topbar::after{background:linear-gradient(180deg, rgba(5,7,11,.92) 0%, rgba(5,7,11,.55) 60%, rgba(5,7,11,0) 100%); opacity:var(--n)}
 html.m-dark .topbar::before{opacity:0} html.m-dark .topbar::after{opacity:1}
 html:root .hero-ov h1{color:color-mix(in srgb, #f2f6ff calc(var(--n)*100%), #072b3c)!important;
-  text-shadow:0 1px 14px color-mix(in srgb, rgba(5,11,28,.9) calc(var(--n)*100%), rgba(238,241,239,.96)), 0 1px 3px color-mix(in srgb, rgba(5,11,28,.6) calc(var(--n)*100%), rgba(238,241,239,.92))!important}
+  text-shadow:0 1px 14px color-mix(in srgb, rgba(5,11,28,.9) calc(var(--n)*100%), transparent), 0 1px 3px color-mix(in srgb, rgba(5,11,28,.6) calc(var(--n)*100%), transparent), 0 1px 14px color-mix(in srgb, rgba(238,241,239,.96) calc((1 - var(--n))*100%), transparent), 0 1px 3px color-mix(in srgb, rgba(238,241,239,.92) calc((1 - var(--n))*100%), transparent)!important}
 html:root .hero-ov p{color:color-mix(in srgb, #c4d3f2 calc(var(--n)*100%), #26353a)!important;
-  text-shadow:0 1px 10px color-mix(in srgb, rgba(5,11,28,.9) calc(var(--n)*100%), rgba(238,241,239,.96))!important}
+  text-shadow:0 1px 10px color-mix(in srgb, rgba(5,11,28,.9) calc(var(--n)*100%), transparent), 0 1px 10px color-mix(in srgb, rgba(238,241,239,.96) calc((1 - var(--n))*100%), transparent)!important}
 html:not(.cityon) .topbar::before, html:not(.cityon) .topbar::after{display:none}
+/* título sem fundo: só o texto muda de cor (o halo do text-shadow garante a leitura sobre a cidade) */
+.hero-ov::before,.hero-ov::after{display:none!important}
 </style>
 </head>
 <body>
