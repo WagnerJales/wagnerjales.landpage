@@ -220,8 +220,6 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 .themebtn .i-sun{display:none} html[data-theme="night"] .themebtn .i-sun{display:block} html[data-theme="night"] .themebtn .i-moon{display:none}
 #themeFade{position:fixed; inset:0; z-index:35; pointer-events:none; opacity:0; transition:opacity .28s; background:var(--bg)}
 #themeFade.on{opacity:1}
-/* no geoprocessamento a troca dia/noite passa por um escurecimento mais longo, na cor do fundo da caixa */
-html.m-geo #themeFade{background:#090b10; transition:opacity .6s ease}
 @media (max-width:440px){ .brand b{display:none} .themebtn span{display:none} .themebtn{padding:.32rem .45rem} }
 .chips{flex-wrap:nowrap}
 @media (max-width:1320px){ .chips{gap:.5rem} .chip{font-size:.72rem; letter-spacing:.06em; padding:.35rem .2rem} .themebtn{font-size:.7rem} }
@@ -516,9 +514,8 @@ document.querySelectorAll('.panel-body').forEach(pb=>{ let s=0;
     const next=document.documentElement.dataset.theme==='night'?'day':'night';
     const go=()=>{ document.documentElement.dataset.theme=next; try{localStorage.setItem('wj_theme',next)}catch(e){}
       dispatchEvent(new CustomEvent('wj-theme',{detail:next})); paint(); };
-    if(!fade){ go(); return; }   // a transição com escurecimento roda sempre (inclusive com 'reduzir movimento'), a pedido
-    const geo=document.documentElement.classList.contains('m-geo');
-    fade.classList.add('on'); setTimeout(()=>{ go(); setTimeout(()=>fade.classList.remove('on'),geo?260:0); },geo?620:290);
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||!fade){ go(); return; }
+    fade.classList.add('on'); setTimeout(()=>{ go(); requestAnimationFrame(()=>requestAnimationFrame(()=>fade.classList.remove('on'))); },290);
   });
 })();
 
@@ -883,7 +880,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     return g; }
   function syncModeUI(){ modesDirty=true;
     document.querySelectorAll('.mode').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===MODE.cur?'true':'false'));
-    document.documentElement.classList.toggle('m-dark',MODE.cur==='mob'||MODE.cur==='geo'); document.documentElement.classList.toggle('m-geo',MODE.cur==='geo'); }
+    document.documentElement.classList.toggle('m-dark',MODE.cur==='mob'||MODE.cur==='geo'); }
   function setMode(m){ MODE.cur=(MODE.cur===m)?null:m; syncModeUI();
     idle=0; hideHint();
     const ho=document.getElementById('heroOv'); if(ho&&selected<0) ho.style.opacity=MODE.cur?'0':'1';
