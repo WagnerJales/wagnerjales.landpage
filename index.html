@@ -276,6 +276,10 @@ html:root .hero-ov h1{color:color-mix(in srgb, #f2f6ff calc(var(--n)*100%), #072
 html:root .hero-ov p{color:color-mix(in srgb, #c4d3f2 calc(var(--n)*100%), #26353a)!important;
   text-shadow:0 1px 10px color-mix(in srgb, rgba(5,11,28,.9) calc(var(--n)*100%), transparent), 0 1px 10px color-mix(in srgb, rgba(238,241,239,.96) calc((1 - var(--n))*100%), transparent)!important}
 html:not(.cityon) .topbar::before, html:not(.cityon) .topbar::after{display:none}
+/* noite sem degradê escuro: some a sombra escura do título e o degradê escuro do topo (o céu já é escuro) */
+html:root .hero-ov h1{text-shadow:0 1px 14px color-mix(in srgb, rgba(238,241,239,.96) calc((1 - var(--n))*100%), transparent), 0 1px 3px color-mix(in srgb, rgba(238,241,239,.92) calc((1 - var(--n))*100%), transparent)!important}
+html:root .hero-ov p{text-shadow:0 1px 10px color-mix(in srgb, rgba(238,241,239,.96) calc((1 - var(--n))*100%), transparent)!important}
+html:root .topbar::after{display:none}
 /* título sem fundo: só o texto muda de cor (o halo do text-shadow garante a leitura sobre a cidade) */
 .hero-ov::before,.hero-ov::after{display:none!important}
 </style>
