@@ -251,13 +251,6 @@ html.m-dark:not([data-theme="night"]) .hero-ov p{color:#c9d4ea; text-shadow:0 1p
 html.m-dark:not([data-theme="night"]) .hint{background:rgba(8,12,22,.8)!important; color:#d6e2ff}
 html.m-dark:not([data-theme="night"]).cityon .panel-head h2, html.m-dark:not([data-theme="night"]).cityon .panel-head .num, html.m-dark:not([data-theme="night"]).cityon .panel-body > p, html.m-dark:not([data-theme="night"]).cityon .panel-body .lead{color:#eef3ff; text-shadow:0 0 14px rgba(8,12,22,.98), 0 0 4px rgba(8,12,22,.95)}
 #overviewBtn{bottom:calc(20px + env(safe-area-inset-bottom,0px))}
-@media (max-width:820px){
-  .modes{top:calc(64px + env(safe-area-inset-top,0px)); left:50%; transform:translateX(-50%); flex-direction:row; flex-wrap:wrap; justify-content:center; max-width:94vw; gap:.3rem}
-  .modes-lbl{display:none}
-  .mode{font-size:.64rem; padding:.4rem .5rem; gap:.35rem} .mode svg{width:15px; height:15px}
-  .legend{flex-basis:100%; grid-template-columns:auto 1fr auto 1fr; font-size:.68rem}
-  .hint{top:calc(112px + env(safe-area-inset-top,0px))}
-}
 /* ===== fundos do título e do topo: camada clara + camada escura, dosadas por --n (0 dia → 1 noite).
    --n é escrito pelo 3D a cada quadro da passagem, então a interface acompanha a cena no mesmo ritmo, mesmo em máquina lenta ===== */
 html{--n:0} html[data-theme="night"]{--n:1}
@@ -280,6 +273,60 @@ html:root .hero-ov h1{text-shadow:0 1px 14px color-mix(in srgb, rgba(238,241,239
 html:root .hero-ov p{text-shadow:0 1px 10px color-mix(in srgb, rgba(238,241,239,.96) calc(var(--h)*100%), transparent)!important}
 /* título sem fundo: só o texto muda de cor (o halo do text-shadow garante a leitura sobre a cidade) */
 .hero-ov::before,.hero-ov::after{display:none!important}
+
+/* ================= CELULAR (≤820px, retrato) — nada aqui vale para o desktop ================= */
+@media (max-width:820px){
+  /* topo em duas linhas: logo + dia/noite + idioma; abaixo, os distritos numa faixa que rola na horizontal */
+  .topbar{flex-wrap:wrap; row-gap:.15rem; padding-block:.35rem .3rem; min-height:0}
+  .brand img{height:30px}
+  .topbar .spacer{flex:1 1 auto}
+  .topbar .chips{display:flex!important; order:10; flex:0 0 100%; justify-content:flex-start; gap:.15rem; overflow-x:auto; overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none; margin:0 calc(-1 * max(18px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(18px,env(safe-area-inset-left,0px)));
+    padding:0 max(18px,env(safe-area-inset-right,0px)) 0 max(18px,env(safe-area-inset-left,0px));
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 22px),transparent 100%); mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 22px),transparent 100%)}
+  .topbar .chips::-webkit-scrollbar{display:none}
+  .topbar .chip{font-size:.7rem; letter-spacing:.07em; padding:.5rem .45rem; min-height:36px}
+  .themebtn{min-height:34px} .langs button{min-height:34px; padding:.28rem .45rem}
+  .hint{display:none}
+  /* leituras: uma faixa de pílulas no rodapé, rolável; o título sobe para cima dela */
+  .modes{top:auto; bottom:calc(10px + env(safe-area-inset-bottom,0px)); left:0; right:0; transform:none; max-width:none; flex-direction:row; flex-wrap:nowrap; align-items:center;
+    gap:.35rem; overflow-x:auto; scrollbar-width:none; padding:0 14px; justify-content:flex-start; transition:opacity .3s, transform .3s}
+  .modes::-webkit-scrollbar{display:none}
+  .modes-lbl{display:none}
+  .mode{flex:0 0 auto; font-size:.64rem; letter-spacing:.06em; padding:.55rem .65rem; gap:.35rem; min-height:38px; border-radius:999px}
+  .mode svg{width:15px; height:15px}
+  .mode:hover{transform:none}
+  .hero-ov{bottom:calc(62px + env(safe-area-inset-bottom,0px)); width:94vw; padding:.4rem .6rem}
+  .hero-ov h1{font-size:clamp(1.12rem,5.4vw,1.45rem)}
+  .hero-ov p{font-size:.86rem; margin-top:.35rem}
+  /* rótulos dos distritos mais compactos */
+  .mk .cap{font-size:.7rem!important; padding:.2rem .45rem!important}
+  html[data-theme="night"] .mk .cap{font-size:.76rem!important}
+  /* com o painel aberto, a cidade fica em cima e o painel embaixo; leituras e título saem de cena */
+  html.panelopen .modes{opacity:0; transform:translateY(20px); pointer-events:none}
+  #panel{max-height:64%}
+  .panel-head{padding:1rem 1.1rem .3rem} .panel-head h2{font-size:1.3rem}
+  .panel-body{padding:.4rem 1.1rem calc(1.2rem + env(safe-area-inset-bottom,0px))}
+  .pg,.clis{gap:.55rem}
+  .pclose{width:40px; height:40px}
+  #overviewBtn{display:none!important}
+}
+@media (max-width:380px){ .topbar{column-gap:.5rem} .brand img{height:25px} .langs{padding-left:.35rem} .langs button{padding:.28rem .3rem; font-size:.72rem} .topbar .chip{font-size:.66rem; padding:.5rem .35rem} .mode{font-size:.6rem; padding:.5rem .55rem} }
+
+/* ================= CELULAR deitado (pouca altura) ================= */
+@media (max-height:500px) and (orientation:landscape) and (pointer:coarse){
+  .topbar{min-height:0; padding-block:.25rem}
+  .brand img{height:26px}
+  .chip{padding:.25rem .25rem}
+  .hint{display:none}
+  .modes{top:auto; bottom:calc(10px + env(safe-area-inset-bottom,0px)); transform:none; flex-direction:row; gap:.35rem; max-width:none}
+  .modes-lbl{display:none}
+  .mode{font-size:.62rem; padding:.42rem .55rem; gap:.3rem; border-radius:999px} .mode svg{width:14px; height:14px}
+  .hero-ov{display:none}
+  #panel{top:52px!important; bottom:8px!important}
+  html.panelopen .modes{opacity:0; pointer-events:none}
+  #overviewBtn{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -1036,7 +1083,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     flyTo({tgt:new THREE.Vector3(ds.center.x,3,ds.center.z),theta,phi:ds.plaza?0.98:0.96,r:ds.plaza?17:20});
     setFocus(ds.key); setVOTarget(true); paintMarkers();
     document.querySelectorAll('.panel-sec').forEach(s=>s.classList.toggle('active',s.dataset.key===ds.key));
-    panel.classList.remove('open'); void panel.offsetWidth; panel.classList.add('open');   // reinicia a entrada de baixo para cima
+    panel.classList.remove('open'); void panel.offsetWidth; panel.classList.add('open'); document.documentElement.classList.add('panelopen');   // reinicia a entrada de baixo para cima
     const pb=panel.querySelector('.panel-sec.active .panel-body'); if(pb) pb.scrollTop=0;
     document.getElementById('overviewBtn').style.display='inline-flex';
     document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current',c.dataset.go===ds.key?'true':'false'));
@@ -1044,7 +1091,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   }
   function goOverview(){
     selected=-1; OVERVIEW.r=overviewR(); flyTo(MODE.cur?modeView():OVERVIEW); setFocus(null); setVOTarget(false); paintMarkers();
-    panel.classList.remove('open'); document.getElementById('overviewBtn').style.display='none';
+    panel.classList.remove('open'); document.documentElement.classList.remove('panelopen'); document.getElementById('overviewBtn').style.display='none';
     document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current','false'));
     const ho=document.getElementById('heroOv'); if(ho) ho.style.opacity=MODE.cur?'0':'1';
   }
