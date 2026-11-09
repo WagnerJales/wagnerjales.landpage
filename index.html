@@ -327,6 +327,13 @@ html:root .hero-ov p{text-shadow:0 1px 10px color-mix(in srgb, rgba(238,241,239,
   html.panelopen .modes{opacity:0; pointer-events:none}
   #overviewBtn{display:none!important}
 }
+
+/* ===== janelas como índice ===== */
+html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
+.panel-sec .hot-item{outline:2px solid var(--accent); outline-offset:3px}
+.panel-sec .ping{animation:ping .9s ease-out}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(37,99,235,.55)} 100%{box-shadow:0 0 0 16px rgba(37,99,235,0)}}
+@media (hover:hover) and (pointer:fine){ .panel-sec .scard,.panel-sec .pg a,.panel-sec .cli,.panel-sec .ent{transition:outline-color .2s} .panel-sec :is(.scard,.cli,.ent):hover{outline:2px solid var(--accent); outline-offset:3px} }
 </style>
 </head>
 <body>
@@ -369,6 +376,7 @@ html:root .hero-ov p{text-shadow:0 1px 10px color-mix(in srgb, rgba(238,241,239,
   <button type="button" class="mode" data-mode="arch" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V8l5-3v16M9 21V3l7 4v14M16 21v-9l4 2v7M2 21h20"/><path d="M11.5 8h2M11.5 11h2M11.5 14h2M11.5 17h2"/></svg><span data-i18n="mode_arch">Arquitetura</span></button>
   <button type="button" class="mode" data-mode="urb" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="5"/><rect x="13" y="10" width="8" height="11"/><rect x="3" y="13" width="8" height="8"/></svg><span data-i18n="mode_urb">Urbanismo</span></button>
   <button type="button" class="mode" data-mode="mob" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 17h18M8 3v18M16 3v18"/></svg><span data-i18n="mode_mob">Mobilidade</span></button>
+  <button type="button" class="mode" data-mode="acc" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="1.6"/><path d="M11 7v6h5l2.5 5"/><path d="M11 10h4"/><path d="M8.2 11.2A5 5 0 1 0 15 18"/></svg><span data-i18n="mode_acc">Acessibilidade</span></button>
   <button type="button" class="mode" data-mode="geo" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="m2 12 10 5 10-5M2 16l10 5 10-5"/></svg><span data-i18n="mode_geo">Geoprocessamento</span></button>
 </div>
 
@@ -481,7 +489,7 @@ const I18N={
   port_h2:"Portfólio",port_lead:"Alguns projetos desenvolvidos em mobilidade, simulação e geointeligência.",port_pdf:"Baixar portfólio (PDF)",
   cli_h2:"Clientes",cli_lead:"Projetos entregues para grandes marcas e instituições.",
   ent_h2:"Entrevistas e mídia",ent_watch:"Assistir",
-  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Trabalhamos com",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Mobilidade",mode_geo:"Geoprocessamento",leg_arch:"Gabarito (altura)",h_low:"Baixo",h_mid:"Médio",h_high:"Alto",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
+  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Trabalhamos com",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Mobilidade",mode_geo:"Geoprocessamento",mode_acc:"Acessibilidade",leg_arch:"Gabarito (altura)",h_low:"Baixo",h_mid:"Médio",h_high:"Alto",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
  en:{_t:"Wagner Jales City",_l:"en",nav_sobre:"About",nav_serv:"Services",nav_port:"Portfolio",nav_cli:"Clients",nav_ent:"Media",nav_cont:"Contact",theme_night:"Night",theme_day:"Day",
   hint:"Drag to rotate the city · tap a marker",overview:"◂ Overview",fallback:"Full interactive 3D city: open in a WebGL-capable browser.",
   nav_art:"Articles",nav_blog:"Blog",read:"Read",
@@ -493,7 +501,7 @@ const I18N={
   port_h2:"Portfolio",port_lead:"Selected projects in mobility, simulation and geo-intelligence.",port_pdf:"Download portfolio (PDF)",
   cli_h2:"Clients",cli_lead:"Projects delivered for major brands and institutions.",
   ent_h2:"Interviews & media",ent_watch:"Watch",
-  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",mode_lbl:"We work with",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Mobility",mode_geo:"Geoprocessing",leg_arch:"Building height",h_low:"Low",h_mid:"Mid",h_high:"High",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
+  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",mode_lbl:"We work with",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Mobility",mode_geo:"Geoprocessing",mode_acc:"Accessibility",leg_arch:"Building height",h_low:"Low",h_mid:"Mid",h_high:"High",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
  es:{_t:"Ciudad Wagner Jales",_l:"es",nav_sobre:"Perfil",nav_serv:"Servicios",nav_port:"Portafolio",nav_cli:"Clientes",nav_ent:"Medios",nav_cont:"Contacto",theme_night:"Noche",theme_day:"Día",
   hint:"Arrastra para girar la ciudad · toca un marcador",overview:"◂ Vista general",fallback:"Ciudad 3D interactiva completa: ábrela en un navegador con WebGL.",
   nav_art:"Artículos",nav_blog:"Blog",read:"Leer",
@@ -505,7 +513,7 @@ const I18N={
   port_h2:"Portafolio",port_lead:"Algunos proyectos en movilidad, simulación y geointeligencia.",port_pdf:"Descargar portafolio (PDF)",
   cli_h2:"Clientes",cli_lead:"Proyectos entregados para grandes marcas e instituciones.",
   ent_h2:"Entrevistas y medios",ent_watch:"Ver",
-  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Trabajamos con",mode_arch:"Arquitectura",mode_urb:"Urbanismo",mode_mob:"Movilidad",mode_geo:"Geoprocesamiento",leg_arch:"Altura de edificación",h_low:"Baja",h_mid:"Media",h_high:"Alta",leg_urb:"Zonificación (ilustrativa)",leg_mob:"Jerarquía vial (ilustrativa)",z_res:"Residencial",z_mix:"Uso mixto",z_com:"Comercio y servicios",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Vía expresa / anillo",v_art:"Arterial",v_col:"Colectora"}
+  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado",mode_lbl:"Trabajamos con",mode_arch:"Arquitectura",mode_urb:"Urbanismo",mode_mob:"Movilidad",mode_geo:"Geoprocesamiento",mode_acc:"Accesibilidad",leg_arch:"Altura de edificación",h_low:"Baja",h_mid:"Media",h_high:"Alta",leg_urb:"Zonificación (ilustrativa)",leg_mob:"Jerarquía vial (ilustrativa)",z_res:"Residencial",z_mix:"Uso mixto",z_com:"Comercio y servicios",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Vía expresa / anillo",v_art:"Arterial",v_col:"Colectora"}
 };
 const PORT=[
  ["Port_01.jpg","Rotatória do Calhau","Vídeo","https://www.youtube.com/watch?v=_WJEr3M_O8s"],
@@ -621,13 +629,13 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   // ================= TEMAS =================
   const T={
     day:{ sky:0xe8e7e1, fog:[110,280], tone:THREE.NoToneMapping, exp:1, hemi:[0xffffff,0xeeeae0,2.1], sun:[0xfff6ea,1.7,[46,70,30]],
-      ground:0xe9e7e0, plateD:0xe9eef1, plateN:0xf3f1eb, pavHover:0xc7d7f2, pavFocus:0xdbe5ef,
+      ground:0xe9e7e0, plateD:0xe9eef1, plateN:0xf3f1eb, pavHover:0xe6cfab, pavFocus:0xf3e2c4,
       pal:[0xf6f4ee,0xf2efe8,0xece9e1,0xe6e2d9,0xdcd8ce], ghost:0xcdcbc3, ghostK:0.62,
       sel:C(0x1d4ed8).multiplyScalar(0.3), selHi:C(0x2f62ff).multiplyScalar(0.62), hov:C(0x3b6fe0).multiplyScalar(0.55),
       edge:[0x0b3a52,0.3], plaza:0xfaf8f3, ring:0xdcd8ce, stone:0xf0ede6, stone2:0xe6e2d9, bench:0xe3dfd6, trunk:0x9a9488, crown:0xb4bfa9,
-      mk:0x0b3a52, mkSel:0x1d4ed8, mkHDR:false, car:0x1d4ed8, medRing:0x0b3a52, night:0 },
+      mk:0x0b3a52, mkSel:0x1d4ed8, mkHDR:false, car:0x808080, medRing:0x0b3a52, night:0 },
     night:{ sky:0x05070b, fog:[70,230], tone:THREE.ACESFilmicToneMapping, exp:1.0, hemi:[0x8fa3d6,0x0d1220,1.1], sun:[0xa8b8e0,1.1,[-40,62,28]],
-      ground:0x10151f, plateD:0x262c3a, plateN:0x262c3a, pavHover:0x223258, pavFocus:0x1d3a7a,
+      ground:0x10151f, plateD:0x262c3a, plateN:0x262c3a, pavHover:0x3a4157, pavFocus:0x1d3a7a,
       pal:[0x5a6378,0x515a6e,0x626c82,0x4a5265,0x6a7489], ghost:0x262c3a, ghostK:0.45,
       sel:C(0x1d48c8), selHi:C(0x2a5cf0), hov:C(0x1d48c8),
       edge:[0x8a96b8,0.14], plaza:0x323a4b, ring:0x4a5468, stone:0x9aa3b8, stone2:0x7d869c, bench:0x3b4456, trunk:0x1a1f28, crown:0x2a3a3c,
@@ -706,7 +714,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     sh.fragmentShader=sh.fragmentShader
       .replace('#include <common>','#include <common>\nuniform float uNight; uniform float uArch; varying float vGlow; varying float vSeed; varying float vTop; varying vec3 vWPos; varying vec3 vWN;')
       .replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
-        if(uNight>0.001){
+        if(uNight>0.001||vGlow>0.001){
           float side=1.0-step(0.5,abs(vWN.y));
           float u=abs(vWN.x)>0.5?vWPos.z:vWPos.x;
           vec2 g=vec2(u/0.52,(vWPos.y-0.2)/0.66);
@@ -715,9 +723,11 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
           float face=floor(vWN.x*2.0+vWN.z*3.0+5.0);
           float h=fract(sin(dot(cl+vec2(vSeed*91.7,face*13.1),vec2(12.9898,78.233)))*43758.5453);
           float lit=step(h,0.015+0.16*step(0.55,vSeed)*vSeed);
-          vec3 warm=vec3(1.0,0.74,0.4)*1.7*lit*win*(1.0-vGlow);
-          vec3 cool=(vec3(0.35,0.78,1.0)*2.1*win + vec3(0.02,0.12,0.75)*0.62*side + vec3(0.04,0.2,0.9)*0.25*(1.0-side))*vGlow;
-          totalEmissiveRadiance+=(warm+cool)*uNight;
+          vec3 warm=vec3(1.0,0.74,0.4)*1.7*lit*win*(1.0-vGlow)*uNight;
+          // distrito selecionado: todas as janelas acesas (de dia o vidro escurece para a luz aparecer)
+          diffuseColor.rgb=mix(diffuseColor.rgb,diffuseColor.rgb*0.42,win*vGlow*(1.0-uNight));
+          vec3 selW=vec3(1.0,0.78,0.46)*win*vGlow*(0.32+0.6*uNight);   // acesas, mas discretas: as janelas-índice brilham mais
+          totalEmissiveRadiance+=warm+selW;
         }`);
   };
   const bMesh=new THREE.InstancedMesh(boxGeo,bMat,N); bMesh.castShadow=true; bMesh.receiveShadow=true;
@@ -754,27 +764,33 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   const bCur=buildings.map(()=>C(0xffffff)), bTgt=buildings.map(()=>C(0xffffff)), baseCol=buildings.map(()=>C(0xffffff));
   const gCur=new Float32Array(N), gTgt=new Float32Array(N);
   let focusKey=null, hoverKey=null, bAnim=false;
-  const ghostC=C(0), pulseC=C(0);
+  // contorno fino da quadra selecionada, no chão
+  const contourMat=new THREE.MeshBasicMaterial({color:0x2563eb,transparent:true,opacity:0,depthWrite:false});
+  const contour=(()=>{ const h0=BLOCK/2+0.45, h1=h0+0.12;
+    const g=new THREE.RingGeometry(h0*Math.SQRT2,h1*Math.SQRT2,4,1,Math.PI/4); const m=new THREE.Mesh(g,contourMat);
+    m.rotation.x=-Math.PI/2; m.position.y=0.075; m.visible=false; m.renderOrder=1; city.add(m); return m; })();
+  const ghostC=C(0), pulseC=C(0), WHITE=C(0xffffff), SAND=C(0xf0c48a), CARAMEL=C(0xb8763c); let entryT=9, cPulse=0;
   function retarget(){ ghostC.set(TH.ghost);
     buildings.forEach((b,idx)=>{ const sel=focusKey&&b.blk===focusKey, hov=hoverKey&&b.blk===hoverKey; hotIdx[idx]=(sel||hov)?1:0;
-      gTgt[idx]=TH.night?(sel?1:(hov?0.6:0)):0;
-      if(sel) bTgt[idx].copy(TH.sel); else if(hov) bTgt[idx].copy(TH.hov);
+      gTgt[idx]=sel?1:(hov?0.6*uNight.value:0);
+      const dn=1-uNight.value;   // opção 2: de dia o distrito ganha tom areia-âmbar; o hover é uma prévia mais leve do mesmo tom (sem azul)
+      if(sel) bTgt[idx].copy(baseCol[idx]).lerp(SAND,0.55*dn).multiplyScalar(1+0.18*uNight.value); else if(hov) bTgt[idx].copy(baseCol[idx]).lerp(CARAMEL,0.62*dn).multiplyScalar(1+0.38*uNight.value);   // dia: caramelo (contraste); noite: clareia e acende janelas
       else if(focusKey) bTgt[idx].copy(baseCol[idx]).lerp(ghostC,TH.ghostK); else bTgt[idx].copy(baseCol[idx]); });
     plates.forEach(p=>p.baseC.set(p.d?TH.plateD:TH.plateN));
     DISTRICTS.forEach(d=>{ if(!d.pav) return; const pl=plates.find(q=>q.m===d.pav); if(d.key===focusKey) pl.baseC.set(TH.pavFocus); else if(d.key===hoverKey) pl.baseC.set(TH.pavHover); });
     modesDirty=true;
     bAnim=true; }
-  function setFocus(key){ focusKey=key; retarget(); }
+  function setFocus(key){ if(key&&key!==focusKey) entryT=0; focusKey=key; retarget(); }
   function setHover(key){ if(key===hoverKey) return; hoverKey=key; retarget();
     DISTRICTS.forEach(d=>{ if(d.el) d.el.classList.toggle('hot',d.key===key); });
     canvas.style.cursor=key&&!dragging?'pointer':''; }
   // cor por leitura: arquitetura = gabarito (baixo laranja → alto creme); urbanismo = branco; mobilidade = cinza
   const hotIdx=new Uint8Array(N), archCol=buildings.map(b=>{ const t=Math.min(1,Math.max(0,(b.h-2.2)/10));
     return t<0.5?C(0xd9622b).lerp(C(0xeda36a),t*2):C(0xeda36a).lerp(C(0xf3e9da),(t-0.5)*2); });
-  const urbCol=C(0xfbfaf7), mobCol=C(0x74767b), tintC=C(0), mixC=C(0);
-  function tint(idx,c){ const aW=wA+wG, sw=aW+wU+wM; if(sw<1e-4||hotIdx[idx]) return c;
+  const accBldC=C(0xcfd2d8), carGray=C(0x808080),urbCol=C(0xfbfaf7), mobCol=C(0x74767b), tintC=C(0), mixC=C(0);
+  function tint(idx,c){ const aW=wA+wG, sw=aW+wU+wM+wX; if(sw<1e-4||hotIdx[idx]) return c;
     const nb=1+0.6*uNight.value;   // de noite a luz azulada escurece as cores: compensa para o branco e o gabarito continuarem legíveis
-    mixC.setRGB(0,0,0).add(tintC.copy(archCol[idx]).multiplyScalar(aW*nb)).add(tintC.copy(urbCol).multiplyScalar(wU*nb)).add(tintC.copy(mobCol).multiplyScalar(wM));
+    mixC.setRGB(0,0,0).add(tintC.copy(archCol[idx]).multiplyScalar(aW*nb)).add(tintC.copy(urbCol).multiplyScalar(wU*nb)).add(tintC.copy(accBldC).multiplyScalar(wX*nb)).add(tintC.copy(mobCol).multiplyScalar(wM));
     return tintC.copy(c).multiplyScalar(Math.max(0,1-sw)).add(mixC); }
   let pulseT=0;
   function stepFocus(dt){
@@ -783,19 +799,23 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     for(let idx=0;idx<N;idx++){
       if(bAnim){ const c=bCur[idx], t=bTgt[idx];
         if(Math.abs(c.r-t.r)+Math.abs(c.g-t.g)+Math.abs(c.b-t.b)>0.004){ c.lerp(t,k); moving=true; } else c.copy(t); bMesh.setColorAt(idx,tint(idx,c)); }
-      let gt=gTgt[idx]; if(gt>=1) gt=0.72+0.28*s;
+      const gt=gTgt[idx];
       const g=gCur[idx]+(gt-gCur[idx])*Math.min(1,dt*6);
       if(Math.abs(g-gCur[idx])>1e-4||gCur[idx]>0){ gCur[idx]=g; aGlow.array[idx]=g; gl=true; }
     }
-    if(!bAnim && focusKey){ pulseC.copy(TH.sel).lerp(TH.selHi,s);
-      for(let idx=0;idx<N;idx++) if(buildings[idx].blk===focusKey) bMesh.setColorAt(idx,pulseC); bMesh.instanceColor.needsUpdate=true; }
+    // pulso único de entrada: o distrito clareia e assenta (sem piscar contínuo)
+    if(focusKey&&entryT<1.3){ entryT+=dt; const fl=Math.sin(Math.PI*Math.min(1,entryT/1.3))*0.42;
+      for(let idx=0;idx<N;idx++) if(buildings[idx].blk===focusKey) bMesh.setColorAt(idx,pulseC.copy(tint(idx,bCur[idx])).lerp(WHITE,fl));
+      bMesh.instanceColor.needsUpdate=true; if(entryT>=1.3) moving=true; }
+    contourMat.color.copy(TH.sel).lerp(CARAMEL,1-uNight.value); cPulse+=dt; const cTgt=focusKey?0.5+0.42*Math.sin(cPulse*Math.PI*2/1.6):0;   // de dia, contorno em caramelo da paleta; de noite, o azul; pulsa devagar (ciclo de 1,6 s)
+    contourMat.opacity+=(cTgt-contourMat.opacity)*Math.min(1,dt*8); contour.visible=contourMat.opacity>0.01;
     if(bAnim) bMesh.instanceColor.needsUpdate=true;
     if(gl) aGlow.needsUpdate=true;
     bAnim=moving;
   }
 
   // ---- postes (luz só à noite) ----
-  const lampPos=[]; sP.forEach(x=>sP.forEach(z=>lampPos.push([x+STREET/2-0.3,z+STREET/2-0.3])));
+  const lampPos=[]; sP.forEach(x=>sP.forEach(z=>lampPos.push([x+STREET/2+0.6,z+STREET/2+0.6])));   // poste na calçada (0,6 m além do meio-fio, dentro da faixa de 1,2 m da quadra)
   const poleMat=M(0x2a3040); const pole=new THREE.InstancedMesh(new THREE.CylinderGeometry(0.04,0.05,1.6,6),poleMat,lampPos.length);
   const bulbMat=new THREE.MeshBasicMaterial(); bulbMat.color.setRGB(2.2,1.5,0.8);
   const bulb=new THREE.InstancedMesh(new THREE.SphereGeometry(0.11,10,8),bulbMat,lampPos.length);
@@ -826,7 +846,7 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     for(const L of lanes) for(let q=0;q<CPL;q++,n++){
       const s=((L.ph+q*(2*LF/CPL)+t*L.sp*kk*L.dir)%(2*LF)+2*LF)%(2*LF)-LF;
       const yo=wMob>0.004?ROADLV[L.lv].elev*wMob+0.06:0; let x,z,rot; if(L.axis===0){ x=L.p; z=s; rot=L.dir>0?0:Math.PI; } else { x=s; z=L.p; rot=L.dir>0?Math.PI/2:-Math.PI/2; }
-      if(TH.night) setPart(carBody,n,x,z,rot,0,0.2+yo); else setPart(carBody,n,x,z,rot,0,0.07+yo,0.24,0.18,1.35);   // de dia: traço azul de fluxo
+      setPart(carBody,n,x,z,rot,0,0.2+yo);   // mesma forma de dia e de noite; de dia a cor é o azul do fluxo
       if(TH.night){ setPart(heads,n,x,z,rot,0.47,0.2+yo); setPart(tails,n,x,z,rot,-0.47,0.2+yo); setPart(beams,n,x,z,rot,1.6,0.055+yo); setPart(trails,n,x,z,rot,-1.1,0.05+yo); }
     }
     carParts.forEach(m=>m.instanceMatrix.needsUpdate=true); dummy.rotation.set(0,0,0); }
@@ -899,14 +919,90 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   const ZONES={R:0xe9cf98,M:0xd98a4e,C:0xb8402c,I:0x3f8f8a,V:0x8fc28a,L:0xa8a39a};
   const ZGRID=['VRIRL','RCMMR','MCVCM','RMCCR','LRIRV'];   // [i][j] — zoneamento ilustrativo, não é um mapa real
   plates.forEach(p=>{ p.zone=C(ZONES[ZGRID[p.i][p.j]]); });
-  const zoneGreen=C(ZONES.V), graySky=C(0x232428), grayGround=C(0x38393d), grayPlate=C(0x434448), archGround=C(0xe7e6e1), archPlate=C(0xf4f3ef), archSky=C(0xf1f0ec), carMob=C(0xfff1e0), tmpC=C(0), tmpE=C(0);
+  const zoneGreen=C(ZONES.V), graySky=C(0x232428), grayGround=C(0x38393d), grayPlate=C(0x434448), archGround=C(0xe7e6e1), archPlate=C(0xf4f3ef), archSky=C(0xf1f0ec), accWalkC=C(0xefeee9), accGroundC=C(0xe4e3de), accTreeC=C(0xa9cc7d), carMob=C(0xfff1e0), tmpC=C(0), tmpE=C(0);
   function fade(mat,op){ const tr=op<0.995; if(mat.transparent!==tr){ mat.transparent=tr; mat.needsUpdate=true; } mat.opacity=op; mat.depthWrite=op>0.45; }
+  // ================= ACESSIBILIDADE: zoom na escala da rua + projeto de moderação de tráfego =================
+  // Linguagem visual do "Guia de Medidas de Moderação de Tráfego" (SENATRAN, 2024): axonometria clara, asfalto cinza médio,
+  // faixas brancas, piso tátil e eixo amarelos, vegetação verde-clara, pessoas em magenta.
+  // Projeto: interseção elevada + faixas de travessia + extensões de meio-fio com canteiros + piso tátil + balizadores + sinalização.
+  let wX=0, accT0=0; const IX=sP[3], IZ=sP[4], SW=STREET;
+  const accGrp=new THREE.Group(); accGrp.visible=false; city.add(accGrp);
+  const AM=(c,o)=>M(c,Object.assign({transparent:true},o||{}));
+  const aAsph=AM(0x8f9095), aPlat=AM(0xd5d3cd), aWhite=AM(0xffffff), aYel=AM(0xf2c14e), aTact=AM(0xf1c868), aWalk=AM(0xeceae4),
+        aGreen=AM(0xa9cc7d), aBoll=AM(0xf4f2f4), aMag=AM(0xc23a95), aSign=AM(0x2b3a8f), aPole=AM(0x9a9aa0);
+  const accItems=[];   // {obj, delay(ms), mode:'y'|'s'}
+  const addA=(geo,mat,x,y,z,delay,mode,ry)=>{ const m=new THREE.Mesh(geo,mat); m.position.set(x,y,z); if(ry) m.rotation.y=ry; m.receiveShadow=true; m.castShadow=mode==='s';
+    accGrp.add(m); accItems.push({obj:m,delay,mode}); return m; };
+  const B=(w,h,d)=>new THREE.BoxGeometry(w,h,d);
+  { const L=PITCH*1.5;
+    // asfalto e eixo amarelo duplo (fora da plataforma)
+    addA(B(SW,0.04,L*2),aAsph,IX,0.02,IZ,0,'y'); addA(B(L*2,0.04,SW),aAsph,IX,0.021,IZ,0,'y');
+    [[-1],[1]].forEach(([sg])=>{ [-0.06,0.06].forEach(o=>{
+      addA(B(0.05,0.01,L-SW/2-1.7),aYel,IX+o,0.046,IZ+sg*(SW/2+1.7+(L-SW/2-1.7)/2),150,'y');
+      addA(B(L-SW/2-1.7,0.01,0.05),aYel,IX+sg*(SW/2+1.7+(L-SW/2-1.7)/2),0.047,IZ+o,150,'y'); }); });
+    // interseção elevada (nível da calçada) com rampas
+    const PH=0.16, ARM=1.5;
+    addA(B(SW+2*ARM,PH,SW),aPlat,IX,PH/2,IZ,400,'y'); addA(B(SW,PH,SW+2*ARM),aPlat,IX,PH/2+0.001,IZ,400,'y');
+    [[1,0],[-1,0],[0,1],[0,-1]].forEach(([dx,dz],k)=>{ const r=addA(B(dx?0.7:SW,PH*0.6,dz?0.7:SW),aPlat,IX+dx*(SW/2+ARM+0.35),PH*0.3,IZ+dz*(SW/2+ARM+0.35),520,'y');
+      // marcas triangulares da rampa ("dentes")
+      for(let t=-1;t<=1;t++){ const tri=addA(new THREE.ConeGeometry(0.16,0.01,3),aWhite,IX+dx*(SW/2+ARM+0.35)+(dz?t*0.95:0),PH*0.6+0.01,IZ+dz*(SW/2+ARM+0.35)+(dx?t*0.95:0),700+k*60,'s');
+        tri.rotation.y=Math.atan2(-dx,-dz); } });
+    // faixas de travessia nos quatro braços (listras uma a uma)
+    [[0,1],[0,-1],[1,0],[-1,0]].forEach(([dx,dz],k)=>{ const cx=IX+dx*(SW/2+ARM/2), cz=IZ+dz*(SW/2+ARM/2);
+      for(let i=0;i<8;i++){ const o=-SW/2+0.32+i*0.42;
+        addA(B(dx?ARM*0.78:0.2,0.012,dz?ARM*0.78:0.2),aWhite,cx+(dz?o:0),PH+0.007,cz+(dx?o:0),900+k*160+i*40,'y'); } });
+    // extensões de meio-fio com canteiro, nos dois lados de cada braço, depois da rampa
+    [[0,1],[0,-1],[1,0],[-1,0]].forEach(([dx,dz],k)=>{ [-1,1].forEach(side=>{
+      const ax=IX+dx*(SW/2+ARM+2.2)+(dz?side*(SW/2-0.42):0), az=IZ+dz*(SW/2+ARM+2.2)+(dx?side*(SW/2-0.42):0);
+      addA(new THREE.CylinderGeometry(0.42,0.42,PH,20),aWalk,ax+(dx?-dx*1.0:0),PH/2,az+(dz?-dz*1.0:0),1500+k*90,'y');
+      addA(B(dx?2.0:0.84,PH,dz?2.0:0.84),aWalk,ax,PH/2,az,1500+k*90,'y');
+      addA(new THREE.CylinderGeometry(0.42,0.42,PH,20),aWalk,ax+(dx?dx*1.0:0),PH/2,az+(dz?dz*1.0:0),1500+k*90,'y');
+      addA(B(dx?1.5:0.5,0.18,dz?1.5:0.5),aGreen,ax,PH+0.09,az,1750+k*90,'s'); }); });
+    // piso tátil (alerta + direcional) nas pontas das travessias
+    [[0,1],[0,-1],[1,0],[-1,0]].forEach(([dx,dz],k)=>{ [-1,1].forEach(side=>{
+      const px=IX+dx*(SW/2+ARM/2)+(dz?side*(SW/2+0.35):0), pz=IZ+dz*(SW/2+ARM/2)+(dx?side*(SW/2+0.35):0);
+      addA(B(dx?ARM*0.62:0.22,0.012,dz?ARM*0.62:0.22),aTact,px,0.165,pz,2000+k*70,'y');
+      addA(B(dz?0.8:0.09,0.012,dx?0.8:0.09),aTact,px+(dz?side*0.55:0),0.165,pz+(dx?side*0.55:0),2080+k*70,'y'); }); });
+    // balizadores nas quinas da plataforma
+    [[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([sx,sz],k)=>{ for(let i=0;i<4;i++){
+      addA(new THREE.CylinderGeometry(0.06,0.07,0.42,10),aBoll,IX+sx*(SW/2+0.18+i*0.38),0.21,IZ+sz*(SW/2+0.18),2300+k*80+i*30,'s');
+      addA(new THREE.CylinderGeometry(0.06,0.07,0.42,10),aBoll,IX+sx*(SW/2+0.18),0.21,IZ+sz*(SW/2+0.18+i*0.38),2300+k*80+i*30,'s'); } });
+    // sinalização vertical (A-32b "passagem sinalizada de pedestres")
+    [[1,-1],[-1,1]].forEach(([sx,sz],k)=>{ const x=IX+sx*(SW/2+ARM+0.6), z=IZ+sz*(SW/2+0.55);
+      addA(new THREE.CylinderGeometry(0.03,0.03,1.1,8),aPole,x,0.55,z,2550+k*100,'s');
+      const sg=addA(B(0.42,0.42,0.03),aSign,x,1.12,z,2600+k*100,'s',Math.PI/4); sg.rotation.z=Math.PI/4; });
+  }
+  // pessoas (magenta) atravessando
+  const accPeople=[]; { const pg=new THREE.CapsuleGeometry(0.09,0.3,4,8);
+    for(let i=0;i<10;i++){ const m=addA(pg,aMag,0,0,0,2800+i*90,'s');
+      accPeople.push({m,arm:i%4,lane:(i*0.37)%1,ph:i*0.71,sp:0.25+0.06*(i%3)}); } }
+  // no entorno da interseção os prédios baixam para 1–2 pavimentos (corte de contexto, como nas axonometrias do guia)
+  const accNear=buildings.map((b,idx)=>({idx,d:Math.hypot(b.x-IX,b.z-IZ)})).filter(q=>q.d<19);
+  let prevX=-1;
+  function accHeights(){ if(Math.abs(wX-prevX)<1e-4) return; prevX=wX;
+    accNear.forEach(({idx,d})=>{ const b=buildings[idx], low=Math.min(b.h,1.1+Math.max(0,d-9)*0.35), h=b.h+(low-b.h)*wX;
+      dummy.position.set(b.x,h/2,b.z); dummy.rotation.set(0,0,0); dummy.scale.set(b.w,h,b.d); dummy.updateMatrix(); bMesh.setMatrixAt(idx,dummy.matrix); });
+    bMesh.instanceMatrix.needsUpdate=true; }
+  function stepAcc(now,dt){
+    accGrp.visible=wX>0.004; if(!accGrp.visible) return;
+    const el=now-accT0;
+    accItems.forEach(it=>{ const t=MODE.cur==='acc'?Math.min(1,Math.max(0,(el-it.delay)/450)):1, e=t*t*(3-2*t), f=Math.max(1e-4,e*Math.min(1,wX*1.4));
+      if(it.mode==='y') it.obj.scale.set(1,f,1); else it.obj.scale.setScalar(f); it.obj.visible=f>0.002; });
+    [aAsph,aPlat,aWhite,aYel,aTact,aWalk,aGreen,aBoll,aMag,aSign,aPole].forEach(m=>m.opacity=Math.min(1,wX*1.6));
+    // pessoas atravessam a interseção elevada, nos quatro braços, ida e volta
+    const ARM=1.5;
+    accPeople.forEach(p=>{ const u=(Math.sin(now/1000*p.sp+p.ph)*0.5+0.5), across=-SW/2-0.5+u*(SW+1.0), off=(p.lane-0.5)*ARM*0.6;
+      const dx=[0,0,1,-1][p.arm], dz=[1,-1,0,0][p.arm];
+      const cx=IX+dx*(SW/2+ARM/2)+(dz?across:0)+(dx?off:0), cz=IZ+dz*(SW/2+ARM/2)+(dx?across:0)+(dz?off:0);
+      p.m.position.set(cx,0.16+0.24*p.m.scale.y,cz); });
+  }
+
   function stepModes(dt){
-    const k=Math.min(1,dt*2.1), tA=MODE.cur==='arch'?1:0, tU=MODE.cur==='urb'?1:0, tM=MODE.cur==='mob'?1:0, tG=MODE.cur==='geo'?1:0;
-    const moving=Math.abs(tA-wA)+Math.abs(tU-wU)+Math.abs(tM-wM)+Math.abs(tG-wG)>2e-4;
+    const k=Math.min(1,dt*2.1), tA=MODE.cur==='arch'?1:0, tU=MODE.cur==='urb'?1:0, tM=MODE.cur==='mob'?1:0, tG=MODE.cur==='geo'?1:0, tX=MODE.cur==='acc'?1:0;
+    const moving=Math.abs(tA-wA)+Math.abs(tU-wU)+Math.abs(tM-wM)+Math.abs(tG-wG)+Math.abs(tX-wX)>2e-4;
     if(!moving&&!modesDirty) return;
     const ap=(w,t)=>Math.abs(t-w)<1e-3?t:w+(t-w)*k;
-    wA=ap(wA,tA); wU=ap(wU,tU); wM=ap(wM,tM); wG=ap(wG,tG); wMob=wM; modesDirty=false;
+    wA=ap(wA,tA); wU=ap(wU,tU); wM=ap(wM,tM); wG=ap(wG,tG); wX=ap(wX,tX); wMob=wM; modesDirty=false;
     const n=TH.night?1:0, dA=wA*(1-n), g=wM;
     bAnim=true;   // reescreve as cores dos prédios durante a passagem
     hemi.intensity=TH.hemi[2]; sun.intensity=TH.sun[1];
@@ -919,6 +1015,9 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     const eU=Math.min(1,wU+wG), yP=2*GEO_GAP*wG;
     plates.forEach(p=>{ const m=p.m.material; m.color.copy(p.baseC).lerp(p.zone,eU*0.95).lerp(archPlate,dA).lerp(grayPlate,g*(n?0.75:1));
       m.emissive.copy(p.zone).multiplyScalar(wU*(n?0.45:0.06)+wG*(n?0.5:0.3)); p.m.position.y=0.04+yP; });
+    // acessibilidade: calçadas e quadras claras, como nas ilustrações do guia
+    const dX=wX*(1-n);
+    plates.forEach(p=>p.m.material.color.lerp(accWalkC,dX*0.85)); groundMat.color.lerp(accGroundC,dX*0.8);
     plazaMat.color.set(TH.plaza).lerp(zoneGreen,eU*0.85).lerp(grayPlate,g);
     plaza.position.y=0.06+yP; plazaRings.forEach(r=>r.position.y=0.065+yP);
     // geoprocessamento: camadas separadas (base 0 · vias 1 · zoneamento 2 · edificações 3) e cidade estreitada
@@ -927,15 +1026,16 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     geoLayers.forEach((L,i)=>L.position.y=i*GEO_GAP*wG+(i?0:0.03));
     const hideG=wG>0.08; stele.visible=!hideG; benches.forEach(b=>b.visible=!hideG); trunk.visible=crown.visible=!hideG;
     const ln=uNight.value>0.01; pole.visible=bulb.visible=pool.visible=ln&&!hideG; spot.visible=!hideG; carBody.visible=!hideG; [heads,tails,beams,trails].forEach(m=>m.visible=!!TH.night&&!hideG);
-    labelsEl.style.opacity=String(1-wG); labelsEl.style.pointerEvents=wG>0.5?'none':'';
+    const hL=Math.max(wG,wX); labelsEl.style.opacity=String(1-hL); labelsEl.style.pointerEvents=hL>0.5?'none':'';
     DISTRICTS.forEach(ds=>{ if(ds.stem){ ds.stem.visible=ds.node.visible=!hideG; } });
     // prédios: translúcidos na mobilidade (a cor por leitura é aplicada em tint())
-    fade(bMat,1-0.72*wM); bMesh.castShadow=wM<0.5;
+    fade(bMat,Math.min(1-0.72*wM,1-0.6*wX)); bMesh.castShadow=wM<0.5&&wX<0.5;   // acessibilidade: prédios mantêm a altura e ficam translúcidos
     if(Math.abs(wM+wA*2+wG*4-prevM)>1e-4){ prevM=wM+wA*2+wG*4; placeRoads(wA,wM,wG,GEO_GAP*wG); }
     // árvores somem na arquitetura e na mobilidade; carros somem só na arquitetura (na mobilidade eles correm sobre as vias)
     const opT=1-0.9*Math.max(wA,wM,wG), opC=1-0.9*Math.max(wA,wG);
+    crownMat.color.set(TH.crown).lerp(accTreeC,wX*(1-n)*0.9);
     [trunkMat,crownMat].forEach(m=>fade(m,opT)); fade(carMat,opC); fade(headMat,opC*uNight.value); fade(tailMat,opC*uNight.value);
-    carMat.color.set(TH.car).lerp(carMob,g);   // na mobilidade o fluxo fica claro sobre as vias laranja
+    carMat.color.set(TH.car).lerp(carMob,g).lerp(carGray,wX*(1-n)*0.9);   // na mobilidade o fluxo fica claro sobre as vias laranja; na acessibilidade, cinza 50%
     beams.material.opacity=0.08*opC*uNight.value; trails.material.opacity=0.13*opC*uNight.value;
     crown.castShadow=opT>0.5; carBody.castShadow=!!TH.night&&opC>0.5;
   }
@@ -944,11 +1044,12 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     if(MODE.cur==='urb'){ g.phi=0.74; g.r=overviewR()*1.06; g.tgt.set(0,0,0); }
     if(MODE.cur==='mob'){ g.phi=0.82; g.r=overviewR()*1.05; g.tgt.set(0,0.5,0); }
     if(MODE.cur==='geo'){ g.phi=1.22; g.r=overviewR()*1.32; g.tgt.set(0,GEO_TOP*0.42,0); }
+    if(MODE.cur==='acc'){ g.phi=0.74; g.r=19*Math.max(1,overviewR()/54*0.85); g.tgt.set(IX,0.2,IZ); g.theta=Math.PI*0.25; }
     return g; }
   function syncModeUI(){ modesDirty=true;
     document.querySelectorAll('.mode').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===MODE.cur?'true':'false'));
     document.documentElement.classList.toggle('m-dark',MODE.cur==='mob'||MODE.cur==='geo'); }
-  function setMode(m){ MODE.cur=(MODE.cur===m)?null:m; syncModeUI();
+  function setMode(m){ MODE.cur=(MODE.cur===m)?null:m; syncModeUI(); if(MODE.cur==='acc') accT0=performance.now()+600;
     idle=0; hideHint();
     const ho=document.getElementById('heroOv'); if(ho&&selected<0) ho.style.opacity=MODE.cur?'0':'1';
     if(selected<0) flyTo(modeView()); }
@@ -1051,10 +1152,10 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     if(hit.object===bMesh) return buildings[hit.instanceId].blk;
     if(hit.object===plaza||stele.children.includes(hit.object)) return 'sobre';
     const d=DISTRICTS.find(q=>q.pav===hit.object); return d?d.key:null; }
-  el.addEventListener('mousemove',e=>{ if(dragging||tween) return; try{ setHover(pick(e.clientX,e.clientY)); }catch(_){} });
+  el.addEventListener('mousemove',e=>{ if(dragging||tween) return; try{ const wi=pickWindow(e.clientX,e.clientY); if(wi>=0){ setWinHover(wi,'win'); setHover(null); canvas.style.cursor='pointer'; return; } if(WIN.src==='win') setWinHover(-1); setHover(pick(e.clientX,e.clientY)); }catch(_){} });
   el.addEventListener('mouseleave',()=>setHover(null));
   el.addEventListener('mousedown',e=>{ downX=e.clientX; downY=e.clientY; onDown(e.clientX,e.clientY); });
-  el.addEventListener('click',e=>{ if(Math.hypot(e.clientX-downX,e.clientY-downY)>5) return; const k=pick(e.clientX,e.clientY); const i=DISTRICTS.findIndex(d=>d.key===k); if(i>=0&&i!==selected) selectDistrict(i); });
+  el.addEventListener('click',e=>{ if(Math.hypot(e.clientX-downX,e.clientY-downY)>5) return; const wi=pickWindow(e.clientX,e.clientY); if(wi>=0){ const it=WIN.items[wi]; it.scrollIntoView({behavior:'smooth',block:'center'}); it.classList.remove('ping'); void it.offsetWidth; it.classList.add('ping'); return; } const k=pick(e.clientX,e.clientY); const i=DISTRICTS.findIndex(d=>d.key===k); if(i>=0&&i!==selected) selectDistrict(i); });
   addEventListener('mousemove',e=>onMove(e.clientX,e.clientY)); addEventListener('mouseup',onUp);
   el.addEventListener('wheel',e=>{ e.preventDefault(); cam.r=Math.min(130,Math.max(14,cam.r*(1+e.deltaY*0.0012))); idle=0; },{passive:false});
   el.addEventListener('touchstart',e=>{ if(e.touches.length===1) onDown(e.touches[0].clientX,e.touches[0].clientY);
@@ -1076,20 +1177,22 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
       cam.r=from.r+(goal.r-from.r)*e+Math.sin(e*Math.PI)*bump; if(k>=1){ tween=null; if(after) after(); } };
   }
   function selectDistrict(i){
-    if(MODE.cur==='geo'){ MODE.cur=null; syncModeUI(); }   // abrir um menu desfaz as camadas e volta à cidade (dia ou noite)
+    if(MODE.cur==='geo'||MODE.cur==='acc'){ MODE.cur=null; syncModeUI(); }   // abrir um menu desfaz as camadas e volta à cidade (dia ou noite)
     selected=i; const ds=DISTRICTS[i];
     let theta=Math.PI*0.5; if(Math.hypot(ds.center.x,ds.center.z)>0.5) theta=Math.atan2(ds.center.x,ds.center.z);
     theta+=0.62; if(ds.plaza) theta=Math.PI*0.25;
-    flyTo({tgt:new THREE.Vector3(ds.center.x,3,ds.center.z),theta,phi:ds.plaza?0.98:0.96,r:ds.plaza?17:20});
-    setFocus(ds.key); setVOTarget(true); paintMarkers();
+    const goal={tgt:new THREE.Vector3(ds.center.x,3,ds.center.z),theta,phi:ds.plaza?0.98:0.96,r:ds.plaza?17:20};
+    flyTo(goal);
+    setFocus(ds.key); setVOTarget(true); paintMarkers(); contour.position.x=ds.center.x; contour.position.z=ds.center.z;
     document.querySelectorAll('.panel-sec').forEach(s=>s.classList.toggle('active',s.dataset.key===ds.key));
     panel.classList.remove('open'); void panel.offsetWidth; panel.classList.add('open'); document.documentElement.classList.add('panelopen');   // reinicia a entrada de baixo para cima
     const pb=panel.querySelector('.panel-sec.active .panel-body'); if(pb) pb.scrollTop=0;
     document.getElementById('overviewBtn').style.display='inline-flex';
     document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current',c.dataset.go===ds.key?'true':'false'));
     const ho=document.getElementById('heroOv'); if(ho) ho.style.opacity='0'; hideHint();
+    openWindows(ds,goal);
   }
-  function goOverview(){
+  function goOverview(){ closeWindows();
     selected=-1; OVERVIEW.r=overviewR(); flyTo(MODE.cur?modeView():OVERVIEW); setFocus(null); setVOTarget(false); paintMarkers();
     panel.classList.remove('open'); document.documentElement.classList.remove('panelopen'); document.getElementById('overviewBtn').style.display='none';
     document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-current','false'));
@@ -1099,6 +1202,77 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
   document.querySelectorAll('.pclose').forEach(b=>b.addEventListener('click',goOverview));
   document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{ const idx=DISTRICTS.findIndex(d=>d.key===c.dataset.go); if(idx>=0) selectDistrict(idx); }));
   addEventListener('keydown',e=>{ if(e.key==='Escape'&&selected>=0) goOverview(); });
+
+  // ================= JANELAS COMO ÍNDICE (A) + CARDS SAINDO DAS JANELAS (B) =================
+  // Cada item do painel ganha uma janela na fachada voltada para a câmera. A janela acende quando o card sai dela.
+  // Desktop: passar o mouse num card acende a janela e traça uma linha até ela; clicar numa janela leva ao card.
+  // Celular: só a animação (janela pequena demais para tocar).
+  const fineHover=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const ITEM_SEL='.scard,.pg > a,.cli,.ents > .ent,.tools > .tool,.socials > a,.mailrow';
+  const WIN_MAX=24, WCOL=0.52, WROW=0.66;
+  const winMat=new THREE.MeshBasicMaterial({color:0xffffff,toneMapped:false,transparent:true,depthWrite:false,side:THREE.DoubleSide});
+  const winMesh=new THREE.InstancedMesh(new THREE.PlaneGeometry(0.40,0.46),winMat,WIN_MAX);
+  winMesh.count=0; winMesh.frustumCulled=false; winMesh.renderOrder=3; city.add(winMesh);
+  const winC=C(0), winHotC=C(0), wd=new THREE.Object3D();
+  let WIN={key:null,items:[],wins:[],delays:[],t0:0,hover:-1,src:null,closing:0};
+  function goalCamera(goal){ const c=camera.clone(), sp=Math.sin(goal.phi);
+    c.position.set(goal.tgt.x+goal.r*sp*Math.sin(goal.theta),goal.tgt.y+goal.r*Math.cos(goal.phi),goal.tgt.z+goal.r*sp*Math.cos(goal.theta)); c.lookAt(goal.tgt);
+    const w=innerWidth,h=innerHeight; c.setViewOffset(w,h,voT.x,voT.y,w,h); c.updateProjectionMatrix(); c.updateMatrixWorld(); return c; }
+  function windowsFor(ds,camPos,n){ const faces=[];
+    buildings.forEach(b=>{ if(b.blk!==ds.key) return;
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(([nx,nz])=>{ const fx=b.x+nx*b.w/2, fz=b.z+nz*b.d/2;
+        const dx=camPos.x-fx, dy=camPos.y-b.h/2, dz=camPos.z-fz, L=Math.hypot(dx,dy,dz), dot=(nx*dx+nz*dz)/L;
+        if(dot>0.3) faces.push({b,nx,nz,fx,fz,score:dot*Math.min(b.h,16)*(nx?b.d:b.w)}); }); });
+    faces.sort((a,c)=>c.score-a.score);
+    const pickFace=(f,spaced)=>{ const b=f.b, c0=f.nx?b.z-b.d/2:b.x-b.w/2, c1=f.nx?b.z+b.d/2:b.x+b.w/2, out=[];
+      const cols=[]; for(let ci=Math.ceil(c0/WCOL);(ci+1)*WCOL<=c1+1e-6;ci++) cols.push(ci);
+      const rows=[]; for(let fj=0;;fj++){ const y0=0.2+(fj+0.28)*WROW, y1=0.2+(fj+0.74)*WROW; if(y1>b.h-0.25) break; if(y0>=0.95) rows.push(fj); }
+      rows.reverse().forEach((fj,ri)=>cols.forEach((ci,cj)=>{ if(spaced&&(ri%2||cj%2)) return;
+        const u=(ci+0.5)*WCOL, y=0.2+(fj+0.51)*WROW;
+        out.push(f.nx?{pos:new THREE.Vector3(f.fx+f.nx*0.035,y,u),ry:f.nx>0?Math.PI/2:-Math.PI/2}:{pos:new THREE.Vector3(u,y,f.fz+f.nz*0.035),ry:f.nz>0?0:Math.PI}); }));
+      return out; };
+    for(const spaced of [true,false]){ const res=[]; for(const f of faces){ res.push(...pickFace(f,spaced)); if(res.length>=n) break; }
+      if(res.length>=n||!spaced) return res.slice(0,n); }
+    return []; }
+  function openWindows(ds,goal){
+    const sec=panel.querySelector('.panel-sec[data-key="'+ds.key+'"]'); if(!sec) return;
+    WIN.items.forEach(it=>it.classList.remove('hot-item'));
+    const items=[...sec.querySelectorAll(ITEM_SEL)], gc=goalCamera(goal), W=innerWidth, H=innerHeight;
+    let wins=ds.plaza?[]:windowsFor(ds,gc.position,Math.min(items.length,WIN_MAX));
+    wins.forEach(w=>{ const q=w.pos.clone().project(gc); w.sx=(q.x*0.5+0.5)*W; w.sy=(-q.y*0.5+0.5)*H; });
+    wins.sort((a,c)=>Math.abs(a.sy-c.sy)>10?a.sy-c.sy:a.sx-c.sx);
+    let origin=null; if(!wins.length){ const q=new THREE.Vector3(ds.center.x,3.1,ds.center.z).project(gc); origin={sx:(q.x*0.5+0.5)*W,sy:(-q.y*0.5+0.5)*H}; }
+    WIN={key:ds.key,items,wins,delays:[],t0:performance.now(),hover:-1,src:null,closing:0};
+    winMesh.count=wins.length;
+    // B: cada card sai da sua janela (posição calculada para a câmera já pousada no distrito)
+    const m=new DOMMatrixReadOnly(getComputedStyle(panel).transform);
+    items.forEach((it,i)=>{ const o=wins.length?wins[i%wins.length]:origin, delay=480+Math.min(i,16)*115; WIN.delays[i]=delay;
+      it.classList.add('fly'); it.getAnimations().forEach(a=>a.cancel());
+      const r=it.getBoundingClientRect(), cx=r.left-m.e+r.width/2, cy=r.top-m.f+r.height/2;
+      it.animate([{transform:'translate('+(o.sx-cx)+'px,'+(o.sy-cy)+'px) scale(.05)',opacity:0},{opacity:1,offset:0.3},{transform:'none',opacity:1}],
+        {duration:780,delay,easing:'cubic-bezier(.2,.75,.2,1)',fill:'backwards'});
+      if(fineHover&&!it.dataset.winb){ it.dataset.winb='1';
+        it.addEventListener('mouseenter',()=>{ const k=WIN.items.indexOf(it); if(k>=0) setWinHover(k,'card'); });
+        it.addEventListener('mouseleave',()=>{ if(WIN.src==='card') setWinHover(-1); }); } });
+  }
+  function closeWindows(){ if(!WIN.key) return; setWinHover(-1); WIN.closing=performance.now(); }
+  function setWinHover(i,src){ if(i===WIN.hover) return; const prev=WIN.items[WIN.hover]; if(prev) prev.classList.remove('hot-item');
+    WIN.hover=i; WIN.src=i>=0?src:null; const it=WIN.items[i]; if(it&&src==='win') it.classList.add('hot-item'); }
+  function winOfItem(i){ return WIN.wins.length?i%WIN.wins.length:-1; }
+  const backOut=t=>{ const c1=1.9, c3=c1+1; return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2); };
+  function stepWindows(now){
+    const n=WIN.wins.length; if(!n) return;
+    const night=uNight.value; winC.setRGB(1.0,0.66,0.2).lerp(winHotC.setRGB(1.0,0.93,0.74).multiplyScalar(3.4),night);   // dia: âmbar (contrasta com a fachada clara); noite: branco quente com brilho winHotC.copy(TH.sel).lerp(WHITE,0.35).multiplyScalar(1.4+1.2*night);
+    const hw=WIN.hover>=0?winOfItem(WIN.hover):-1, cl=WIN.closing?Math.min(1,(now-WIN.closing)/260):0;
+    for(let k=0;k<n;k++){ const w=WIN.wins[k], first=WIN.delays.findIndex((_,i)=>i%n===k), d=first>=0?WIN.delays[first]:0;
+      const t=Math.min(1,Math.max(0,(now-WIN.t0-(d-240))/320)); let sc=t>0?backOut(t):0; sc*=(1-cl)*(k===hw?1.35:1);
+      wd.position.copy(w.pos); wd.rotation.set(0,w.ry,0); wd.scale.setScalar(Math.max(sc,1e-4)); wd.updateMatrix(); winMesh.setMatrixAt(k,wd.matrix);
+      winMesh.setColorAt(k,k===hw?winHotC:winC); }
+    winMesh.instanceMatrix.needsUpdate=true; if(winMesh.instanceColor) winMesh.instanceColor.needsUpdate=true;
+    if(cl>=1){ winMesh.count=0; WIN.items.forEach(it=>it.classList.remove('hot-item')); WIN={key:null,items:[],wins:[],delays:[],t0:0,hover:-1,src:null,closing:0}; return; }
+  }
+  function pickWindow(x,y){ if(!fineHover||!WIN.wins.length||WIN.closing) return -1; mouse.set(x/innerWidth*2-1,-(y/innerHeight)*2+1); ray.setFromCamera(mouse,camera);
+    const h=ray.intersectObject(winMesh,false)[0]; if(!h) return -1; return WIN.items.findIndex((_,i)=>winOfItem(i)===h.instanceId); }
 
   // botão dia/noite (o CSS da página troca via data-theme; aqui troca a cena)
   addEventListener('wj-theme',e=>applyTheme(e.detail));
@@ -1122,8 +1296,8 @@ document.getElementById('copyBtn').addEventListener('click',async function(){
     const now=performance.now(), dt=Math.min((now-last)/1000,0.05); last=now;
     if(tween) tween(now); else { idle+=dt; if(!dragging&&selected<0&&idle>1.0) cam.theta+=dt*(reduce?0.06:0.09); }   // giro automático na visão geral (mais lento se o sistema pede menos movimento)
     if(wN!==tN){ wN=tN>wN?Math.min(tN,wN+dt/1.6):Math.max(tN,wN-dt/1.6); applyBlend(); }
-    trafT+=dt; stepModes(dt); stepTraffic(trafT); stepFocus(dt); stepVO(dt);
-    place(); projectLabels(); draw(); requestAnimationFrame(loop); }
+    trafT+=dt; stepModes(dt); stepTraffic(trafT); stepFocus(dt); stepAcc(now,dt); stepVO(dt);
+    place(); projectLabels(); stepWindows(now); draw(); requestAnimationFrame(loop); }
   applyTheme(themeName); applyBlend();
   for(let i=0;i<N;i++){ bCur[i].copy(bTgt[i]); bMesh.setColorAt(i,bCur[i]); } bMesh.instanceColor.needsUpdate=true;
   stepTraffic(0); place(); applyVO(); projectLabels(); draw();
