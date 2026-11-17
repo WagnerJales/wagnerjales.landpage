@@ -226,9 +226,9 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 @media (max-width:1120px){ .brand b{display:none} }
 /* ===== LEITURAS DA CIDADE (arquitetura / urbanismo / mobilidade) ===== */
 .modes{position:fixed; left:max(18px,env(safe-area-inset-left,0px)); top:50%; transform:translateY(-50%); z-index:13; display:flex; flex-direction:column; gap:.4rem; align-items:flex-start; max-width:240px}
-.altcity{border-style:dashed!important; margin-top:.5rem; text-decoration:none}
-.altcity svg{opacity:.8}
-@media (max-width:820px){ .altcity{margin-top:0} }
+.citybtn{text-decoration:none; white-space:nowrap}
+.citybtn svg{opacity:.85}
+@media (max-width:1100px){ .citybtn span{display:none} .citybtn{padding:.32rem .45rem} }
 .modes-lbl{white-space:nowrap; font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 .15rem .1rem}
 .mode{display:inline-flex; align-items:center; gap:.55rem; font-family:"IBM Plex Mono",monospace; font-size:.74rem; letter-spacing:.08em; text-transform:uppercase; color:var(--navy);
   background:rgba(250,248,243,.9); border:1px solid rgba(11,58,82,.22); border-radius:2px; padding:.5rem .75rem .5rem .6rem; cursor:pointer; transition:background .25s,color .25s,border-color .25s,transform .25s}
@@ -358,6 +358,7 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
     <button class="chip" data-go="contato" data-i18n="nav_cont">Contato</button>
   </nav>
   <button class="themebtn" id="themeBtn" type="button" aria-pressed="false"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg><span id="themeLbl" data-i18n="theme_night">Noite</span></button>
+  <a class="themebtn citybtn" href="manhattan/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V8l5-4 5 4v13M9 21v-4h2v4M19 21v-9l-4-3"/></svg><span data-i18n="alt_city">Manhattan</span></a>
   <div class="langs" role="group" aria-label="Idioma">
     <button type="button" data-lang="pt" aria-pressed="true">PT</button>
     <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -378,10 +379,9 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
   <div class="modes-lbl" data-i18n="mode_lbl">Trabalhamos com</div>
   <button type="button" class="mode" data-mode="arch" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V8l5-3v16M9 21V3l7 4v14M16 21v-9l4 2v7M2 21h20"/><path d="M11.5 8h2M11.5 11h2M11.5 14h2M11.5 17h2"/></svg><span data-i18n="mode_arch">Arquitetura</span></button>
   <button type="button" class="mode" data-mode="urb" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="5"/><rect x="13" y="10" width="8" height="11"/><rect x="3" y="13" width="8" height="8"/></svg><span data-i18n="mode_urb">Urbanismo</span></button>
-  <button type="button" class="mode" data-mode="mob" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 17h18M8 3v18M16 3v18"/></svg><span data-i18n="mode_mob">Mobilidade</span></button>
+  <button type="button" class="mode" data-mode="mob" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 7h18M3 17h18M8 3v18M16 3v18"/></svg><span data-i18n="mode_mob">Tráfego</span></button>
   <button type="button" class="mode" data-mode="acc" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="1.6"/><path d="M11 7v6h5l2.5 5"/><path d="M11 10h4"/><path d="M8.2 11.2A5 5 0 1 0 15 18"/></svg><span data-i18n="mode_acc">Acessibilidade</span></button>
   <button type="button" class="mode" data-mode="geo" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="m2 12 10 5 10-5M2 16l10 5 10-5"/></svg><span data-i18n="mode_geo">Geoprocessamento</span></button>
-  <a class="mode altcity" href="manhattan/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V8l5-4 5 4v13M9 21v-4h2v4M19 21v-9l-4-3"/></svg><span data-i18n="alt_city">Maquete Manhattan</span></a>
 </div>
 
 <div id="panel" role="dialog" aria-label="Conteúdo do distrito">
@@ -493,7 +493,7 @@ const I18N={
   port_h2:"Portfólio",port_lead:"Alguns projetos desenvolvidos em mobilidade, simulação e geointeligência.",port_pdf:"Baixar portfólio (PDF)",
   cli_h2:"Clientes",cli_lead:"Projetos entregues para grandes marcas e instituições.",
   ent_h2:"Entrevistas e mídia",ent_watch:"Assistir",
-  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",alt_city:"Maquete Manhattan", mode_lbl:"Trabalhamos com",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Mobilidade",mode_geo:"Geoprocessamento",mode_acc:"Acessibilidade",leg_arch:"Gabarito (altura)",h_low:"Baixo",h_mid:"Médio",h_high:"Alto",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
+  cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",alt_city:"Manhattan", mode_lbl:"Trabalhamos com",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Tráfego",mode_geo:"Geoprocessamento",mode_acc:"Acessibilidade",leg_arch:"Gabarito (altura)",h_low:"Baixo",h_mid:"Médio",h_high:"Alto",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
  en:{_t:"Wagner Jales City",_l:"en",nav_sobre:"About",nav_serv:"Services",nav_port:"Portfolio",nav_cli:"Clients",nav_ent:"Media",nav_cont:"Contact",theme_night:"Night",theme_day:"Day",
   hint:"Drag to rotate the city · tap a marker",overview:"◂ Overview",fallback:"Full interactive 3D city: open in a WebGL-capable browser.",
   nav_art:"Articles",nav_blog:"Blog",read:"Read",
@@ -505,7 +505,7 @@ const I18N={
   port_h2:"Portfolio",port_lead:"Selected projects in mobility, simulation and geo-intelligence.",port_pdf:"Download portfolio (PDF)",
   cli_h2:"Clients",cli_lead:"Projects delivered for major brands and institutions.",
   ent_h2:"Interviews & media",ent_watch:"Watch",
-  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",alt_city:"Manhattan model", mode_lbl:"We work with",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Mobility",mode_geo:"Geoprocessing",mode_acc:"Accessibility",leg_arch:"Building height",h_low:"Low",h_mid:"Mid",h_high:"High",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
+  cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",alt_city:"Manhattan", mode_lbl:"We work with",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Traffic",mode_geo:"Geoprocessing",mode_acc:"Accessibility",leg_arch:"Building height",h_low:"Low",h_mid:"Mid",h_high:"High",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
  es:{_t:"Ciudad Wagner Jales",_l:"es",nav_sobre:"Perfil",nav_serv:"Servicios",nav_port:"Portafolio",nav_cli:"Clientes",nav_ent:"Medios",nav_cont:"Contacto",theme_night:"Noche",theme_day:"Día",
   hint:"Arrastra para girar la ciudad · toca un marcador",overview:"◂ Vista general",fallback:"Ciudad 3D interactiva completa: ábrela en un navegador con WebGL.",
   nav_art:"Artículos",nav_blog:"Blog",read:"Leer",
@@ -517,7 +517,7 @@ const I18N={
   port_h2:"Portafolio",port_lead:"Algunos proyectos en movilidad, simulación y geointeligencia.",port_pdf:"Descargar portafolio (PDF)",
   cli_h2:"Clientes",cli_lead:"Proyectos entregados para grandes marcas e instituciones.",
   ent_h2:"Entrevistas y medios",ent_watch:"Ver",
-  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado",alt_city:"Maqueta Manhattan", mode_lbl:"Trabajamos con",mode_arch:"Arquitectura",mode_urb:"Urbanismo",mode_mob:"Movilidad",mode_geo:"Geoprocesamiento",mode_acc:"Accesibilidad",leg_arch:"Altura de edificación",h_low:"Baja",h_mid:"Media",h_high:"Alta",leg_urb:"Zonificación (ilustrativa)",leg_mob:"Jerarquía vial (ilustrativa)",z_res:"Residencial",z_mix:"Uso mixto",z_com:"Comercio y servicios",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Vía expresa / anillo",v_art:"Arterial",v_col:"Colectora"}
+  cont_h2:"¿Hablamos?",cont_p:"¿Listo para poner en marcha su proyecto o transformar la movilidad de su ciudad?",cont_copy:"Copiar",cont_copied:"Copiado",alt_city:"Manhattan", mode_lbl:"Trabajamos con",mode_arch:"Arquitectura",mode_urb:"Urbanismo",mode_mob:"Tráfico",mode_geo:"Geoprocesamiento",mode_acc:"Accesibilidad",leg_arch:"Altura de edificación",h_low:"Baja",h_mid:"Media",h_high:"Alta",leg_urb:"Zonificación (ilustrativa)",leg_mob:"Jerarquía vial (ilustrativa)",z_res:"Residencial",z_mix:"Uso mixto",z_com:"Comercio y servicios",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Vía expresa / anillo",v_art:"Arterial",v_col:"Colectora"}
 };
 const PORT=[
  ["Port_01.jpg","Rotatória do Calhau","Vídeo","https://www.youtube.com/watch?v=_WJEr3M_O8s"],
