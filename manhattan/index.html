@@ -227,6 +227,10 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 @media (max-width:1120px){ .brand b{display:none} }
 /* ===== LEITURAS DA CIDADE (arquitetura / urbanismo / mobilidade) ===== */
 .modes{position:fixed; left:max(18px,env(safe-area-inset-left,0px)); top:50%; transform:translateY(-50%); z-index:13; display:flex; flex-direction:column; gap:.4rem; align-items:flex-start; max-width:240px}
+.scard-link{display:block; text-decoration:none; color:inherit}
+.scard-link:hover{border-color:var(--accent)}
+.scard-link:hover h3{color:var(--accent)}
+.scard-link .ar{font-size:.8em; opacity:.7}
 .modes-lbl{white-space:nowrap; font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 .15rem .1rem}
 .mode{display:inline-flex; align-items:center; gap:.55rem; font-family:"IBM Plex Mono",monospace; font-size:.74rem; letter-spacing:.08em; text-transform:uppercase; color:var(--navy);
   background:rgba(250,248,243,.9); border:1px solid rgba(11,58,82,.22); border-radius:2px; padding:.5rem .75rem .5rem .6rem; cursor:pointer; transition:background .25s,color .25s,border-color .25s,transform .25s}
@@ -349,6 +353,7 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
     <button class="chip" data-go="sobre" data-i18n="nav_sobre">Sobre</button>
     <button class="chip" data-go="servicos" data-i18n="nav_serv">Serviços</button>
     <button class="chip" data-go="portfolio" data-i18n="nav_port">Portfólio</button>
+    <button class="chip" data-go="apps" data-i18n="nav_apps">Apps</button>
     <button class="chip" data-go="clientes" data-i18n="nav_cli">Clientes</button>
     <button class="chip" data-go="artigos" data-i18n="nav_art">Artigos</button>
     <button class="chip" data-go="blog" data-i18n="nav_blog">Blog</button>
@@ -417,8 +422,19 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
     </div>
   </section>
 
+  <section class="panel-sec" data-key="apps">
+    <div class="panel-head"><div><div class="num">04 · <span data-i18n="nav_apps">Apps</span></div><h2 data-i18n="apps_h2">Aplicações Web</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-body">
+      <p class="lead" data-i18n="apps_lead">Ferramentas que desenvolvi para apoiar decisões em planejamento urbano, incorporação imobiliária e transporte. Rodam no navegador.</p>
+      <div class="scards">
+      <a class="scard scard-link" href="https://planodiretorsjr.wagnerjales.com.br/" target="_blank" rel="noopener"><h3>SJR-Geo · Plano Diretor de São José de Ribamar <span class="ar">↗</span></h3><p data-i18n="ap1d">Mapa interativo do território: edificações, vias, setores censitários e a legislação urbanística do município.</p></a>
+      <a class="scard scard-link" href="https://incorporacaoviavel.wagnerjales.com.br/" target="_blank" rel="noopener"><h3>Incorporação Viável <span class="ar">↗</span></h3><p data-i18n="ap2d">Estudo preliminar de viabilidade imobiliária: score geoespacial, VGV, fração ideal e fluxo de caixa corrigido pelo INCC.</p></a>
+      <a class="scard scard-link" href="https://fretamento.wagnerjales.com.br/" target="_blank" rel="noopener"><h3>Rota Planejada <span class="ar">↗</span></h3><p data-i18n="ap3d">Otimização do transporte fretado sede–residência: paradas, roteirização sobre malha viária real, custos, CO₂ e exportação em KMZ, SHP e CSV.</p></a>
+      </div>
+    </div>
+  </section>
   <section class="panel-sec" data-key="clientes">
-    <div class="panel-head"><div><div class="num">04 · <span data-i18n="nav_cli">Clientes</span></div><h2 data-i18n="cli_h2">Clientes</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-head"><div><div class="num">05 · <span data-i18n="nav_cli">Clientes</span></div><h2 data-i18n="cli_h2">Clientes</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
     <div class="panel-body">
       <p class="lead" data-i18n="cli_lead">Projetos entregues para grandes marcas e instituições.</p>
       <div class="clis">
@@ -435,7 +451,7 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
   </section>
 
   <section class="panel-sec" data-key="artigos">
-    <div class="panel-head"><div><div class="num">05 · <span data-i18n="nav_art">Artigos</span></div><h2 data-i18n="art_h2">Artigos Acadêmicos</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-head"><div><div class="num">06 · <span data-i18n="nav_art">Artigos</span></div><h2 data-i18n="art_h2">Artigos Acadêmicos</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
     <div class="panel-body">
       <p class="lead" data-i18n="art_lead">Estudos, pesquisas e contribuições técnicas em mobilidade, transporte e planejamento urbano.</p>
       <div class="ents" id="artList"></div>
@@ -444,7 +460,7 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
   </section>
 
   <section class="panel-sec" data-key="blog">
-    <div class="panel-head"><div><div class="num">06 · <span data-i18n="nav_blog">Blog</span></div><h2 data-i18n="blog_h2">Blog</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-head"><div><div class="num">07 · <span data-i18n="nav_blog">Blog</span></div><h2 data-i18n="blog_h2">Blog</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
     <div class="panel-body">
       <p class="lead" data-i18n="blog_lead">Reflexões e insights sobre mobilidade, urbanismo e tecnologia.</p>
       <div class="ents" id="blogList"></div>
@@ -453,7 +469,7 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
   </section>
 
   <section class="panel-sec" data-key="midia">
-    <div class="panel-head"><div><div class="num">07 · <span data-i18n="nav_ent">Mídia</span></div><h2 data-i18n="ent_h2">Entrevistas e mídia</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-head"><div><div class="num">08 · <span data-i18n="nav_ent">Mídia</span></div><h2 data-i18n="ent_h2">Entrevistas e mídia</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
     <div class="panel-body"><div class="ents">
       <div class="ent"><div class="k">G1 · JMTV</div><h3>Maranhenses usam motos e ônibus para ir ao trabalho</h3><a href="https://g1.globo.com/ma/maranhao/videos-jmtv-2-edicao/video/maranhenses-usam-motos-e-onibus-para-ir-ao-trabalho-14003716.ghtml" target="_blank" rel="noopener"><span data-i18n="ent_watch">Assistir</span> ↗</a></div>
       <div class="ent"><div class="k">G1 · JMTV</div><h3>Estudo de mobilidade urbana aponta novas soluções para a ilha</h3><a href="https://g1.globo.com/ma/maranhao/videos-jmtv-2-edicao/video/estudo-de-mobilidade-urbana-aponta-novas-solucoes-para-a-ilha-14120932.ghtml" target="_blank" rel="noopener"><span data-i18n="ent_watch">Assistir</span> ↗</a></div>
@@ -463,7 +479,7 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
   </section>
 
   <section class="panel-sec" data-key="contato">
-    <div class="panel-head"><div><div class="num">08 · <span data-i18n="nav_cont">Contato</span></div><h2 data-i18n="cont_h2">Vamos conversar?</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
+    <div class="panel-head"><div><div class="num">09 · <span data-i18n="nav_cont">Contato</span></div><h2 data-i18n="cont_h2">Vamos conversar?</h2></div><button class="pclose" aria-label="Fechar">✕</button></div>
     <div class="panel-body">
       <p data-i18n="cont_p">Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?</p>
       <div class="mailrow"><code id="email">wjales@gmail.com</code><button class="copy" id="copyBtn" data-i18n="cont_copy">Copiar</button></div>
@@ -480,7 +496,7 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
 <script>
 /* ===== i18n ===== */
 const I18N={
- pt:{_t:"Cidade Wagner Jales",_l:"pt-br",nav_sobre:"Sobre",nav_serv:"Serviços",nav_port:"Portfólio",nav_cli:"Clientes",nav_ent:"Mídia",nav_cont:"Contato",theme_night:"Noite",theme_day:"Dia",
+ pt:{_t:"Cidade Wagner Jales",_l:"pt-br",nav_sobre:"Sobre",nav_serv:"Serviços",nav_port:"Portfólio",nav_apps:"Apps", apps_h2:"Aplicações Web", apps_lead:"Ferramentas que desenvolvi para apoiar decisões em planejamento urbano, incorporação imobiliária e transporte. Rodam no navegador.", ap1d:"Mapa interativo do território: edificações, vias, setores censitários e a legislação urbanística do município.", ap2d:"Estudo preliminar de viabilidade imobiliária: score geoespacial, VGV, fração ideal e fluxo de caixa corrigido pelo INCC.", ap3d:"Otimização do transporte fretado sede–residência: paradas, roteirização sobre malha viária real, custos, CO₂ e exportação em KMZ, SHP e CSV.", nav_cli:"Clientes",nav_ent:"Mídia",nav_cont:"Contato",theme_night:"Noite",theme_day:"Dia",
   hint:"Arraste para girar a cidade · toque num marcador",overview:"◂ Visão geral",fallback:"Versão completa com cidade 3D interativa: abra em um navegador com WebGL.",
   nav_art:"Artigos",nav_blog:"Blog",read:"Ler",
   hero_h1:"Projetos inteligentes para territórios e empresas",hero_sub:"Planejamento da mobilidade, simulação de tráfego e geointeligência para quem precisa tomar decisões certas.",
@@ -492,7 +508,7 @@ const I18N={
   cli_h2:"Clientes",cli_lead:"Projetos entregues para grandes marcas e instituições.",
   ent_h2:"Entrevistas e mídia",ent_watch:"Assistir",
   cont_h2:"Vamos conversar?",cont_p:"Pronto para tirar seu projeto do papel ou transformar a mobilidade da sua cidade?",cont_copy:"Copiar",cont_copied:"Copiado",alt_back:"Cidade esquemática", mode_lbl:"Trabalhamos com",mode_arch:"Arquitetura",mode_urb:"Urbanismo",mode_mob:"Tráfego",mode_geo:"Geoprocessamento",mode_acc:"Acessibilidade",leg_arch:"Gabarito (altura)",h_low:"Baixo",h_mid:"Médio",h_high:"Alto",leg_urb:"Zoneamento (ilustrativo)",leg_mob:"Hierarquia viária (ilustrativa)",z_res:"Residencial",z_mix:"Uso misto",z_com:"Comércio e serviços",z_inst:"Institucional",z_green:"Áreas verdes",z_ind:"Logística",v_exp:"Via expressa / anel",v_art:"Arterial",v_col:"Coletora"},
- en:{_t:"Wagner Jales City",_l:"en",nav_sobre:"About",nav_serv:"Services",nav_port:"Portfolio",nav_cli:"Clients",nav_ent:"Media",nav_cont:"Contact",theme_night:"Night",theme_day:"Day",
+ en:{_t:"Wagner Jales City",_l:"en",nav_sobre:"About",nav_serv:"Services",nav_port:"Portfolio",nav_apps:"Apps", apps_h2:"Web Applications", apps_lead:"Tools I built to support decisions in urban planning, real-estate development and transport. They run in the browser.", ap1d:"Interactive map of the territory: buildings, streets, census tracts and the municipality's planning law.", ap2d:"Preliminary real-estate feasibility study: geospatial score, gross sales value, land share and cash flow indexed to INCC.", ap3d:"Chartered employee transport optimisation: stops, routing on the real street network, costs, CO₂ and export to KMZ, SHP and CSV.", nav_cli:"Clients",nav_ent:"Media",nav_cont:"Contact",theme_night:"Night",theme_day:"Day",
   hint:"Drag to rotate the city · tap a marker",overview:"◂ Overview",fallback:"Full interactive 3D city: open in a WebGL-capable browser.",
   nav_art:"Articles",nav_blog:"Blog",read:"Read",
   hero_h1:"Smart projects for territories and companies",hero_sub:"Mobility planning, traffic simulation and geo-intelligence for decision-makers.",
@@ -504,7 +520,7 @@ const I18N={
   cli_h2:"Clients",cli_lead:"Projects delivered for major brands and institutions.",
   ent_h2:"Interviews & media",ent_watch:"Watch",
   cont_h2:"Let's talk?",cont_p:"Ready to bring your project to life or transform your city's mobility?",cont_copy:"Copy",cont_copied:"Copied",alt_back:"Schematic city", mode_lbl:"We work with",mode_arch:"Architecture",mode_urb:"Urbanism",mode_mob:"Traffic",mode_geo:"Geoprocessing",mode_acc:"Accessibility",leg_arch:"Building height",h_low:"Low",h_mid:"Mid",h_high:"High",leg_urb:"Zoning (illustrative)",leg_mob:"Road hierarchy (illustrative)",z_res:"Residential",z_mix:"Mixed use",z_com:"Retail & services",z_inst:"Institutional",z_green:"Green areas",z_ind:"Logistics",v_exp:"Expressway / ring",v_art:"Arterial",v_col:"Collector"},
- es:{_t:"Ciudad Wagner Jales",_l:"es",nav_sobre:"Perfil",nav_serv:"Servicios",nav_port:"Portafolio",nav_cli:"Clientes",nav_ent:"Medios",nav_cont:"Contacto",theme_night:"Noche",theme_day:"Día",
+ es:{_t:"Ciudad Wagner Jales",_l:"es",nav_sobre:"Perfil",nav_serv:"Servicios",nav_port:"Portafolio",nav_apps:"Apps", apps_h2:"Aplicaciones Web", apps_lead:"Herramientas que desarrollé para apoyar decisiones en planificación urbana, desarrollo inmobiliario y transporte. Funcionan en el navegador.", ap1d:"Mapa interactivo del territorio: edificaciones, vías, sectores censales y la legislación urbanística del municipio.", ap2d:"Estudio preliminar de viabilidad inmobiliaria: score geoespacial, VGV, fracción ideal y flujo de caja ajustado por el INCC.", ap3d:"Optimización del transporte fletado sede–residencia: paradas, ruteo sobre la malla vial real, costos, CO₂ y exportación en KMZ, SHP y CSV.", nav_cli:"Clientes",nav_ent:"Medios",nav_cont:"Contacto",theme_night:"Noche",theme_day:"Día",
   hint:"Arrastra para girar la ciudad · toca un marcador",overview:"◂ Vista general",fallback:"Ciudad 3D interactiva completa: ábrela en un navegador con WebGL.",
   nav_art:"Artículos",nav_blog:"Blog",read:"Leer",
   hero_h1:"Proyectos inteligentes para territorios y empresas",hero_sub:"Planificación de movilidad, simulación de tráfico e inteligencia geoespacial para quienes necesitan tomar decisiones seguras.",
@@ -736,7 +752,7 @@ html.panelopen .axleg{display:none}
   bGeo.setAttribute('aSeed',new THREE.BufferAttribute(aS.subarray(0,vi),1));
   bGeo.setIndex(new THREE.BufferAttribute(idx.subarray(0,ii),1)); bGeo.computeBoundingSphere();
 
-  const uMob={value:0}, uArch={value:0}, uUrb={value:0}, uZ={value:0}, uZC={value:Array.from({length:8},()=>new THREE.Vector2())}, uZK={value:Array.from({length:8},()=>new THREE.Color())};
+  const uMob={value:0}, uArch={value:0}, uUrb={value:0}, uZ={value:0}, uZC={value:Array.from({length:9},()=>new THREE.Vector2())}, uZK={value:Array.from({length:9},()=>new THREE.Color())};
   const uNight={value:themeName==='night'?1:0}, uFocus={value:new THREE.Vector4(0,0,28,0)}, uHov={value:new THREE.Vector4(0,0,28,0)};
   const bMat=M(0xffffff,{roughness:0.92});
   bMat.onBeforeCompile=sh=>{ sh.uniforms.uNight=uNight; sh.uniforms.uFocus=uFocus; sh.uniforms.uHov=uHov; sh.uniforms.uArch=uArch; sh.uniforms.uUrb=uUrb; sh.uniforms.uMob=uMob;
@@ -799,10 +815,10 @@ html.panelopen .axleg{display:none}
   const landMat=M(0xffffff), pierMat=M(0xffffff), ctxMat=M(0xffffff), zoneMat=M(0xffffff,{transparent:true,opacity:0,depthWrite:false}); const manhLand=[];
   const zoneShader=(uW)=>sh=>{ sh.uniforms.uZC=uZC; sh.uniforms.uZK=uZK; sh.uniforms.uZW=uW; sh.uniforms.uNight=uNight;
     sh.vertexShader=sh.vertexShader.replace('#include <common>','#include <common>\nvarying vec2 vLP;').replace('#include <begin_vertex>','#include <begin_vertex>\nvLP=vec2(position.x,-position.y);');
-    sh.fragmentShader=sh.fragmentShader.replace('#include <common>','#include <common>\nuniform vec2 uZC[8]; uniform vec3 uZK[8]; uniform float uZW; uniform float uNight; varying vec2 vLP; vec3 wjZ=vec3(0.0);')
+    sh.fragmentShader=sh.fragmentShader.replace('#include <common>','#include <common>\nuniform vec2 uZC[9]; uniform vec3 uZK[9]; uniform float uZW; uniform float uNight; varying vec2 vLP; vec3 wjZ=vec3(0.0);')
       .replace('#include <color_fragment>',`#include <color_fragment>
         { float d1=1e9,d2=1e9; vec3 zc=vec3(1.0);
-          for(int i=0;i<8;i++){ float d=distance(vLP,uZC[i]); if(d<d1){ d2=d1; d1=d; zc=uZK[i]; } else if(d<d2){ d2=d; } }
+          for(int i=0;i<9;i++){ float d=distance(vLP,uZC[i]); if(d<d1){ d2=d1; d1=d; zc=uZK[i]; } else if(d<d2){ d2=d; } }
           vec3 z=mix(zc,vec3(1.0),(1.0-smoothstep(0.5,1.5,d2-d1))*0.9);
           diffuseColor.rgb=mix(diffuseColor.rgb,z*mix(1.0,0.4,uNight),uZW); wjZ=z*0.3*uZW*uNight; }`)
       .replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance+=wjZ;'); };
@@ -860,7 +876,7 @@ html.panelopen .axleg{display:none}
   // ================= DISTRITOS (lugares reais) =================
   const P=(lon,lat)=>new THREE.Vector3((lon-DATA.meta.lon0)*DATA.meta.kx*K,0,-(lat-DATA.meta.lat0)*DATA.meta.ky*K);
   const DISTRICTS=[ {key:'sobre',place:'World Trade Center',ll:[-74.0132,40.7128]}, {key:'servicos',place:'Wall Street',ll:[-74.0105,40.7068]},
-    {key:'portfolio',place:'Seaport',ll:[-74.0036,40.7066]}, {key:'clientes',place:'Civic Center',ll:[-74.0035,40.7138]},
+    {key:'portfolio',place:'Seaport',ll:[-74.0036,40.7066]}, {key:'apps',place:'Tribeca',ll:[-74.0088,40.7192]}, {key:'clientes',place:'Civic Center',ll:[-74.0035,40.7138]},
     {key:'artigos',place:'SoHo',ll:[-74.0010,40.7236]}, {key:'blog',place:'Chinatown',ll:[-73.9972,40.7158]},
     {key:'midia',place:'Lower East Side',ll:[-73.9868,40.7182]}, {key:'contato',place:'Battery',ll:[-74.0138,40.7046]} ];
   const DR=30;   // raio do distrito: 300 m
@@ -900,7 +916,7 @@ html.panelopen .axleg{display:none}
     o.nMat.opacity=any&&!on?0.4:1; o.sMat.opacity=any&&!on?0.22:0.8; o.node.scale.setScalar(on?1.25:1);
     o.el.style.opacity=any&&!on?'0.45':'1'; o.el.classList.toggle('sel',on); }); }
   function refreshLabels(){ const d=I18N[curLang()];
-    const map={sobre:'nav_sobre',servicos:'nav_serv',portfolio:'nav_port',clientes:'nav_cli',artigos:'nav_art',blog:'nav_blog',midia:'nav_ent',contato:'nav_cont'};
+    const map={sobre:'nav_sobre',servicos:'nav_serv',portfolio:'nav_port',apps:'nav_apps',clientes:'nav_cli',artigos:'nav_art',blog:'nav_blog',midia:'nav_ent',contato:'nav_cont'};
     DISTRICTS.forEach(ds=>ds.capEl.textContent=d[map[ds.key]]); }
   refreshLabels(); document.querySelectorAll('.langs button').forEach(b=>b.addEventListener('click',refreshLabels));
 
@@ -908,7 +924,7 @@ html.panelopen .axleg{display:none}
   const axleg=document.getElementById('axleg');
   const MODE={cur:null}; let wA=0,wU=0,wG=0,wX=0,wM=0, accT0=0; const landBase=C(0xffffff), mobLand=C(0), mobLandD=C(0xd9d9d6), mobLandN=C(0x1a1d24);
   // zonas ilustrativas por bairro (não é o zoneamento oficial de Nova York)
-  const ZONE_COL={sobre:0xe2928a,servicos:0xd97b78,portfolio:0xf0b37a,clientes:0x9fc3e6,artigos:0xe8c98a,blog:0xf5e6a3,midia:0xf2d98b,contato:0xa9cc7d};
+  const ZONE_COL={sobre:0xe2928a,servicos:0xd97b78,portfolio:0xf0b37a,apps:0xc9b3dd,clientes:0x9fc3e6,artigos:0xe8c98a,blog:0xf5e6a3,midia:0xf2d98b,contato:0xa9cc7d};
   DISTRICTS.forEach((d,i)=>{ uZC.value[i].set(d.center.x,d.center.z); uZK.value[i].set(ZONE_COL[d.key]); });
 
   // ---- geoprocessamento: quatro camadas (base · fluxos · zonas · edificações) sobre lâminas de vidro ----
