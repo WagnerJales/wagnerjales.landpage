@@ -230,7 +230,10 @@ html.cityon #panel.open .panel-sec.active :is(.ents,.clis,.pg,.scards,.tools,.so
 .citybtn:hover{background:var(--accent); color:#fff; border-color:var(--accent)}
 .citybtn svg{width:17px; height:17px; opacity:1}
 .citybtn span{position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0}
-.scard-link{display:block; text-decoration:none; color:inherit}
+.scard-link{display:grid; grid-template-columns:24px 1fr; gap:.1rem .75rem; text-decoration:none; color:inherit}
+.scard-link>.aicon{grid-column:1; grid-row:1/3; width:24px; height:24px; margin-top:.12rem; color:var(--accent); opacity:.85}
+.scard-link>h3,.scard-link>p{grid-column:2}
+.scard-link:hover>.aicon{opacity:1}
 .scard-link:hover{border-color:var(--accent)}
 .scard-link:hover h3{color:var(--accent)}
 .scard-link .ar{font-size:.8em; opacity:.7}
@@ -430,9 +433,9 @@ html.cityon #panel.open .panel-sec.active .fly{animation:none!important}
     <div class="panel-body">
       <p class="lead" data-i18n="apps_lead">Ferramentas que desenvolvi para apoiar decisões em planejamento urbano, incorporação imobiliária e transporte. Rodam no navegador.</p>
       <div class="scards">
-      <a class="scard scard-link" href="https://planodiretorsjr.wagnerjales.com.br/" target="_blank" rel="noopener"><h3>SJR-Geo · Plano Diretor de São José de Ribamar <span class="ar">↗</span></h3><p data-i18n="ap1d">Mapa interativo do território: edificações, vias, setores censitários e a legislação urbanística do município.</p></a>
-      <a class="scard scard-link" href="https://incorporacaoviavel.wagnerjales.com.br/" target="_blank" rel="noopener"><h3>Incorporação Viável <span class="ar">↗</span></h3><p data-i18n="ap2d">Estudo preliminar de viabilidade imobiliária: score geoespacial, VGV, fração ideal e fluxo de caixa corrigido pelo INCC.</p></a>
-      <a class="scard scard-link" href="https://fretamento.wagnerjales.com.br/" target="_blank" rel="noopener"><h3>Rota Planejada <span class="ar">↗</span></h3><p data-i18n="ap3d">Otimização do transporte fretado sede–residência: paradas, roteirização sobre malha viária real, custos, CO₂ e exportação em KMZ, SHP e CSV.</p></a>
+      <a class="scard scard-link" href="https://planodiretorsjr.wagnerjales.com.br/" target="_blank" rel="noopener"><svg class="aicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg><h3>SJR-Geo · Plano Diretor de São José de Ribamar <span class="ar">↗</span></h3><p data-i18n="ap1d">Mapa interativo do território: edificações, vias, setores censitários e a legislação urbanística do município.</p></a>
+      <a class="scard scard-link" href="https://incorporacaoviavel.wagnerjales.com.br/" target="_blank" rel="noopener"><svg class="aicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21h16M6 21V8h6v13M12 21V12h6v9M8.5 11h1M8.5 14.5h1M15 15.5h1"/></svg><h3>Incorporação Viável <span class="ar">↗</span></h3><p data-i18n="ap2d">Estudo preliminar de viabilidade imobiliária: score geoespacial, VGV, fração ideal e fluxo de caixa corrigido pelo INCC.</p></a>
+      <a class="scard scard-link" href="https://fretamento.wagnerjales.com.br/" target="_blank" rel="noopener"><svg class="aicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="18" r="2.2"/><circle cx="18.5" cy="6" r="2.2"/><path d="M8 17.2c3.6-.7 3.2-3.4.6-4.2-2.6-.8-3-3.6 1-4.4l6.4-1.3"/><path d="M12.6 12.2 15 13M12 7.6l-.4 2.6"/></svg><h3>Rota Planejada <span class="ar">↗</span></h3><p data-i18n="ap3d">Otimização do transporte fretado sede–residência: paradas, roteirização sobre malha viária real, custos, CO₂ e exportação em KMZ, SHP e CSV.</p></a>
       </div>
     </div>
   </section>
